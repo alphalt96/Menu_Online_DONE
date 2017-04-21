@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#d19797"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <Button
+            android:id="@+id/btnNewMonAn"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:text="Món mới"
+            android:background="#ceccb3b3"/>
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/btnNewQuanAn"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:text="Quán mới"
+            android:background="#ceccb3b3"/>
+    </LinearLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="17dp" />
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Món ăn nổi bật"
+        android:textColor="#575bab"
+        android:textSize="16dp"
+        android:fontFamily="cursive"/>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="5dp" />
+    <ListView
+    android:id="@+id/lvHienThiMonAn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"></ListView>
+</LinearLayout>

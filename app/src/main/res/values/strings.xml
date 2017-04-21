@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">Menu_Online</string>
+    <string-array name="city">
+        <item>Hà Nội</item>
+        <item>Huế</item>
+        <item>Đà Nẵng</item>
+        <item>Hồ Chí Minh</item>
+        <item>Vũng Tàu</item>
+        <item>Hạ Long</item>
+        <item>Bình Định</item>
+        <item>Nghệ An</item>
+        <item>Thanh Hóa</item>
+        <item>Hà Tĩnh</item>
+        <item>Quy Nhơn</item>
+        <item>Điện Biên</item>
+        <item>Tuyên Quang</item>
+        <item>Trà Vinh</item>
+        <item>Quảng Trị</item>
+        <item>Quảng Nam</item>
+        <item>Quảng Ngãi</item>
+        <item>Hòa Bình</item>
+        <item>Khánh Hòa</item>
+        <item>Bình Thuận</item>
+        <item>Bến Tre</item>
+        <item>Hải Dương</item>
+        <item>Gia Lai</item>
+        <item>Hà Giang</item>
+        <item>Lạng Sơn</item>
+        <item>Lai Châu</item>
+        <item>Cần Thơ</item>
+        <item>Hải Phòng</item>
+        <item>An Giang</item>
+        <item>Bắc Ninh</item>
+    </string-array>
+
+    <string-array name="loaiMonAn">
+        <item>Việt Nam</item>
+        <item>Châu Mỹ</item>
+        <item>Mỹ</item>
+        <item>Tây Âu</item>
+        <item>Ý</item>
+        <item>Pháp</item>
+        <item>Đức</item>
+        <item>Tây Ban Nha</item>
+        <item>Trung Hoa</item>
+        <item>Ấn Độ</item>
+        <item>Thái Lan</item>
+        <item>Nhật Bản</item>
+        <item>Hàn Quốc</item>
+        <item>Tiệm bánh</item>
+        <item>Quán lẻ</item>
+        <item>Cafe</item>
+        <item>Đồ uống</item>
+    </string-array>
+</resources>
