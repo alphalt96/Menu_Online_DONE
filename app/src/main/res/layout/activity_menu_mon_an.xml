@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Món ăn dưới 30k"/>
+        android:text="Danh sách các món ăn trong menu"/>
     <GridView
         android:id="@+id/gridMonAn"
         android:layout_width="match_parent"
