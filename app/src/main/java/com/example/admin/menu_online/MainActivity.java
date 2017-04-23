@@ -19,7 +19,10 @@ import java.util.ArrayList;
 import controller.LoaiMonAnAdapter;
 import controller.MonAnManager;
 import controller.MyAdapter;
+import controller.QuanAnAdapter;
+import controller.QuanAnManager;
 import models.MonAn;
+import models.QuanAn;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private String[] cityList, loaimonanList;
     private int[] arrImgLoaiMonAn;
     private MyAdapter myAdapter;
+    private QuanAnAdapter quanAnAdapter;
     private LoaiMonAnAdapter loaiMonAnAdapter;
     private ArrayAdapter<String> adapterCity;
     private ListView lvHienThiMonAn, lvCity, lvLoaiMonAn;
@@ -153,6 +157,15 @@ public class MainActivity extends AppCompatActivity {
                 txtTitle.setText("Món ăn nổi bật");
             }
         });
+        btnNewQuanAn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               ArrayList<QuanAn> quanAnNoiBat = QuanAnManager.getsInstance().getDanhSachQuanMoi();
+                quanAnAdapter = new QuanAnAdapter(MainActivity.this, R.layout.item, quanAnNoiBat);
+                lvHienThiMonAn.setAdapter(quanAnAdapter);
+                txtTitle.setText("Quán ăn mới");
+            }
+        });
     }
 
     private void setControl() {
@@ -195,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
         arrImgLoaiMonAn = new int[]{
                 R.drawable.loaimonan_vietnam,
                 R.drawable.loaimonan_chaumy,
-                R.drawable.loaimonan_chaumy,
+                R.drawable.loaimonan_my,
                 R.drawable.loaimonan_chauau,
                 R.drawable.loaimonan_y,
                 R.drawable.loaimonan_phap,

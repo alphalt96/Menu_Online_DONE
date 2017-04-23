@@ -49,7 +49,7 @@ public class MenuMonAnAdapter extends ArrayAdapter<MonAn> {
         else viewHolder = (ViewHolder) convertView.getTag();
 
 //        viewHolder.img.setBackgroundResource(objects.get(position).getImage());
-//        viewHolder.txtTenMonAn.setText(objects.get(position).getTenMonAn());
+        viewHolder.txtTenMonAn.setText(objects.get(position).getTenMonAn());
 //        viewHolder.txtGiaTien.setText(String.valueOf(objects.get(position).getGiaTien()));
 
         return convertView;

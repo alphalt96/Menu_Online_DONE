@@ -30,7 +30,8 @@ public class MenuMonAn extends AppCompatActivity {
 
     private void addControls() {
 //        monAnList = new ArrayList<>();
-        monAnList = MonAnManager.getsInstance().getDanhSachMonAn();
+//        monAnList = MonAnManager.getsInstance().getDanhSachMonAn();
+        monAnList = MonAnManager.getsInstance().getDanhSachMonMoi();
         menuMonAnAdapter = new MenuMonAnAdapter(this, R.layout.activity_menu_mon_an, monAnList);
         gridMonAn = (GridView) findViewById(R.id.gridMonAn);
         gridMonAn.setAdapter(menuMonAnAdapter);
