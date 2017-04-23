@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/monAnList" android:title="Menu món ăn"></item>
-    <item android:id="@+id/quanAnList" android:title="Quán ăn"></item>
+    <item android:id="@+id/monAnList" android:title="Menu món ăn" android:icon="@drawable/icon_apk"></item>
+    <item android:id="@+id/quanAnList" android:title="Quán ăn" android:icon="@drawable/icon_apk"></item>
+    <item android:id="@+id/user" android:title="User"></item>
     <item android:id="@+id/ranking" android:title="Bảng xếp hạng"></item>
     <item android:id="@+id/info" android:title="Thông tin phiên bản"></item>
 </menu>

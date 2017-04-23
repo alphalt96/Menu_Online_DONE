@@ -10,7 +10,7 @@ import models.MonAn;
 
 public class ChiTietMonAn extends AppCompatActivity {
 
-    TextView txtRenTen;
+    TextView txtRenTen, txtRenSoLuong, txtRenViTri;
     ImageView imgMonAn;
 
     @Override
@@ -20,7 +20,6 @@ public class ChiTietMonAn extends AppCompatActivity {
 
         setControl();
         setEvent();
-
     }
 
     private void setEvent() {
@@ -29,10 +28,14 @@ public class ChiTietMonAn extends AppCompatActivity {
     private void setControl() {
         txtRenTen = (TextView) findViewById(R.id.txtRenTen);
         imgMonAn = (ImageView) findViewById(R.id.imgMonAn);
+        txtRenSoLuong = (TextView) findViewById(R.id.txtRenSoLuong);
+        txtRenViTri = (TextView) findViewById(R.id.txtRenViTri);
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("bundle");
         MonAn monAn = (MonAn) bundle.getSerializable("detail");
         txtRenTen.setText(monAn.getTenMonAn());
         imgMonAn.setBackgroundResource(monAn.getImage());
+        txtRenSoLuong.setText(String.valueOf(monAn.getSoLuong()));
+        txtRenViTri.setText(monAn.getViTri());
     }
 }
