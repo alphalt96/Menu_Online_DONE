@@ -1,10 +1,12 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Created by Anh on 4/22/2017.
  */
 
-public class QuanAn {
+public class QuanAn implements Serializable {
     private String tenQuan;
     private String diaChi;
     private String thanhPho;

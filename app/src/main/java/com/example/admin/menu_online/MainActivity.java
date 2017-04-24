@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     String loaiMonAn="", thanhPho="";
 
+    Boolean siteCheck = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,14 +86,23 @@ public class MainActivity extends AppCompatActivity {
         lvHienThiMonAn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, ChiTietMonAn.class);
-                Bundle bundle = new Bundle();
-                if(loaiMonAn == "" && thanhPho == "")
-                    bundle.putSerializable("detail",MonAnManager.getsInstance().getDanhSachMonMoi().get(position));
-                else
-                    bundle.putSerializable("detail",locMonAn.get(position));
-                intent.putExtra("bundle", bundle);
-                startActivity(intent);
+                if(siteCheck == true){
+                    Intent intent = new Intent(MainActivity.this, ChiTietMonAn.class);
+                    Bundle bundle = new Bundle();
+                    if(loaiMonAn == "" && thanhPho == "")
+                        bundle.putSerializable("detail",MonAnManager.getsInstance().getDanhSachMonMoi().get(position));
+                    else
+                        bundle.putSerializable("detail",locMonAn.get(position));
+                    intent.putExtra("bundle", bundle);
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(MainActivity.this, ChiTietQuanAn.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("detail", QuanAnManager.getsInstance().getDanhSachQuanMoi().get(position));
+                    intent.putExtra("bundle", bundle);
+                    startActivity(intent);
+                }
             }
         });
         //Button lọc món theo thành phố
@@ -158,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
                 thanhPho = "";
                 loaiMonAn = "";
                 txtTitle.setText("Món ăn nổi bật");
+                siteCheck = true;
             }
         });
         btnNewQuanAn.setOnClickListener(new View.OnClickListener() {
@@ -167,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 quanAnAdapter = new QuanAnAdapter(MainActivity.this, R.layout.item, quanAnNoiBat);
                 lvHienThiMonAn.setAdapter(quanAnAdapter);
                 txtTitle.setText("Quán ăn mới");
+                siteCheck = false;
             }
         });
     }

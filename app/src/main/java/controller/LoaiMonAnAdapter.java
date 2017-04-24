@@ -54,4 +54,5 @@ public class LoaiMonAnAdapter extends ArrayAdapter<String> {
         private ImageView imgLoaiMonAn;
         private TextView txtLoaiMonAn;
     }
+
 }
