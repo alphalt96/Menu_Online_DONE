@@ -1,6 +1,7 @@
-package models;
+package com.example.admin.menu_online.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by Anh on 4/22/2017.
@@ -11,6 +12,7 @@ public class QuanAn implements Serializable {
     private String diaChi;
     private String thanhPho;
     private int img;
+    private ArrayList<MonAn> MonAnList;
 
     public String getTenQuan() {
         return tenQuan;
@@ -47,10 +49,19 @@ public class QuanAn implements Serializable {
     public QuanAn() {
     }
 
+    public ArrayList<MonAn> getMonAnList() {
+        return MonAnList;
+    }
+
+    public void setMonAnList(ArrayList<MonAn> monAnList) {
+        MonAnList = monAnList;
+    }
+
     public QuanAn(String tenQuan, String diaChi, String thanhPho, int img) {
         this.tenQuan = tenQuan;
         this.diaChi = diaChi;
         this.thanhPho = thanhPho;
         this.img = img;
+        this.MonAnList = new ArrayList<>();
     }
 }

@@ -11,14 +11,40 @@
         android:id="@+id/imgQuanAn"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:alpha="0.5"/>
-    <TextView
-        android:id="@+id/txtTenQuanAn"
+        android:alpha="0.8"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#b9193353">
+        <TextView
+            android:id="@+id/txtTenQuanAn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"/>
+        <TextView
+            android:id="@+id/txtViTri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"/>
+    </LinearLayout>
+    <Space
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="50dp" />
     <TextView
-        android:id="@+id/txtViTri"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Menu cua quan"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#bc4444"/>
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="20dp" />
+    <GridView
+        android:id="@+id/gridMonAnTrongQuan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numColumns="2"></GridView>
 
 </LinearLayout>

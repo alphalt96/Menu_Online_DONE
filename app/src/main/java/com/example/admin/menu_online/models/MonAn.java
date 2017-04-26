@@ -1,4 +1,4 @@
-package models;
+package com.example.admin.menu_online.models;
 
 import java.io.Serializable;
 
@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 
 public class MonAn implements Serializable {
+    private int maMonAn;
     private String tenMonAn;
     private int image;
     private int soLuong;
@@ -15,6 +16,14 @@ public class MonAn implements Serializable {
     private String quanAn;
     private String loaiMonAn;
     private float giaTien;
+
+    public int getMaMonAn() {
+        return maMonAn;
+    }
+
+    public void setMaMonAn(int maMonAn) {
+        this.maMonAn = maMonAn;
+    }
 
     public String getTenMonAn() {
         return tenMonAn;
@@ -67,7 +76,8 @@ public class MonAn implements Serializable {
     public MonAn() {
     }
 
-    public MonAn(String tenMonAn, int image,int soLuong, int rating, String viTri, String loaiMonAn, float giaTien) {
+    public MonAn(int maMonAn ,String tenMonAn, int image,int soLuong, int rating, String viTri, String loaiMonAn, float giaTien) {
+        this.maMonAn = maMonAn;
         this.tenMonAn = tenMonAn;
         this.image = image;
         this.soLuong = soLuong;

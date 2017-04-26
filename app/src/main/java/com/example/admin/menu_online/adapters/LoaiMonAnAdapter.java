@@ -1,4 +1,4 @@
-package controller;
+package com.example.admin.menu_online.adapters;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -13,49 +13,43 @@ import android.widget.TextView;
 
 import com.example.admin.menu_online.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import models.QuanAn;
-
 /**
- * Created by Anh on 4/22/2017.
+ * Created by Admin on 4/20/2017.
  */
 
-public class QuanAnAdapter extends ArrayAdapter<QuanAn> {
-    private Context context;
-    private int resource;
-    private ArrayList<QuanAn> objects;
-    public QuanAnAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<QuanAn> objects) {
+public class LoaiMonAnAdapter extends ArrayAdapter<String> {
+    Context context;
+    int resource;
+    String[] objects;
+    int[] arrImgLoaiMonAn;
+    public LoaiMonAnAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull String[] objects, int[] arrImgLoaiMonAn) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
         this.objects = objects;
+        this.arrImgLoaiMonAn = arrImgLoaiMonAn;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         ViewHolder viewHolder;
-        if(convertView == null){
+        if(convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(this.context);
             convertView = inflater.inflate(this.resource, parent, false);
-
             viewHolder = new ViewHolder();
-            viewHolder.img = (ImageView) convertView.findViewById(R.id.imgMonAn);
-            viewHolder.txtTen = (TextView) convertView.findViewById(R.id.txtRenTen);
-            viewHolder.txtDiaChi = (TextView) convertView.findViewById(R.id.txtRenSoLuong);
+            viewHolder.imgLoaiMonAn = (ImageView) convertView.findViewById(R.id.imgLoaiMonAn);
+            viewHolder.txtLoaiMonAn = (TextView) convertView.findViewById(R.id.txtLoaiMonAn);
             convertView.setTag(viewHolder);
         } else viewHolder = (ViewHolder) convertView.getTag();
 
-        viewHolder.img.setImageResource(objects.get(position).getImg());
-        viewHolder.txtTen.setText(objects.get(position).getTenQuan());
-        viewHolder.txtDiaChi.setText(objects.get(position).getDiaChi());
-
+        viewHolder.imgLoaiMonAn.setBackgroundResource(arrImgLoaiMonAn[position]);
+        viewHolder.txtLoaiMonAn.setText(this.objects[position]);
         return convertView;
     }
     private class ViewHolder{
-        ImageView img;
-        TextView txtTen, txtDiaChi;
+        private ImageView imgLoaiMonAn;
+        private TextView txtLoaiMonAn;
     }
+
 }

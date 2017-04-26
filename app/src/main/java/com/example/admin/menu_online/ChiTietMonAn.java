@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import models.MonAn;
+import com.example.admin.menu_online.models.MonAn;
 
 public class ChiTietMonAn extends AppCompatActivity {
 

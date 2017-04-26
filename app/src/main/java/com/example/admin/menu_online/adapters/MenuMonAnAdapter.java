@@ -1,4 +1,4 @@
-package controller;
+package com.example.admin.menu_online.adapters;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -14,9 +14,8 @@ import android.widget.TextView;
 import com.example.admin.menu_online.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import models.MonAn;
+import com.example.admin.menu_online.models.MonAn;
 
 /**
  * Created by Admin on 4/21/2017.
@@ -37,6 +36,7 @@ public class MenuMonAnAdapter extends ArrayAdapter<MonAn> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         ViewHolder viewHolder;
+        MonAn monAn = objects.get(position);
         if(convertView == null){
             LayoutInflater inflater = LayoutInflater.from(this.context);
             convertView = inflater.inflate(resource, parent, false);
@@ -48,9 +48,9 @@ public class MenuMonAnAdapter extends ArrayAdapter<MonAn> {
         }
         else viewHolder = (ViewHolder) convertView.getTag();
 
-//        viewHolder.img.setBackgroundResource(objects.get(position).getImage());
-        viewHolder.txtTenMonAn.setText(objects.get(position).getTenMonAn());
-//        viewHolder.txtGiaTien.setText(String.valueOf(objects.get(position).getGiaTien()));
+        viewHolder.img.setBackgroundResource(monAn.getImage());
+        viewHolder.txtTenMonAn.setText(monAn.getTenMonAn());
+        viewHolder.txtGiaTien.setText(String.valueOf(monAn.getGiaTien()));
 
         return convertView;
     }

@@ -16,13 +16,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import controller.LoaiMonAnAdapter;
-import controller.MonAnManager;
-import controller.MyAdapter;
-import controller.QuanAnAdapter;
-import controller.QuanAnManager;
-import models.MonAn;
-import models.QuanAn;
+import com.example.admin.menu_online.adapters.LoaiMonAnAdapter;
+import com.example.admin.menu_online.controller.MonAnManager;
+import com.example.admin.menu_online.adapters.MyAdapter;
+import com.example.admin.menu_online.adapters.QuanAnAdapter;
+import com.example.admin.menu_online.controller.QuanAnManager;
+import com.example.admin.menu_online.models.MonAn;
+import com.example.admin.menu_online.models.QuanAn;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 //                myAdapter.notifyDataSetChanged();
                 locMonAn = new ArrayList<MonAn>();
                 thanhPho = cityList[position];
+                siteCheck = true;
                 for(int i=0; i<MonAnManager.getsInstance().getDanhSachMonAn().size(); i++){
                     if(loaiMonAn == "") {
                         if (MonAnManager.getsInstance().getDanhSachMonAn().get(i).getViTri().equals(thanhPho)) {
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if(locMonAn.size() == 0) txtTitle.setText("Khong co du lieu");
-                myAdapter = new MyAdapter(MainActivity.this, R.layout.item, locMonAn);
+                myAdapter = new MyAdapter(MainActivity.this, R.layout.item_monan, locMonAn);
                 lvHienThiMonAn.setAdapter(myAdapter);
             }
         });
@@ -140,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
 //                myAdapter.notifyDataSetChanged();
                 locMonAn = new ArrayList<MonAn>();
                 loaiMonAn = loaimonanList[position];
+                siteCheck = true;
                 for(int i=0; i<MonAnManager.getsInstance().getDanhSachMonAn().size(); i++){
                     if(thanhPho == "") {
                         if (MonAnManager.getsInstance().getDanhSachMonAn().get(i).getLoaiMonAn().equals(loaiMonAn)) {
@@ -155,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 if(locMonAn.size() == 0) txtTitle.setText("Khong co du lieu");
-                myAdapter = new MyAdapter(MainActivity.this, R.layout.item, locMonAn);
+                myAdapter = new MyAdapter(MainActivity.this, R.layout.item_monan, locMonAn);
                 lvHienThiMonAn.setAdapter(myAdapter);
             }
         });
@@ -164,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                monAnNoiBat = MonAnManager.getsInstance().getDanhSachMonMoi();
-                myAdapter = new MyAdapter(MainActivity.this, R.layout.item, monAnNoiBat);
+                myAdapter = new MyAdapter(MainActivity.this, R.layout.item_monan, monAnNoiBat);
                 lvHienThiMonAn.setAdapter(myAdapter);
                 thanhPho = "";
                 loaiMonAn = "";
@@ -176,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                ArrayList<QuanAn> quanAnNoiBat = QuanAnManager.getsInstance().getDanhSachQuanMoi();
-                quanAnAdapter = new QuanAnAdapter(MainActivity.this, R.layout.item, quanAnNoiBat);
+                quanAnAdapter = new QuanAnAdapter(MainActivity.this, R.layout.item_quanan, quanAnNoiBat);
                 lvHienThiMonAn.setAdapter(quanAnAdapter);
                 txtTitle.setText("Quán ăn mới");
                 siteCheck = false;
@@ -210,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
         MonAnManager.getsInstance().load();
         monAnNoiBat = MonAnManager.getsInstance().getDanhSachMonMoi();
 
-        myAdapter = new MyAdapter(this, R.layout.item, monAnNoiBat);
+        myAdapter = new MyAdapter(this, R.layout.item_monan, monAnNoiBat);
         lvHienThiMonAn = (ListView) findViewById(R.id.lvHienThiMonAn);
         lvHienThiMonAn.setAdapter(myAdapter);
 

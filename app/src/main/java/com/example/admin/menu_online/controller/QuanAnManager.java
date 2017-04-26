@@ -1,10 +1,12 @@
-package controller;
+package com.example.admin.menu_online.controller;
 
 import com.example.admin.menu_online.R;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-import models.QuanAn;
+import com.example.admin.menu_online.models.MonAn;
+import com.example.admin.menu_online.models.QuanAn;
 
 /**
  * Created by Anh on 4/22/2017.
@@ -13,6 +15,7 @@ import models.QuanAn;
 public class QuanAnManager {
     private static QuanAnManager sInstance = null;
     private ArrayList<QuanAn> danhSachQuan, danhSachQuanMoi;
+    private int[] idMonAnList;
     private QuanAnManager(){
         danhSachQuan = new ArrayList<>();
         danhSachQuanMoi = new ArrayList<>();
@@ -36,8 +39,9 @@ public class QuanAnManager {
         return danhSachQuan;
     }
     public ArrayList<QuanAn> getDanhSachQuanMoi(){
-        if(danhSachQuanMoi.size() == 0)
+        if(danhSachQuanMoi.size() == 0) {
             loadNew();
+        }
         return danhSachQuanMoi;
     }
 
@@ -48,6 +52,22 @@ public class QuanAnManager {
         danhSachQuanMoi.add(new QuanAn("Quán 3", "Địa chỉ 3", "Huế", R.drawable.quan3));
         danhSachQuanMoi.add(new QuanAn("Quán 4", "Địa chỉ 4", "Hồ Chí Minh", R.drawable.quan4));
         danhSachQuanMoi.add(new QuanAn("Quán 5", "Địa chỉ 5", "Huế", R.drawable.quan5));
+
+        for(int i=0; i<5; i++){
+            ArrayList<MonAn> list = MonAnManager.getsInstance().getDanhSachMonAn();
+            for(int j=0; j<5; j++){
+                Random random = new Random();
+                int ran = random.nextInt(list.size());
+                //random de chon 1 mon trong ds mon man cua MonAnManager
+                danhSachQuanMoi.get(i).getMonAnList().add(list.get(ran));
+                //Phía dưới là lọc random theo id của món, còn trên là lọc random theo stt trong arraylist
+//                for(int k=0; k<list.size(); k++){
+//                    if(list.get(k).getMaMonAn() == ran) {
+//                        danhSachQuanMoi.get(i).getMonAnList().add(list.get(k));
+//                    }
+//                }
+            }
+        }
     }
     private void fakeData(){
         danhSachQuan.add(new QuanAn("Quán 1", "Địa chỉ 1", "Đà Nẵng", R.drawable.quan1));
@@ -67,12 +87,5 @@ public class QuanAnManager {
         danhSachQuan.add(new QuanAn("Quán 15", "Địa chỉ 15", "Huế", R.drawable.quan7));
         danhSachQuan.add(new QuanAn("Quán 16", "Địa chỉ 16", "Đà Nẵng", R.drawable.quan5));
         danhSachQuan.add(new QuanAn("Quán 17", "Địa chỉ 17", "Hà Nội", R.drawable.quan1));
-        danhSachQuan.add(new QuanAn("Quán 18", "Địa chỉ 18", "Hồ Chí Minh", R.drawable.quan6));
-        danhSachQuan.add(new QuanAn("Quán 19", "Địa chỉ 19", "Hà Nội", R.drawable.quan2));
-        danhSachQuan.add(new QuanAn("Quán 20", "Địa chỉ 20", "Đà Nẵng", R.drawable.quan9));
-        danhSachQuan.add(new QuanAn("Quán 21", "Địa chỉ 21", "Huế", R.drawable.quan8));
-        danhSachQuan.add(new QuanAn("Quán 22", "Địa chỉ 22", "Hồ Chí Mih", R.drawable.quan10));
-        danhSachQuan.add(new QuanAn("Quán 23", "Địa chỉ 23", "Vũng Tàu", R.drawable.quan2));
-        danhSachQuan.add(new QuanAn("Quán 24", "Địa chỉ 24", "Vũng Tàu", R.drawable.quan5));
     }
 }

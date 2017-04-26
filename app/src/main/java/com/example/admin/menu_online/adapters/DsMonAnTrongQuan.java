@@ -1,4 +1,4 @@
-package controller;
+package com.example.admin.menu_online.adapters;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -14,21 +14,19 @@ import android.widget.TextView;
 import com.example.admin.menu_online.R;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.Inflater;
 
-import models.MonAn;
+import com.example.admin.menu_online.models.MonAn;
 
 /**
  * Created by Admin on 4/13/2017.
  */
 
-public class MyAdapter extends ArrayAdapter<MonAn> {
+public class DsMonAnTrongQuan extends ArrayAdapter<MonAn> {
 
     Context context;
     int resource;
     ArrayList<MonAn> objects;
-    public MyAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<MonAn> objects) {
+    public DsMonAnTrongQuan(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<MonAn> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
@@ -48,7 +46,6 @@ public class MyAdapter extends ArrayAdapter<MonAn> {
             convertView = inflater.inflate(this.resource, parent, false);
             viewHolder.imgMonAn = (ImageView) convertView.findViewById(R.id.imgMonAn);
             viewHolder.txtRenTen = (TextView) convertView.findViewById(R.id.txtRenTen);
-            viewHolder.txtRenSoLuong = (TextView) convertView.findViewById(R.id.txtRenSoLuong);
 
             convertView.setTag(viewHolder);
         } else {
@@ -57,13 +54,12 @@ public class MyAdapter extends ArrayAdapter<MonAn> {
 
         viewHolder.imgMonAn.setBackgroundResource(monAn.getImage());
         viewHolder.txtRenTen.setText(monAn.getTenMonAn());
-        viewHolder.txtRenSoLuong.setText(String.valueOf(monAn.getSoLuong()));
 
         return convertView;
 
     }
     private class ViewHolder{
         public ImageView imgMonAn;
-        public TextView txtRenTen, txtRenSoLuong;
+        public TextView txtRenTen;
     }
 }

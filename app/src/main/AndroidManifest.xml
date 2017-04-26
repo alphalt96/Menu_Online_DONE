@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".ChiTietMonAn" />
         <activity android:name=".MenuMonAn" />
-        <activity android:name=".ChiTietQuanAn"></activity>
+        <activity android:name=".ChiTietQuanAn" />
+        <activity android:name=".MenuQuanAn"></activity>
     </application>
 
 </manifest>
