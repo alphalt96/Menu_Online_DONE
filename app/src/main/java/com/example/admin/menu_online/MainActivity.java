@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                         else if(id == R.id.quanAnList){
-                            Toast.makeText(getApplicationContext(), "Hiện chưa có chức năng này", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(MainActivity.this, MenuQuanAn.class));
                         }
                         else if(id == R.id.ranking){
                             Toast.makeText(getApplicationContext(), "Hiện chưa có chức năng này", Toast.LENGTH_SHORT).show();

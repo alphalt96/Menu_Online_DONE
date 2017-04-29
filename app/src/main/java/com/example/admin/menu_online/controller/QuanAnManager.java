@@ -87,5 +87,14 @@ public class QuanAnManager {
         danhSachQuan.add(new QuanAn("Quán 15", "Địa chỉ 15", "Huế", R.drawable.quan7));
         danhSachQuan.add(new QuanAn("Quán 16", "Địa chỉ 16", "Đà Nẵng", R.drawable.quan5));
         danhSachQuan.add(new QuanAn("Quán 17", "Địa chỉ 17", "Hà Nội", R.drawable.quan1));
+        for(QuanAn data : danhSachQuan){
+            ArrayList<MonAn> list = MonAnManager.getsInstance().getDanhSachMonAn();
+            for(int j=0; j<5; j++){
+                Random random = new Random();
+                int ran = random.nextInt(list.size());
+                //random de chon 1 mon trong ds mon man cua MonAnManager
+                data.getMonAnList().add(list.get(ran));
+            }
+        }
     }
 }
