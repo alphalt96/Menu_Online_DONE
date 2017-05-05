@@ -118,6 +118,7 @@ public class QuanAnManager {
 //                data.getMonAnList().add(list.get(ran));
 //            }
 //        }
+        //giai phong du lieu truoc khi nao lai
         db.releaseDataQuanAn();
         for(int i=0; i<17; i++){
             ArrayList<MonAn> list = MonAnManager.getsInstance(context).getDanhSachMonAn();
