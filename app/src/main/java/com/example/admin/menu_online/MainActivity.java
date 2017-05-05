@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, ChiTietMonAn.class);
                     Bundle bundle = new Bundle();
                     if(loaiMonAn == "" && thanhPho == "")
-                        bundle.putSerializable("detail",MonAnManager.getsInstance().getDanhSachMonMoi().get(position));
+                        bundle.putSerializable("detail",MonAnManager.getsInstance(MainActivity.this).getDanhSachMonMoi().get(position));
                     else
                         bundle.putSerializable("detail",locMonAn.get(position));
                     intent.putExtra("bundle", bundle);
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     Intent intent = new Intent(MainActivity.this, ChiTietQuanAn.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("detail", QuanAnManager.getsInstance().getDanhSachQuanMoi().get(position));
+                    bundle.putSerializable("detail", QuanAnManager.getsInstance(MainActivity.this).getDanhSachQuanMoi().get(position));
                     intent.putExtra("bundle", bundle);
                     startActivity(intent);
                 }
@@ -114,16 +114,16 @@ public class MainActivity extends AppCompatActivity {
                 locMonAn = new ArrayList<MonAn>();
                 thanhPho = cityList[position];
                 siteCheck = true;
-                for(int i=0; i<MonAnManager.getsInstance().getDanhSachMonAn().size(); i++){
+                for(int i=0; i<MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().size(); i++){
                     if(loaiMonAn == "") {
-                        if (MonAnManager.getsInstance().getDanhSachMonAn().get(i).getViTri().equals(thanhPho)) {
-                            locMonAn.add(MonAnManager.getsInstance().getDanhSachMonAn().get(i));
+                        if (MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getViTri().equals(thanhPho)) {
+                            locMonAn.add(MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i));
                             txtTitle.setText("Món ăn tại "+thanhPho);
                         }
                     }
                     else{
-                        if (MonAnManager.getsInstance().getDanhSachMonAn().get(i).getViTri().equals(thanhPho) && MonAnManager.getsInstance().getDanhSachMonAn().get(i).getLoaiMonAn().equals(loaiMonAn)) {
-                            locMonAn.add(MonAnManager.getsInstance().getDanhSachMonAn().get(i));
+                        if (MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getViTri().equals(thanhPho) && MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getLoaiMonAn().equals(loaiMonAn)) {
+                            locMonAn.add(MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i));
                             txtTitle.setText("Món ăn "+loaiMonAn+" tại "+thanhPho);
                         }
                     }
@@ -142,16 +142,16 @@ public class MainActivity extends AppCompatActivity {
                 locMonAn = new ArrayList<MonAn>();
                 loaiMonAn = loaimonanList[position];
                 siteCheck = true;
-                for(int i=0; i<MonAnManager.getsInstance().getDanhSachMonAn().size(); i++){
+                for(int i=0; i<MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().size(); i++){
                     if(thanhPho == "") {
-                        if (MonAnManager.getsInstance().getDanhSachMonAn().get(i).getLoaiMonAn().equals(loaiMonAn)) {
-                            locMonAn.add(MonAnManager.getsInstance().getDanhSachMonAn().get(i));
+                        if (MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getLoaiMonAn().equals(loaiMonAn)) {
+                            locMonAn.add(MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i));
                             txtTitle.setText("Món ăn "+loaiMonAn);
                         }
                     }
                     else{
-                        if (MonAnManager.getsInstance().getDanhSachMonAn().get(i).getViTri().equals(thanhPho) && MonAnManager.getsInstance().getDanhSachMonAn().get(i).getLoaiMonAn().equals(loaiMonAn)) {
-                            locMonAn.add(MonAnManager.getsInstance().getDanhSachMonAn().get(i));
+                        if (MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getViTri().equals(thanhPho) && MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getLoaiMonAn().equals(loaiMonAn)) {
+                            locMonAn.add(MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i));
                             txtTitle.setText("Món ăn "+loaiMonAn+" tại "+thanhPho);
                         }
                     }
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         btnNewQuanAn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               ArrayList<QuanAn> quanAnNoiBat = QuanAnManager.getsInstance().getDanhSachQuanMoi();
+               ArrayList<QuanAn> quanAnNoiBat = QuanAnManager.getsInstance(MainActivity.this).getDanhSachQuanMoi();
                 quanAnAdapter = new QuanAnAdapter(MainActivity.this, R.layout.item_quanan, quanAnNoiBat);
                 lvHienThiMonAn.setAdapter(quanAnAdapter);
                 txtTitle.setText("Quán ăn mới");
@@ -209,8 +209,8 @@ public class MainActivity extends AppCompatActivity {
         btnNewMonAn = (Button) findViewById(R.id.btnNewMonAn);
         btnNewQuanAn = (Button) findViewById(R.id.btnNewQuanAn);
         btnMenu = (Button) findViewById(R.id.btnMenu);
-        MonAnManager.getsInstance().load();
-        monAnNoiBat = MonAnManager.getsInstance().getDanhSachMonMoi();
+        MonAnManager.getsInstance(MainActivity.this).load();
+        monAnNoiBat = MonAnManager.getsInstance(MainActivity.this).getDanhSachMonMoi();
 
         myAdapter = new MyAdapter(this, R.layout.item_monan, monAnNoiBat);
         lvHienThiMonAn = (ListView) findViewById(R.id.lvHienThiMonAn);

@@ -52,4 +52,10 @@
         <item>Cafe</item>
         <item>Đồ uống</item>
     </string-array>
+    <string-array name="location">
+        <item>Hà Nội</item>
+        <item>Huế</item>
+        <item>Đà Nẵng</item>
+        <item>Hồ Chí Minh</item>
+    </string-array>
 </resources>

@@ -41,7 +41,7 @@ public class MenuQuanAn extends AppCompatActivity {
     }
 
     private void addControls() {
-        quanAnList = QuanAnManager.getsInstance().getDanhSachQuan();
+        quanAnList = QuanAnManager.getsInstance(this).getDanhSachQuan();
         menuQuanAnAdapter = new MenuQuanAnAdapter(this, R.layout.item_menu_quanan, quanAnList);
         gridMenuQuanAn = (GridView) findViewById(R.id.gridMenuQuanAn);
         gridMenuQuanAn.setAdapter(menuQuanAnAdapter);

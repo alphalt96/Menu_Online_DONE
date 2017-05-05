@@ -10,6 +10,7 @@ import android.widget.GridView;
 
 import java.util.ArrayList;
 
+import com.example.admin.menu_online.Database.MenuOnlineDatabase;
 import com.example.admin.menu_online.adapters.MenuMonAnAdapter;
 import com.example.admin.menu_online.controller.MonAnManager;
 import com.example.admin.menu_online.models.MonAn;
@@ -33,7 +34,7 @@ public class MenuMonAn extends AppCompatActivity {
         gridMonAn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MonAn monAn = MonAnManager.getsInstance().getDanhSachMonAn().get(position);
+                MonAn monAn = monAnList.get(position);
                 Intent intent = new Intent(MenuMonAn.this, ChiTietMonAn.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("detail", monAn);
@@ -44,7 +45,7 @@ public class MenuMonAn extends AppCompatActivity {
     }
 
     private void addControls() {
-        monAnList = MonAnManager.getsInstance().getDanhSachMonAn();
+        monAnList = MonAnManager.getsInstance(this).getDanhSachMonAn();
         menuMonAnAdapter = new MenuMonAnAdapter(this, R.layout.item_menu_monan, monAnList);
         gridMonAn = (GridView) findViewById(R.id.gridMonAn);
         gridMonAn.setAdapter(menuMonAnAdapter);
