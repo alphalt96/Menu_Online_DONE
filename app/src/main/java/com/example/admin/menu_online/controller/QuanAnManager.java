@@ -133,8 +133,12 @@ public class QuanAnManager {
                 else idStr += ran;
             }
 //            JSONArray jsonArray = new JSONArray(res);
-            String choose = city[new Random().nextInt(city.length)];
-            int img = imgList[new Random().nextInt(imgList.length)];
+            Random ran1 = new Random();
+            Random ran2 = new Random();
+            //chon ra thanh pho ngau nhien de them vao
+            String choose = city[ran1.nextInt(city.length)];
+            //chon ra hinh anh quan an ngau nhien
+            int img = imgList[ran2.nextInt(imgList.length)];
             db.insertQuanAn("Quán "+(i+1), "Địa chỉ "+(i+1),choose, img, idStr);
         }
         danhSachQuan = db.getAllQuanAn();
