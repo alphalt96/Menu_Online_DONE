@@ -5,14 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.admin.menu_online.models.MonAn;
 import com.example.admin.menu_online.models.QuanAn;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -121,6 +117,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         QuanAn quanAn;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from "+QUANAN_TABLE, null);
+        cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
             try {
                 quanAn = new QuanAn();
@@ -153,15 +150,17 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
                 MonAn monAn;
                 String get = cursor.getString(cursor.getColumnIndex(QUANAN_COLUMN_monAnList));
                 String[] arr = get.split(" ");
-                for (int i = 0; i < 5; i++) {
-                    Cursor value = db.rawQuery("select * from MONAN where maMonAn = " + Integer.parseInt(arr[i]), null);
+                Cursor ahihi;
+                for (int i = 0; i < arr.length; i++) {
+                    ahihi = db.rawQuery("select * from MONAN where maMonAn = "+arr[i], null);
+                    ahihi.moveToFirst();
                     monAn = new MonAn();
-                    monAn.setTenMonAn(value.getString(value.getColumnIndex(MONAN_COLUMN_tenMonAn)));
-                    monAn.setSoLuong(value.getInt(cursor.getColumnIndex(MONAN_COLUMN_soLuong)));
-                    monAn.setImage(cursor.getInt(value.getColumnIndex(MONAN_COLUMN_image)));
-                    monAn.setViTri(value.getString(value.getColumnIndex(MONAN_COLUMN_viTri)));
-                    monAn.setLoaiMonAn(value.getString(value.getColumnIndex(MONAN_COLUMN_loaiMonAn)));
-                    monAn.setGiaTien(value.getFloat(value.getColumnIndex(MONAN_COLUMN_giaTien)));
+                    monAn.setTenMonAn(ahihi.getString(ahihi.getColumnIndex(MONAN_COLUMN_tenMonAn)));
+                    monAn.setSoLuong(ahihi.getInt(ahihi.getColumnIndex(MONAN_COLUMN_soLuong)));
+                    monAn.setImage(ahihi.getInt(ahihi.getColumnIndex(MONAN_COLUMN_image)));
+                    monAn.setViTri(ahihi.getString(ahihi.getColumnIndex(MONAN_COLUMN_viTri)));
+                    monAn.setLoaiMonAn(ahihi.getString(ahihi.getColumnIndex(MONAN_COLUMN_loaiMonAn)));
+                    monAn.setGiaTien(ahihi.getFloat(ahihi.getColumnIndex(MONAN_COLUMN_giaTien)));
                     monAnList.add(monAn);
                 }
                 quanAn.setMonAnList(monAnList);

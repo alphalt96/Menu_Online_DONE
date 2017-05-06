@@ -129,8 +129,8 @@ public class QuanAnManager {
                 int ran = random.nextInt(list.size());
                 //random de chon 1 mon trong ds mon man cua MonAnManager
 //                res.add(list.get(ran));
-                if(j!=4) idStr += ran + " ";
-                else idStr += ran;
+                if(j!=4) idStr += (ran+1) + " ";
+                else idStr += (ran+1);
             }
 //            JSONArray jsonArray = new JSONArray(res);
             Random ran1 = new Random();
