@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.admin.menu_online.models.MonAn;
 import com.example.admin.menu_online.models.QuanAn;
+import com.example.admin.menu_online.models.User;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ import java.util.ArrayList;
  */
 
 public class MenuOnlineDatabase extends SQLiteOpenHelper {
+    int oldVersion = 1, newVersion = 2;
 
     public static final String DATABASE_NAME = "menuonline";
     public static final String MONAN_TABLE = "MONAN";
@@ -36,10 +38,16 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
     public static final String QUANAN_COLUMN_img = "img";
     public static final String QUANAN_COLUMN_monAnList = "monAnList";
 
-    public MenuOnlineDatabase(Context context) {
-        super(context, DATABASE_NAME, null, 1);
-    }
+    public static final String USER_TABLE = "USER";
+    public static final String USER_COLUMN_id = "id";
+    public static final String USER_COLUMN_username = "username";
+    public static final String USER_COlUMN_password = "password";
+    public static final String USER_COLUMN_address = "address";
 
+    //version o day la de update CSDL, CSDL chi duoc chap nhan thay doi neu thay doi version
+    public MenuOnlineDatabase(Context context) {
+        super(context, DATABASE_NAME, null, 2);
+    }
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table MONAN " +
@@ -48,11 +56,15 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         db.execSQL("create table QUANAN " +
                 "(maQuan integer primary key, tenQuan text,diaChi text,thanhPho text, img integer, monAnList text)"
         );
+        db.execSQL("create table USER " +
+                "(id integer primary key, username text, password text, address text)"
+        );
     }
-
-    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXITS MONAN");
+        db.execSQL("DROP TABLE IF EXITS QUANAN");
+        db.execSQL("DROP TABLE IF EXISTS USER");
+        onCreate(db);
     }
     public void releaseData(){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -90,6 +102,37 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         values.put("img", img);
         values.put("monAnList", monAnList);
         db.insert(QUANAN_TABLE, null, values);
+    }
+
+    //check trung username
+    public boolean checkUsername(String username){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from "+USER_TABLE+" where username = "+username, null);
+        if(cursor!=null) return false;
+        return true;
+    }
+
+    //insert nguoi dung
+    public void insertUser(String username, String password){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("username", username);
+        values.put("password", password);
+        values.put("address", "");
+        db.insert("USER", null, values);
+    }
+    public User getUser(String username, String password){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from "+USER_TABLE+" where "+USER_COLUMN_username+" = "+username+" AND "+USER_COlUMN_password+" = "+password, null);
+        cursor.moveToFirst();
+        User user = new User();
+        while(!cursor.isAfterLast()){
+            user.setId(cursor.getInt(cursor.getColumnIndex(USER_COLUMN_id)));
+            user.setUsername(cursor.getString(cursor.getColumnIndex(USER_COLUMN_username)));
+            user.setPassword(cursor.getString(cursor.getColumnIndex(USER_COlUMN_password)));
+            user.setAddress(cursor.getString(cursor.getColumnIndex(USER_COLUMN_address)));
+        }
+        return user;
     }
 
     //get toan bo mon an

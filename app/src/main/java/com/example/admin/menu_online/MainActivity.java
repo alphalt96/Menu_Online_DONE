@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Version 1.1.3.1415926535897932", Toast.LENGTH_SHORT).show();
                         }
                         else if(id == R.id.user){
-                            Toast.makeText(getApplicationContext(), "Not Yet", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(MainActivity.this, UserLogin.class));
                         }
                         return false;
                     }

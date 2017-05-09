@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.admin.menu_online.UserLogin"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layoutUnLogged"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/imgLogin"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="#ffcd"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
+        <TextView
+            android:id="@+id/txtUsernameTitle"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:text="Username"
+            android:gravity="center_vertical"/>
+        <EditText
+            android:id="@+id/txtUsernameLogin"
+            android:layout_width="250dp"
+            android:layout_height="50dp" />
+        <TextView
+            android:id="@+id/txtPasswordTitle"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:text="Password"
+            android:gravity="center_vertical"/>
+        <EditText
+            android:id="@+id/txtPasswordLogin"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:inputType="textPassword"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="125dp"
+                android:layout_height="50dp"
+                android:text="Login"/>
+            <Button
+                android:id="@+id/btnSignOn"
+                android:layout_width="125dp"
+                android:layout_height="50dp"
+                android:text="SignOn"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutLogged"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit profile"/>
+            <Button
+                android:id="@+id/btnShip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ship"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/txtHienThiUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtHienThiPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtHienThiAddess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</LinearLayout>

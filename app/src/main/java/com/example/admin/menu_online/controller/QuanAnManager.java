@@ -20,15 +20,7 @@ import org.json.JSONArray;
 public class QuanAnManager {
     private static QuanAnManager sInstance = null;
     private ArrayList<QuanAn> danhSachQuan, danhSachQuanMoi;
-    private int[] imgList;
-    private String[] city = {"Hà Nội, Huế, Đà Nẵng, Hồ Chí Minh"};
-    private MenuOnlineDatabase db;
-    Context context;
-    private QuanAnManager(Context context){
-        danhSachQuan = new ArrayList<>();
-        danhSachQuanMoi = new ArrayList<>();
-        db = new MenuOnlineDatabase(context);
-        imgList = new int[]{
+    private int[] imgList = new int[]{
                 R.drawable.quan1,
                 R.drawable.quan2,
                 R.drawable.quan3,
@@ -39,7 +31,14 @@ public class QuanAnManager {
                 R.drawable.quan8,
                 R.drawable.quan9,
                 R.drawable.quan10
-        };
+    };
+    private String[] city = {"Hà Nội, Huế, Đà Nẵng, Hồ Chí Minh"};
+    private MenuOnlineDatabase db;
+    Context context;
+    private QuanAnManager(Context context){
+        danhSachQuan = new ArrayList<>();
+        danhSachQuanMoi = new ArrayList<>();
+        db = new MenuOnlineDatabase(context);
         this.context =context;
     }
     public static QuanAnManager getsInstance(Context context){
@@ -133,14 +132,23 @@ public class QuanAnManager {
                 else idStr += (ran+1);
             }
 //            JSONArray jsonArray = new JSONArray(res);
+            //chon ra thanh pho ngau nhien de them vao
             Random ran1 = new Random();
             Random ran2 = new Random();
-            //chon ra thanh pho ngau nhien de them vao
             String choose = city[ran1.nextInt(city.length)];
             //chon ra hinh anh quan an ngau nhien
             int img = imgList[ran2.nextInt(imgList.length)];
             db.insertQuanAn("Quán "+(i+1), "Địa chỉ "+(i+1),choose, img, idStr);
         }
+//        db.insertQuanAn("Quán 1", "Địa chỉ 1","Đà Nẵng", R.drawable.quan1, "2 6 9 10 15");
+//        db.insertQuanAn("Quán 2", "Địa chỉ 2","Đà Nẵng", R.drawable.quan2, "2 6 9 10 15");
+//        db.insertQuanAn("Quán 3", "Địa chỉ 3","Đà Nẵng", R.drawable.quan3, "2 6 9 10 15");
+//        db.insertQuanAn("Quán 4", "Địa chỉ 4","Đà Nẵng", R.drawable.quan4, "2 6 9 10 15");
+//        db.insertQuanAn("Quán 5", "Địa chỉ 5","Đà Nẵng", R.drawable.quan5, "2 6 9 10 15");
+//        db.insertQuanAn("Quán 6", "Địa chỉ 6","Đà Nẵng", R.drawable.quan6, "2 6 9 10 15");
+//        db.insertQuanAn("Quán 7", "Địa chỉ 7","Đà Nẵng", R.drawable.quan7, "2 6 9 10 15");
+//        db.insertQuanAn("Quán 8", "Địa chỉ 8","Đà Nẵng", R.drawable.quan8, "2 6 9 10 15");
+
         danhSachQuan = db.getAllQuanAn();
     }
 }

@@ -19,7 +19,9 @@
         <activity android:name=".ChiTietMonAn" />
         <activity android:name=".MenuMonAn" />
         <activity android:name=".ChiTietQuanAn" />
-        <activity android:name=".MenuQuanAn"></activity>
+        <activity android:name=".MenuQuanAn" />
+        <activity android:name=".UserLogin" />
+        <activity android:name=".Register"></activity>
     </application>
 
 </manifest>
