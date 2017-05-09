@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class MenuOnlineDatabase extends SQLiteOpenHelper {
     int oldVersion = 1, newVersion = 2;
 
-    public static final String DATABASE_NAME = "menuonline";
+    public static final String DATABASE_NAME = "MENUONLINEDB";
     public static final String MONAN_TABLE = "MONAN";
     public static final String MONAN_COLUMN_maMonAn = "maMonAn";
     public static final String MONAN_COLUMN_tenMonAn = "tenMonAn";
@@ -61,10 +61,6 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         );
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXITS MONAN");
-        db.execSQL("DROP TABLE IF EXITS QUANAN");
-        db.execSQL("DROP TABLE IF EXISTS USER");
-        onCreate(db);
     }
     public void releaseData(){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -107,8 +103,10 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
     //check trung username
     public boolean checkUsername(String username){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from "+USER_TABLE+" where username = "+username, null);
-        if(cursor!=null) return false;
+        //cursor khi select ra ma khong co record tra ve thi van duoc xem la != null
+        Cursor cursor = db.rawQuery("select * from "+USER_TABLE+" where username = '"+username+"'", null);
+        //cursor.getCount de dem so dong record tra ve, khong kiem tra null duoc vi luc nao cung khac null
+        if(cursor.getCount()>0) return false;
         return true;
     }
 
@@ -118,20 +116,18 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("username", username);
         values.put("password", password);
-        values.put("address", "");
+        values.put("address", "none");
         db.insert("USER", null, values);
     }
     public User getUser(String username, String password){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from "+USER_TABLE+" where "+USER_COLUMN_username+" = "+username+" AND "+USER_COlUMN_password+" = "+password, null);
+        Cursor cursor = db.rawQuery("select * from "+USER_TABLE+" where "+USER_COLUMN_username+" = '"+username+"' AND "+USER_COlUMN_password+" = '"+password+"'", null);
         cursor.moveToFirst();
         User user = new User();
-        while(!cursor.isAfterLast()){
-            user.setId(cursor.getInt(cursor.getColumnIndex(USER_COLUMN_id)));
-            user.setUsername(cursor.getString(cursor.getColumnIndex(USER_COLUMN_username)));
-            user.setPassword(cursor.getString(cursor.getColumnIndex(USER_COlUMN_password)));
-            user.setAddress(cursor.getString(cursor.getColumnIndex(USER_COLUMN_address)));
-        }
+        user.setId(cursor.getInt(cursor.getColumnIndex(USER_COLUMN_id)));
+        user.setUsername(cursor.getString(cursor.getColumnIndex(USER_COLUMN_username)));
+        user.setPassword(cursor.getString(cursor.getColumnIndex(USER_COlUMN_password)));
+        user.setAddress(cursor.getString(cursor.getColumnIndex(USER_COLUMN_address)));
         return user;
     }
 

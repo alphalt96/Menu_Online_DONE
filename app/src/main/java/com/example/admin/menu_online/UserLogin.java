@@ -22,7 +22,7 @@ public class UserLogin extends AppCompatActivity {
     private ImageView imgLogin;
     private TextView txtUsernameTitle, txtPasswordTitle;
     private EditText txtUsernameLogin, txtPasswordLogin;
-    private Button btnLogin, btnSignOn, btnEdit, btnShip;
+    private Button btnLogin, btnSignOn, btnEdit, btnShip, btnLogout, btnBack;
     private TextView txtHienThiUsername, txtHienThiPassword, txtHienThiAddress;
 
     private MenuOnlineDatabase menuOnlineDatabase;
@@ -44,7 +44,9 @@ public class UserLogin extends AppCompatActivity {
         btnSignOn = (Button) findViewById(R.id.btnSignOn);
         btnEdit = (Button) findViewById(R.id.btnEdit);
         btnShip = (Button) findViewById(R.id.btnShip);
-        txtHienThiUsername = (TextView) findViewById(R.id.txtUsernameTitle);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
+        btnBack = (Button) findViewById(R.id.btnBack);
+        txtHienThiUsername = (TextView) findViewById(R.id.txtHienThiUsername);
         txtHienThiPassword = (TextView) findViewById(R.id.txtHienThiPassword);
         txtHienThiAddress = (TextView) findViewById(R.id.txtHienThiAddess);
 
@@ -54,7 +56,7 @@ public class UserLogin extends AppCompatActivity {
             txtHienThiPassword.setText(sharedPreferences.getString("PASSWORD", ""));
             txtHienThiAddress.setText(sharedPreferences.getString("ADDRESS", ""));
             HideLogin();
-            ShowLogin();
+            ShowInfo();
         } else {
             HideInfo();
             ShowLogin();
@@ -70,6 +72,7 @@ public class UserLogin extends AppCompatActivity {
                     editor.putString("USERNAME", user.getUsername());
                     editor.putString("PASSWORD", user.getPassword());
                     editor.putString("ADDRESS", user.getAddress());
+                    editor.commit();
 
                     txtHienThiUsername.setText(user.getUsername());
                     txtHienThiPassword.setText(user.getPassword());
@@ -89,23 +92,44 @@ public class UserLogin extends AppCompatActivity {
                 startActivity(new Intent(UserLogin.this, Register.class));
             }
         });
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences(save, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("USERID", 0);
+                editor.putString("USERNAME", "");
+                editor.putString("PASSWORD", "");
+                editor.putString("ADDRESS", "");
+                editor.commit();
+                ShowLogin();
+                HideInfo();
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     private void HideLogin(){
         //an di phan dang nhap
-        imgLogin.setVisibility(View.INVISIBLE);
-        txtUsernameTitle.setVisibility(View.INVISIBLE);
-        txtPasswordTitle.setVisibility(View.INVISIBLE);
-        txtUsernameLogin.setVisibility(View.INVISIBLE);
-        txtPasswordLogin.setVisibility(View.INVISIBLE);
-        btnLogin.setVisibility(View.INVISIBLE);
-        btnSignOn.setVisibility(View.INVISIBLE);
+        imgLogin.setVisibility(View.GONE);
+        txtUsernameTitle.setVisibility(View.GONE);
+        txtPasswordTitle.setVisibility(View.GONE);
+        txtUsernameLogin.setVisibility(View.GONE);
+        txtPasswordLogin.setVisibility(View.GONE);
+        btnLogin.setVisibility(View.GONE);
+        btnSignOn.setVisibility(View.GONE);
     }
     private void HideInfo(){
-        txtHienThiUsername.setVisibility(View.INVISIBLE);
-        txtHienThiPassword.setVisibility(View.INVISIBLE);
-        txtHienThiAddress.setVisibility(View.INVISIBLE);
-        btnEdit.setVisibility(View.INVISIBLE);
-        btnShip.setVisibility(View.INVISIBLE);
+        txtHienThiUsername.setVisibility(View.GONE);
+        txtHienThiPassword.setVisibility(View.GONE);
+        txtHienThiAddress.setVisibility(View.GONE);
+        btnEdit.setVisibility(View.GONE);
+        btnShip.setVisibility(View.GONE);
+        btnLogout.setVisibility(View.GONE);
     }
     private void ShowLogin(){
         imgLogin.setVisibility(View.INVISIBLE);
@@ -122,5 +146,6 @@ public class UserLogin extends AppCompatActivity {
         txtHienThiAddress.setVisibility(View.VISIBLE);
         btnEdit.setVisibility(View.VISIBLE);
         btnShip.setVisibility(View.VISIBLE);
+        btnLogout.setVisibility(View.VISIBLE);
     }
 }

@@ -23,6 +23,7 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         menuOnlineDatabase = new MenuOnlineDatabase(this);
+//        menuOnlineDatabase.insertUser("ahihi", "ahihi");
 
         txtUsernameRegister = (TextView) findViewById(R.id.txtUsernameRegister);
         txtPasswordRegister = (TextView) findViewById(R.id.txtPasswordRegister);
@@ -35,14 +36,14 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
                 if(menuOnlineDatabase.checkUsername(txtUsernameRegister.getText().toString())) {
                     menuOnlineDatabase.insertUser(txtUsernameRegister.getText().toString(), txtPasswordRegister.getText().toString());
-                    Toast.makeText(Register.this, "Dang ky thanh cong", Toast.LENGTH_SHORT);
+                    Toast.makeText(Register.this, "Dang ky thanh cong", Toast.LENGTH_SHORT).show();
                 } else Toast.makeText(Register.this, "Username da ton tai", Toast.LENGTH_SHORT).show();
             }
         });
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Register.this, UserLogin.class));
+                finish();
             }
         });
     }
