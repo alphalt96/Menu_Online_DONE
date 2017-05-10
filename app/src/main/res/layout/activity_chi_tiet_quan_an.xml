@@ -31,13 +31,30 @@
     <Space
         android:layout_width="wrap_content"
         android:layout_height="50dp" />
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Menu của quán"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="#bc4444"/>
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menu của quán"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="#bc4444"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btnDonHang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don Hang"
+                android:layout_gravity="right"/>
+        </LinearLayout>
+    </LinearLayout>
     <Space
         android:layout_width="wrap_content"
         android:layout_height="20dp" />

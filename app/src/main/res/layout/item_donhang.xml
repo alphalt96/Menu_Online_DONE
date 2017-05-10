@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/imgDonHang"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:background="@drawable/mon_an_7"/>
+        <LinearLayout
+            android:layout_width="170dp"
+            android:layout_height="120dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTenDonHang"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:gravity="center_vertical"
+                android:text="Cut lon xao me ahihi"
+                android:textColor="#000"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtGiaDonhang"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="30000VND"
+                android:textColor="#c72424"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btnInc"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="+"
+                android:background="#fff"/>
+            <EditText
+                android:id="@+id/txtCount"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="1"
+                android:gravity="center"/>
+            <Button
+                android:id="@+id/btnDec"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="-"
+                android:background="#fff"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="delete"
+            android:background="#fff"/>
+    </LinearLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="7dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#e1dada"/>
+</LinearLayout>

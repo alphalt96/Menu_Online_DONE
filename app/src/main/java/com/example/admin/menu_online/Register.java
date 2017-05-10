@@ -34,10 +34,16 @@ public class Register extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(menuOnlineDatabase.checkUsername(txtUsernameRegister.getText().toString())) {
-                    menuOnlineDatabase.insertUser(txtUsernameRegister.getText().toString(), txtPasswordRegister.getText().toString());
-                    Toast.makeText(Register.this, "Dang ky thanh cong", Toast.LENGTH_SHORT).show();
-                } else Toast.makeText(Register.this, "Username da ton tai", Toast.LENGTH_SHORT).show();
+                if(txtPasswordRegister.getText().toString().equals(txtRepassword.getText().toString())) {
+                    if (menuOnlineDatabase.checkUsername(txtUsernameRegister.getText().toString())) {
+                        menuOnlineDatabase.insertUser(txtUsernameRegister.getText().toString(), txtPasswordRegister.getText().toString());
+                        Toast.makeText(Register.this, "Dang ky thanh cong", Toast.LENGTH_SHORT).show();
+                        txtUsernameRegister.setText("");
+                        txtPasswordRegister.setText("");
+                        txtRepassword.setText("");
+                    } else
+                        Toast.makeText(Register.this, "Username da ton tai", Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(Register.this, "Password khong giong nhau", Toast.LENGTH_SHORT).show();
             }
         });
         btnLogin.setOnClickListener(new View.OnClickListener() {

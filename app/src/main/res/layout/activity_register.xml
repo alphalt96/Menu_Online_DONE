@@ -32,7 +32,8 @@
     <EditText
         android:id="@+id/txtPasswordRegister"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="textWebPassword"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="20dp"
@@ -40,7 +41,8 @@
     <EditText
         android:id="@+id/txtRePassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="textWebPassword"/>
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="150dp"

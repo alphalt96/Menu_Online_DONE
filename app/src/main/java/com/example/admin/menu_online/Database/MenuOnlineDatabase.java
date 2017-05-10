@@ -44,9 +44,11 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
     public static final String USER_COlUMN_password = "password";
     public static final String USER_COLUMN_address = "address";
 
+    public static final String DATHANG_TABLE = "DATHANG";
+
     //version o day la de update CSDL, CSDL chi duoc chap nhan thay doi neu thay doi version
     public MenuOnlineDatabase(Context context) {
-        super(context, DATABASE_NAME, null, 2);
+        super(context, DATABASE_NAME, null, 3);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -59,12 +61,19 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         db.execSQL("create table USER " +
                 "(id integer primary key, username text, password text, address text)"
         );
+        db.execSQL("create table DATHANG " +
+                "(maMonAn integer primary key, tenMonAn text,soLuong integer,image integer, viTri text,loaiMonAn text, giaTien real)"
+        );
     }
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
     public void releaseData(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from "+MONAN_TABLE);
+    }
+    public void releaseDataDatHang(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from "+DATHANG_TABLE);
     }
     public void releaseDataQuanAn(){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -86,6 +95,19 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         values.put("loaiMonAn", loaiMonAn);
         values.put("giaTien", giaTien);
         db.insert(MONAN_TABLE, null, values);
+    }
+    //insert mon an dat hang
+    public void insertDatHang(int maMonAn, String tenMonAn,int image, int soLuong, String viTri, String loaiMonAn, float giaTien){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("maMonAn", maMonAn);
+        values.put("tenMonAn", tenMonAn);
+        values.put("soLuong", soLuong);
+        values.put("image", image);
+        values.put("viTri", viTri);
+        values.put("loaiMonAn", loaiMonAn);
+        values.put("giaTien", giaTien);
+        db.insert(DATHANG_TABLE, null, values);
     }
 
     //insert quan an
@@ -109,6 +131,22 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         if(cursor.getCount()>0) return false;
         return true;
     }
+    //check login
+    public boolean checkLogin(String username, String password){
+        SQLiteDatabase db = this.getReadableDatabase();
+        //cursor khi select ra ma khong co record tra ve thi van duoc xem la != null
+        Cursor cursor = db.rawQuery("select * from "+USER_TABLE+" where username = '"+username+"' and password = '"+password+"'", null);
+        //cursor.getCount de dem so dong record tra ve, khong kiem tra null duoc vi luc nao cung khac null
+        if(cursor.getCount()>0) return true;
+        return false;
+    }
+    //check don dat hang
+    public boolean checkDatHang(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from DATHANG where maMonAn = "+id, null);
+        if(cursor.getCount() > 0) return false;
+        return true;
+    }
 
     //insert nguoi dung
     public void insertUser(String username, String password){
@@ -119,6 +157,41 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         values.put("address", "none");
         db.insert("USER", null, values);
     }
+
+    //update user profile
+    public void updateUser(String username, String password, String address){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("username", username);
+        values.put("password", password);
+        values.put("address", address);
+        db.update("USER", values, "username = ?", new String[]{username});
+    }
+    //get so luong don hang
+    public int getCount(int maMonAn){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from "+DATHANG_TABLE+" where maMonAn = "+maMonAn, null);
+        cursor.moveToFirst();
+        return cursor.getInt(cursor.getColumnIndex("soLuong"));
+    }
+    //update don dat hang
+    public void updateDonHang(int maMonAn, int soLuong){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("soLuong", soLuong);
+        db.update("DATHANG", values, "maMonAn = ?", new String[]{Integer.toString(maMonAn)});
+    }
+    //delete mat hang trong don hang
+    public void deleteDonHang(int maMonAn){
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("DATHANG", "maMonAn = ?", new String[]{String.valueOf(maMonAn)});
+    }
+    //delete tat ca mat hang
+    public void deleteAllDonHang(){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("delete from "+DATHANG_TABLE);
+    }
+
     public User getUser(String username, String password){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from "+USER_TABLE+" where "+USER_COLUMN_username+" = '"+username+"' AND "+USER_COlUMN_password+" = '"+password+"'", null);
@@ -130,6 +203,29 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         user.setAddress(cursor.getString(cursor.getColumnIndex(USER_COLUMN_address)));
         return user;
     }
+    //lay thong tin don hang
+    public ArrayList<MonAn> getDonHang(){
+        ArrayList<MonAn> list  = new ArrayList<>();
+        MonAn monAn;
+        SQLiteDatabase db = this.getReadableDatabase();
+        try{
+            Cursor cursor = db.rawQuery("select * from "+DATHANG_TABLE, null);
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                monAn = new MonAn();
+                monAn.setMaMonAn(cursor.getInt(cursor.getColumnIndex(MONAN_COLUMN_maMonAn)));
+                monAn.setTenMonAn(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_tenMonAn)));
+                monAn.setSoLuong(cursor.getInt(cursor.getColumnIndex(MONAN_COLUMN_soLuong)));
+                monAn.setImage(cursor.getInt(cursor.getColumnIndex(MONAN_COLUMN_image)));
+                monAn.setViTri(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_viTri)));
+                monAn.setLoaiMonAn(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_loaiMonAn)));
+                monAn.setGiaTien(cursor.getFloat(cursor.getColumnIndex(MONAN_COLUMN_giaTien)));
+                list.add(monAn);
+                cursor.moveToNext();
+            }
+        } catch (Exception e){}
+        return list;
+    }
 
     //get toan bo mon an
     public ArrayList<MonAn> getAllMonAn(){
@@ -140,6 +236,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             monAn = new MonAn();
+            monAn.setMaMonAn(cursor.getInt(cursor.getColumnIndex(MONAN_COLUMN_maMonAn)));
             monAn.setTenMonAn(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_tenMonAn)));
             monAn.setSoLuong(cursor.getInt(cursor.getColumnIndex(MONAN_COLUMN_soLuong)));
             monAn.setImage(cursor.getInt(cursor.getColumnIndex(MONAN_COLUMN_image)));
@@ -194,6 +291,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
                     ahihi = db.rawQuery("select * from MONAN where maMonAn = "+arr[i], null);
                     ahihi.moveToFirst();
                     monAn = new MonAn();
+                    monAn.setMaMonAn(ahihi.getInt(ahihi.getColumnIndex(MONAN_COLUMN_maMonAn)));
                     monAn.setTenMonAn(ahihi.getString(ahihi.getColumnIndex(MONAN_COLUMN_tenMonAn)));
                     monAn.setSoLuong(ahihi.getInt(ahihi.getColumnIndex(MONAN_COLUMN_soLuong)));
                     monAn.setImage(ahihi.getInt(ahihi.getColumnIndex(MONAN_COLUMN_image)));
