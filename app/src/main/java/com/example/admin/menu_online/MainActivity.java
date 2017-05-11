@@ -1,8 +1,9 @@
 package com.example.admin.menu_online;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,18 +15,20 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
+import com.example.admin.menu_online.Database.MenuOnlineDatabase;
 import com.example.admin.menu_online.adapters.LoaiMonAnAdapter;
-import com.example.admin.menu_online.controller.MonAnManager;
 import com.example.admin.menu_online.adapters.MyAdapter;
 import com.example.admin.menu_online.adapters.QuanAnAdapter;
+import com.example.admin.menu_online.controller.MonAnManager;
 import com.example.admin.menu_online.controller.QuanAnManager;
 import com.example.admin.menu_online.models.MonAn;
 import com.example.admin.menu_online.models.QuanAn;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
+    MenuOnlineDatabase menuOnlineDatabase;
 
     ArrayList<MonAn> monAnNoiBat, locMonAn;
     private String[] cityList, loaimonanList;
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtTitle;
     private Button btnNewMonAn, btnNewQuanAn, btnMenu;
 
+    TabHost tabHost;
     String loaiMonAn="", thanhPho="";
 
     Boolean siteCheck = true;
@@ -105,6 +109,45 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        lvHienThiMonAn.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                SharedPreferences sharedPreferences = getSharedPreferences("userinfo", MODE_PRIVATE);
+                if(sharedPreferences.getInt("USERID", 0)!=0) {
+                    if(thanhPho == "" && loaiMonAn == "") {
+                        if (menuOnlineDatabase.checkDatHang(monAnNoiBat.get(position).getMaMonAn())) {
+                            int maMonAn = monAnNoiBat.get(position).getMaMonAn();
+                            String tenMon = monAnNoiBat.get(position).getTenMonAn();
+                            int img = monAnNoiBat.get(position).getImage();
+                            int soLuong = monAnNoiBat.get(position).getSoLuong();
+                            String viTri = monAnNoiBat.get(position).getViTri();
+                            String loaiMonAn = monAnNoiBat.get(position).getLoaiMonAn();
+                            float giaTien = monAnNoiBat.get(position).getGiaTien();
+                            menuOnlineDatabase.insertDatHang(maMonAn, tenMon, img, 1, viTri, loaiMonAn, giaTien);
+                            Toast.makeText(MainActivity.this, "Da them mon thanh cong", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(MainActivity.this, "Da co san mon an nay", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (menuOnlineDatabase.checkDatHang(locMonAn.get(position).getMaMonAn())) {
+                            int maMonAn = locMonAn.get(position).getMaMonAn();
+                            String tenMon = locMonAn.get(position).getTenMonAn();
+                            int img = locMonAn.get(position).getImage();
+                            int soLuong = locMonAn.get(position).getSoLuong();
+                            String viTri = locMonAn.get(position).getViTri();
+                            String loaiMonAn = locMonAn.get(position).getLoaiMonAn();
+                            float giaTien = locMonAn.get(position).getGiaTien();
+                            menuOnlineDatabase.insertDatHang(maMonAn, tenMon, img, 1, viTri, loaiMonAn, giaTien);
+                            Toast.makeText(MainActivity.this, "Da them mon thanh cong", Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(MainActivity.this, "Da co san mon an nay", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "Ban can dang nhap de thuc hien chuc nang nay", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this, UserLogin.class));
+                }
+                return false;
+            }
+        });
         //Button lọc món theo thành phố
         lvCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -131,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 if(locMonAn.size() == 0) txtTitle.setText("Khong co du lieu");
                 myAdapter = new MyAdapter(MainActivity.this, R.layout.item_monan, locMonAn);
                 lvHienThiMonAn.setAdapter(myAdapter);
+                tabHost.setCurrentTab(0);
             }
         });
         //Button lọc món theo phân loại
@@ -159,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
                 if(locMonAn.size() == 0) txtTitle.setText("Khong co du lieu");
                 myAdapter = new MyAdapter(MainActivity.this, R.layout.item_monan, locMonAn);
                 lvHienThiMonAn.setAdapter(myAdapter);
+                tabHost.setCurrentTab(0);
             }
         });
         //button khi nhan vào sẽ reset trạng thái về những món mới
@@ -187,13 +232,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setControl() {
+        menuOnlineDatabase = new MenuOnlineDatabase(this);
         //Khoi tao tabhost chứa các tab con
-        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
+        tabHost = (TabHost) findViewById(R.id.tabHost);
         tabHost.setup();
 
         //tao cac tab con
         TabHost.TabSpec tab1 = tabHost.newTabSpec("t1");
-        tab1.setIndicator("Mới");
+        tab1.setIndicator("Home");
         tab1.setContent(R.id.tab1);
         TabHost.TabSpec tab2 = tabHost.newTabSpec("t2");
         tab2.setIndicator("Phân loại");

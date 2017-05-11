@@ -27,11 +27,13 @@ public class DonHangAdapter extends ArrayAdapter<MonAn> {
     Context context;
     int resource;
     ArrayList<MonAn> objects;
-    public DonHangAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<MonAn> objects) {
+    TextView totalCost;
+    public DonHangAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<MonAn> objects, TextView totalCost) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
         this.objects = objects;
+        this.totalCost = totalCost;
     }
 
     @NonNull
@@ -64,27 +66,40 @@ public class DonHangAdapter extends ArrayAdapter<MonAn> {
         viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                float total = 0;
                 menuOnlineDatabase.deleteDonHang(monAn.getMaMonAn());
                 objects.remove(position);
+                for(int i=0; i<menuOnlineDatabase.getDonHang().size(); i++){
+                    total += menuOnlineDatabase.getDonHang().get(i).getGiaTien()*menuOnlineDatabase.getDonHang().get(i).getSoLuong();
+                }
                 notifyDataSetChanged();
+                totalCost.setText(String.valueOf(total));
             }
         });
         viewHolder.btnInc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                float total = 0;
                 int inc = menuOnlineDatabase.getCount(monAn.getMaMonAn())+1;
                 menuOnlineDatabase.updateDonHang(monAn.getMaMonAn(), inc);
-//                viewHolder.txtCount.setText(String.valueOf(inc));
+                for(int i=0; i<menuOnlineDatabase.getDonHang().size(); i++){
+                    total += menuOnlineDatabase.getDonHang().get(i).getGiaTien()*menuOnlineDatabase.getDonHang().get(i).getSoLuong();
+                }
                 notifyDataSetChanged();
+                totalCost.setText(String.valueOf(total));
             }
         });
         viewHolder.btnDec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                float total = 0;
                 int dec = menuOnlineDatabase.getCount(monAn.getMaMonAn())-1;
                 menuOnlineDatabase.updateDonHang(monAn.getMaMonAn(), dec);
-//                viewHolder.txtCount.setText(String.valueOf(dec));
+                for(int i=0; i<menuOnlineDatabase.getDonHang().size(); i++){
+                    total += menuOnlineDatabase.getDonHang().get(i).getGiaTien()*menuOnlineDatabase.getDonHang().get(i).getSoLuong();
+                }
                 notifyDataSetChanged();
+                totalCost.setText(String.valueOf(total));
             }
         });
 

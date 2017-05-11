@@ -37,7 +37,7 @@ public class DonHang extends AppCompatActivity {
         btnClear = (Button) findViewById(R.id.btnClear);
 
         monAnArrayList = menuOnlineDatabase.getDonHang();
-        donHangAdapter = new DonHangAdapter(DonHang.this, R.layout.item_donhang, monAnArrayList);
+        donHangAdapter = new DonHangAdapter(DonHang.this, R.layout.item_donhang, monAnArrayList, txtTotalCost);
         lvDonHang = (ListView) findViewById(R.id.lvDonHang);
         lvDonHang.setAdapter(donHangAdapter);
 
