@@ -6,7 +6,7 @@
     tools:context="com.example.admin.menu_online.MainActivity"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
@@ -17,11 +17,18 @@
             android:layout_height="50dp"
             android:background="@drawable/white_menu_icon"/>
         <ImageView
+            android:id="@+id/ImgApp"
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:background="@drawable/logo"
-            android:layout_marginLeft="40dp"/>
-    </LinearLayout>
+            android:layout_marginLeft="40dp"
+            android:layout_centerInParent="true"/>
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/menu3cham_icon_png_3"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
     <TabHost
         android:id="@+id/tabHost"
         android:layout_width="match_parent"

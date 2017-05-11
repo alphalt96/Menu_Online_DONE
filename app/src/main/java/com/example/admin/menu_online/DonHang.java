@@ -50,7 +50,7 @@ public class DonHang extends AppCompatActivity {
                     monAnArrayList.clear();
                     donHangAdapter.notifyDataSetChanged();
                     Toast.makeText(DonHang.this, "Cam on ban da mua hang", Toast.LENGTH_SHORT).show();
-                    txtTotalCost.setText("0");
+                    txtTotalCost.setText("0.0");
                 } else Toast.makeText(DonHang.this, "Ban chua co mat hang nao hien tai", Toast.LENGTH_SHORT).show();
             }
         });
@@ -60,7 +60,7 @@ public class DonHang extends AppCompatActivity {
                 menuOnlineDatabase.deleteAllDonHang();
                 monAnArrayList.clear();
                 donHangAdapter.notifyDataSetChanged();
-                txtTotalCost.setText("0");
+                txtTotalCost.setText("0.0");
             }
         });
         for(int i=0; i<menuOnlineDatabase.getDonHang().size(); i++){

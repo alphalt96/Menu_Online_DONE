@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -39,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapterCity;
     private ListView lvHienThiMonAn, lvCity, lvLoaiMonAn;
     private TextView txtTitle;
-    private Button btnNewMonAn, btnNewQuanAn, btnMenu;
+    private EditText txtSearch;
+    private Button btnNewMonAn, btnNewQuanAn, btnMenu, btnSearch;
+    private ImageView imgApp;
 
     TabHost tabHost;
     String loaiMonAn="", thanhPho="";
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         setControl();
         setEvent();
     }
+
 
     private void setEvent() {
         btnMenu.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 popupMenu.show();
             }
         });
+        //nut search
         lvHienThiMonAn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -257,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
         btnMenu = (Button) findViewById(R.id.btnMenu);
         MonAnManager.getsInstance(MainActivity.this).load();
         monAnNoiBat = MonAnManager.getsInstance(MainActivity.this).getDanhSachMonMoi();
+
 
         myAdapter = new MyAdapter(this, R.layout.item_monan, monAnNoiBat);
         lvHienThiMonAn = (ListView) findViewById(R.id.lvHienThiMonAn);

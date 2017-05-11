@@ -2,9 +2,8 @@ package com.example.admin.menu_online;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -156,6 +155,8 @@ public class UserLogin extends AppCompatActivity {
 
                 HideEdit();
                 ShowInfoText();
+
+                Toast.makeText(UserLogin.this, "Luu thong tin thanh cong", Toast.LENGTH_SHORT).show();
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {

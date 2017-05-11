@@ -11,13 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admin.menu_online.Database.MenuOnlineDatabase;
 import com.example.admin.menu_online.R;
 import com.example.admin.menu_online.models.MonAn;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Yep on 10/5/2017.
@@ -94,12 +94,15 @@ public class DonHangAdapter extends ArrayAdapter<MonAn> {
             public void onClick(View v) {
                 float total = 0;
                 int dec = menuOnlineDatabase.getCount(monAn.getMaMonAn())-1;
-                menuOnlineDatabase.updateDonHang(monAn.getMaMonAn(), dec);
-                for(int i=0; i<menuOnlineDatabase.getDonHang().size(); i++){
-                    total += menuOnlineDatabase.getDonHang().get(i).getGiaTien()*menuOnlineDatabase.getDonHang().get(i).getSoLuong();
-                }
-                notifyDataSetChanged();
-                totalCost.setText(String.valueOf(total));
+                if(dec>0) {
+                    menuOnlineDatabase.updateDonHang(monAn.getMaMonAn(), dec);
+                    for (int i = 0; i < menuOnlineDatabase.getDonHang().size(); i++) {
+                        total += menuOnlineDatabase.getDonHang().get(i).getGiaTien() * menuOnlineDatabase.getDonHang().get(i).getSoLuong();
+                    }
+                    //notifyDataSetChanged de cap nhat thay doi so luong hien thi tren ListView
+                    notifyDataSetChanged();
+                    totalCost.setText(String.valueOf(total));
+                } else Toast.makeText(context, "Khong de giam so luong xuong", Toast.LENGTH_SHORT).show();
             }
         });
 

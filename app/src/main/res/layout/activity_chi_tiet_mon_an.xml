@@ -5,8 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.admin.menu_online.ChiTietMonAn"
-    android:orientation="vertical">
-    
+    android:orientation="vertical"
+    android:background="#cac4c4">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#aba3a3">
+        <Button
+            android:id="@+id/btnReturn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/return_icon_png"
+            android:layout_centerVertical="true"/>
+        <Button
+            android:id="@+id/btnAddCart"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/addcart_icon_png"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
     <TextView
         android:id="@+id/txtRenTen"
         android:layout_width="match_parent"
@@ -18,19 +36,31 @@
         android:gravity="center_vertical"/>
     <ImageView
         android:id="@+id/imgMonAn"
+        android:layout_width="365dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"/>
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="#b2b8c2"/>
-    <TextView
-        android:id="@+id/txtRenSoLuong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:id="@+id/txtRenViTri"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="20dp" />
+    <LinearLayout
+        android:layout_width="365dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/border_detail"
+        android:layout_gravity="center"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/txtRenSoLuong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/txtRenViTri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"/>
+    </LinearLayout>
 
 </LinearLayout>
