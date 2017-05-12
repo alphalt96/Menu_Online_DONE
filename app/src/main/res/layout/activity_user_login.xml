@@ -16,7 +16,7 @@
     <LinearLayout
         android:id="@+id/layoutUnLogged"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center">
         <ImageView
@@ -52,6 +52,18 @@
             android:inputType="textPassword"
             android:drawableLeft="@drawable/password_icon_png"
             android:hint="password"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="7dp" />
+        <Button
+            android:id="@+id/btnSignOn"
+            android:layout_width="250dp"
+            android:layout_height="30dp"
+            android:background="@drawable/border_register_button"
+            android:text="Click here to register"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,12 +74,20 @@
                 android:layout_width="125dp"
                 android:layout_height="50dp"
                 android:background="@drawable/login_button"/>
-            <Button
-                android:id="@+id/btnSignOn"
-                android:layout_width="125dp"
-                android:layout_height="50dp"
-                android:background="@drawable/register_button"/>
         </LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="70dp" />
+        <Button
+            android:id="@+id/btnForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:background="#fff"
+            android:textStyle="normal"
+            android:textColor="#747171"
+            android:text="Forgot your password?"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
     <LinearLayout

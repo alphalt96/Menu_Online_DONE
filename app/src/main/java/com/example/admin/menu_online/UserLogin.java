@@ -23,7 +23,7 @@ public class UserLogin extends AppCompatActivity {
     private ImageView imgLogin;
     private TextView txtUsernameTitle, txtPasswordTitle;
     private EditText txtUsernameLogin, txtPasswordLogin, txtEditUsername, txtEditPassword, txtEditAddress;;
-    private Button btnLogin, btnSignOn, btnEdit, btnShip, btnLogout, btnBack, btnSave, btnCancel;
+    private Button btnLogin, btnSignOn, btnEdit, btnShip, btnLogout, btnBack, btnSave, btnCancel, btnForgotPassword;
     private TextView txtHienThiUsername, txtHienThiPassword, txtHienThiAddress;
 
     private MenuOnlineDatabase menuOnlineDatabase;
@@ -54,6 +54,7 @@ public class UserLogin extends AppCompatActivity {
         btnBack = (Button) findViewById(R.id.btnBack);
         btnSave = (Button) findViewById(R.id.btnSave);
         btnCancel = (Button) findViewById(R.id.btnCancel);
+        btnForgotPassword = (Button) findViewById(R.id.btnForgotPassword);
         txtHienThiUsername = (TextView) findViewById(R.id.txtHienThiUsername);
         txtHienThiPassword = (TextView) findViewById(R.id.txtHienThiPassword);
         txtHienThiAddress = (TextView) findViewById(R.id.txtHienThiAddress);
@@ -173,6 +174,12 @@ public class UserLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(UserLogin.this, DonHang.class));
+            }
+        });
+        btnForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(UserLogin.this, "Just forget it and create a new account", Toast.LENGTH_SHORT).show();
             }
         });
     }

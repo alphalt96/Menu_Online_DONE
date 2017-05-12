@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.example.admin.menu_online.models.MonAn;
 import com.example.admin.menu_online.models.QuanAn;
@@ -227,6 +226,27 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         return list;
     }
 
+    //get new MONAN
+    public ArrayList<MonAn> getNewMonAn(){
+        ArrayList<MonAn> list = new ArrayList<>();
+        MonAn monAn;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor values = db.rawQuery("select * from (select * from MONAN order by maMonAn ASC limit 10) order by maMonAn DESC", null);
+        values.moveToFirst();
+        while(!values.isAfterLast()){
+            monAn = new MonAn();
+            monAn.setMaMonAn(values.getInt(values.getColumnIndex(MONAN_COLUMN_maMonAn)));
+            monAn.setTenMonAn(values.getString(values.getColumnIndex(MONAN_COLUMN_tenMonAn)));
+            monAn.setSoLuong(values.getInt(values.getColumnIndex(MONAN_COLUMN_soLuong)));
+            monAn.setImage(values.getInt(values.getColumnIndex(MONAN_COLUMN_image)));
+            monAn.setViTri(values.getString(values.getColumnIndex(MONAN_COLUMN_viTri)));
+            monAn.setLoaiMonAn(values.getString(values.getColumnIndex(MONAN_COLUMN_loaiMonAn)));
+            monAn.setGiaTien(values.getFloat(values.getColumnIndex(MONAN_COLUMN_giaTien)));
+            list.add(monAn);
+            values.moveToNext();
+        }
+        return list;
+    }
     //get toan bo mon an
     public ArrayList<MonAn> getAllMonAn(){
         ArrayList<MonAn> list  = new ArrayList<>();
@@ -245,6 +265,47 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
             monAn.setGiaTien(cursor.getFloat(cursor.getColumnIndex(MONAN_COLUMN_giaTien)));
             list.add(monAn);
             cursor.moveToNext();
+        }
+        return list;
+    }
+    //get new QUANAN
+    public ArrayList<QuanAn> getNewQuanAn(){
+        ArrayList<QuanAn> list  = new ArrayList<>();
+        QuanAn quanAn;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from (select * from QUANAN order by maQuan ASC limit 5) order by maQuan DESC", null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()) {
+            try {
+                quanAn = new QuanAn();
+                quanAn.setTenQuan(cursor.getString(cursor.getColumnIndex(QUANAN_COLUMN_tenQuan)));
+                quanAn.setDiaChi(cursor.getString(cursor.getColumnIndex(QUANAN_COLUMN_diaChi)));
+                quanAn.setThanhPho(cursor.getString(cursor.getColumnIndex(QUANAN_COLUMN_thanhPho)));
+                quanAn.setImg(cursor.getInt(cursor.getColumnIndex(QUANAN_COLUMN_img)));
+                ArrayList<MonAn> monAnList = new ArrayList<>();
+                MonAn monAn;
+                String get = cursor.getString(cursor.getColumnIndex(QUANAN_COLUMN_monAnList));
+                String[] arr = get.split(" ");
+                Cursor ahihi;
+                for (int i = 0; i < arr.length; i++) {
+                    ahihi = db.rawQuery("select * from MONAN where maMonAn = "+arr[i], null);
+                    ahihi.moveToFirst();
+                    monAn = new MonAn();
+                    monAn.setMaMonAn(ahihi.getInt(ahihi.getColumnIndex(MONAN_COLUMN_maMonAn)));
+                    monAn.setTenMonAn(ahihi.getString(ahihi.getColumnIndex(MONAN_COLUMN_tenMonAn)));
+                    monAn.setSoLuong(ahihi.getInt(ahihi.getColumnIndex(MONAN_COLUMN_soLuong)));
+                    monAn.setImage(ahihi.getInt(ahihi.getColumnIndex(MONAN_COLUMN_image)));
+                    monAn.setViTri(ahihi.getString(ahihi.getColumnIndex(MONAN_COLUMN_viTri)));
+                    monAn.setLoaiMonAn(ahihi.getString(ahihi.getColumnIndex(MONAN_COLUMN_loaiMonAn)));
+                    monAn.setGiaTien(ahihi.getFloat(ahihi.getColumnIndex(MONAN_COLUMN_giaTien)));
+                    monAnList.add(monAn);
+                }
+                quanAn.setMonAnList(monAnList);
+                list.add(quanAn);
+                cursor.moveToNext();
+            } catch (Exception e) {
+
+            }
         }
         return list;
     }

@@ -21,6 +21,7 @@ import com.example.admin.menu_online.Database.MenuOnlineDatabase;
 import com.example.admin.menu_online.adapters.LoaiMonAnAdapter;
 import com.example.admin.menu_online.adapters.MyAdapter;
 import com.example.admin.menu_online.adapters.QuanAnAdapter;
+import com.example.admin.menu_online.controller.LoadDatabaseControl;
 import com.example.admin.menu_online.controller.MonAnManager;
 import com.example.admin.menu_online.controller.QuanAnManager;
 import com.example.admin.menu_online.models.MonAn;
@@ -238,7 +239,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setControl() {
+        //Dem so lan start up app
+        LoadDatabaseControl.getsInstance(this).increaseCountStartUpApp();
         menuOnlineDatabase = new MenuOnlineDatabase(this);
+        //Nap du lieu cho lan run app dau tien
+        MonAnManager.getsInstance(this).LoadData();
+        QuanAnManager.getsInstance(this).load();
         //Khoi tao tabhost chứa các tab con
         tabHost = (TabHost) findViewById(R.id.tabHost);
         tabHost.setup();
@@ -261,7 +267,6 @@ public class MainActivity extends AppCompatActivity {
         btnNewMonAn = (Button) findViewById(R.id.btnNewMonAn);
         btnNewQuanAn = (Button) findViewById(R.id.btnNewQuanAn);
         btnMenu = (Button) findViewById(R.id.btnMenu);
-        MonAnManager.getsInstance(MainActivity.this).load();
         monAnNoiBat = MonAnManager.getsInstance(MainActivity.this).getDanhSachMonMoi();
 
 

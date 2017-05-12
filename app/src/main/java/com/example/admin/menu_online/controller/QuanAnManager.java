@@ -4,14 +4,11 @@ import android.content.Context;
 
 import com.example.admin.menu_online.Database.MenuOnlineDatabase;
 import com.example.admin.menu_online.R;
-
-import java.util.ArrayList;
-import java.util.Random;
-
 import com.example.admin.menu_online.models.MonAn;
 import com.example.admin.menu_online.models.QuanAn;
 
-import org.json.JSONArray;
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Anh on 4/22/2017.
@@ -34,7 +31,7 @@ public class QuanAnManager {
     };
     private String[] city = {"Hà Nội, Huế, Đà Nẵng, Hồ Chí Minh"};
     private MenuOnlineDatabase db;
-    Context context;
+    private Context context;
     private QuanAnManager(Context context){
         danhSachQuan = new ArrayList<>();
         danhSachQuanMoi = new ArrayList<>();
@@ -68,27 +65,7 @@ public class QuanAnManager {
 
 
     private void fakeDataNew(){
-        danhSachQuanMoi.add(new QuanAn("Quán 1", "Địa chỉ 1", "Đà Nẵng", R.drawable.quan1));
-        danhSachQuanMoi.add(new QuanAn("Quán 2", "Địa chỉ 2", "Hà Nội",R.drawable.quan2));
-        danhSachQuanMoi.add(new QuanAn("Quán 3", "Địa chỉ 3", "Huế", R.drawable.quan3));
-        danhSachQuanMoi.add(new QuanAn("Quán 4", "Địa chỉ 4", "Hồ Chí Minh", R.drawable.quan4));
-        danhSachQuanMoi.add(new QuanAn("Quán 5", "Địa chỉ 5", "Huế", R.drawable.quan5));
-
-//        for(int i=0; i<5; i++){
-//            ArrayList<MonAn> list = MonAnManager.getsInstance().getDanhSachMonAn();
-//            for(int j=0; j<5; j++){
-//                Random random = new Random();
-//                int ran = random.nextInt(list.size());
-//                //random de chon 1 mon trong ds mon man cua MonAnManager
-//                danhSachQuanMoi.get(i).getMonAnList().add(list.get(ran));
-//                //Phía dưới là lọc random theo id của món, còn trên là lọc random theo stt trong arraylist
-////                for(int k=0; k<list.size(); k++){
-////                    if(list.get(k).getMaMonAn() == ran) {
-////                        danhSachQuanMoi.get(i).getMonAnList().add(list.get(k));
-////                    }
-////                }
-//            }
-//        }
+        danhSachQuanMoi = db.getNewQuanAn();
     }
     private void fakeData(Context context){
 //        db.insertQuanAn("Quán 1", "Địa chỉ 1", "Đà Nẵng", R.drawable.quan1));
@@ -118,37 +95,30 @@ public class QuanAnManager {
 //            }
 //        }
         //giai phong du lieu truoc khi nao lai
-        db.releaseDataQuanAn();
-        for(int i=0; i<17; i++){
-            ArrayList<MonAn> list = MonAnManager.getsInstance(context).getDanhSachMonAn();
+//        db.releaseDataQuanAn();
+        if(LoadDatabaseControl.getsInstance(context).isFirstLoadApp()) {
+            for (int i = 0; i < 17; i++) {
+                ArrayList<MonAn> list = MonAnManager.getsInstance(context).getDanhSachMonAn();
 //            ArrayList<MonAn> res = new ArrayList<>();
-            String idStr ="";
-            for(int j=0; j<5; j++){
-                Random random = new Random();
-                int ran = random.nextInt(list.size());
-                //random de chon 1 mon trong ds mon man cua MonAnManager
+                String idStr = "";
+                for (int j = 0; j < 5; j++) {
+                    Random random = new Random();
+                    int ran = random.nextInt(list.size());
+                    //random de chon 1 mon trong ds mon man cua MonAnManager
 //                res.add(list.get(ran));
-                if(j!=4) idStr += (ran+1) + " ";
-                else idStr += (ran+1);
-            }
+                    if (j != 4) idStr += (ran + 1) + " ";
+                    else idStr += (ran + 1);
+                }
 //            JSONArray jsonArray = new JSONArray(res);
-            //chon ra thanh pho ngau nhien de them vao
-            Random ran1 = new Random();
-            Random ran2 = new Random();
-            String choose = city[ran1.nextInt(city.length)];
-            //chon ra hinh anh quan an ngau nhien
-            int img = imgList[ran2.nextInt(imgList.length)];
-            db.insertQuanAn("Quán "+(i+1), "Địa chỉ "+(i+1),choose, img, idStr);
+                //chon ra thanh pho ngau nhien de them vao
+                Random ran1 = new Random();
+                Random ran2 = new Random();
+                String choose = city[ran1.nextInt(city.length)];
+                //chon ra hinh anh quan an ngau nhien
+                int img = imgList[ran2.nextInt(imgList.length)];
+                db.insertQuanAn("Quán " + (i + 1), "Địa chỉ " + (i + 1), choose, img, idStr);
+            }
         }
-//        db.insertQuanAn("Quán 1", "Địa chỉ 1","Đà Nẵng", R.drawable.quan1, "2 6 9 10 15");
-//        db.insertQuanAn("Quán 2", "Địa chỉ 2","Đà Nẵng", R.drawable.quan2, "2 6 9 10 15");
-//        db.insertQuanAn("Quán 3", "Địa chỉ 3","Đà Nẵng", R.drawable.quan3, "2 6 9 10 15");
-//        db.insertQuanAn("Quán 4", "Địa chỉ 4","Đà Nẵng", R.drawable.quan4, "2 6 9 10 15");
-//        db.insertQuanAn("Quán 5", "Địa chỉ 5","Đà Nẵng", R.drawable.quan5, "2 6 9 10 15");
-//        db.insertQuanAn("Quán 6", "Địa chỉ 6","Đà Nẵng", R.drawable.quan6, "2 6 9 10 15");
-//        db.insertQuanAn("Quán 7", "Địa chỉ 7","Đà Nẵng", R.drawable.quan7, "2 6 9 10 15");
-//        db.insertQuanAn("Quán 8", "Địa chỉ 8","Đà Nẵng", R.drawable.quan8, "2 6 9 10 15");
-
         danhSachQuan = db.getAllQuanAn();
     }
 }
