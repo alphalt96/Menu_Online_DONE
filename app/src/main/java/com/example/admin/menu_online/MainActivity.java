@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText txtSearch;
     private Button btnNewMonAn, btnNewQuanAn, btnMenu, btnSearch;
     private ImageView imgApp;
+    private Toolbar toolbar;
 
     TabHost tabHost;
     String loaiMonAn="", thanhPho="";
@@ -60,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
         setEvent();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tabHost.setCurrentTab(0);
+    }
 
     private void setEvent() {
         btnMenu.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +93,10 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Version 1.1.3.1415926535897932", Toast.LENGTH_SHORT).show();
                         }
                         else if(id == R.id.user){
-                            startActivity(new Intent(MainActivity.this, UserLogin.class));
+                            SharedPreferences sharedPreferences = getSharedPreferences("userinfo", MODE_PRIVATE);
+                            if(sharedPreferences.getInt("USERID", 0) == 0)
+                                startActivity(new Intent(MainActivity.this, UserLogin.class));
+                            else startActivity(new Intent(MainActivity.this, UserInfo.class));
                         }
                         return false;
                     }
@@ -263,11 +274,16 @@ public class MainActivity extends AppCompatActivity {
         tabHost.addTab(tab2);
         tabHost.addTab(tab3);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         txtTitle = (TextView) findViewById(R.id.txtTitle);
         btnNewMonAn = (Button) findViewById(R.id.btnNewMonAn);
         btnNewQuanAn = (Button) findViewById(R.id.btnNewQuanAn);
         btnMenu = (Button) findViewById(R.id.btnMenu);
         monAnNoiBat = MonAnManager.getsInstance(MainActivity.this).getDanhSachMonMoi();
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
         myAdapter = new MyAdapter(this, R.layout.item_monan, monAnNoiBat);
@@ -307,5 +323,27 @@ public class MainActivity extends AppCompatActivity {
         loaiMonAnAdapter = new LoaiMonAnAdapter(this, R.layout.item_loaimonan, loaimonanList, arrImgLoaiMonAn);
         lvLoaiMonAn = (ListView) findViewById(R.id.lvLoaiMonAn);
         lvLoaiMonAn.setAdapter(loaiMonAnAdapter);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu
+        getMenuInflater().inflate(R.menu.title_menu, menu);
+        MenuItem item = menu.findItem(R.id.search);
+        item.setVisible(false);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here.
+        int id = item.getItemId();
+        if (id == R.id.search) {
+            startActivity(new Intent(MainActivity.this, MenuMonAn.class));
+
+        } else if (id == R.id.cart) {
+            if(getSharedPreferences("userinfo", MODE_PRIVATE).getInt("USERID", 0) != 0)
+                startActivity(new Intent(MainActivity.this, UserInfo.class).putExtra("CART", true));
+            else Toast.makeText(MainActivity.this, "Ban can dang nhap de thuc hien chuc nang nay", Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

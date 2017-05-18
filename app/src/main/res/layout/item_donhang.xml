@@ -10,17 +10,17 @@
         <ImageView
             android:id="@+id/imgDonHang"
             android:layout_width="100dp"
-            android:layout_height="120dp"
+            android:layout_height="80dp"
             android:background="@drawable/mon_an_7"/>
         <LinearLayout
             android:layout_width="170dp"
-            android:layout_height="120dp"
+            android:layout_height="80dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txtTenDonHang"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="55dp"
                 android:gravity="center_vertical"
                 android:text="Cut lon xao me ahihi"
                 android:textColor="#000"
@@ -29,7 +29,7 @@
             <TextView
                 android:id="@+id/txtGiaDonhang"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="25dp"
                 android:gravity="center"
                 android:text="30000VND"
                 android:textColor="#c72424"
@@ -38,32 +38,37 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="50dp"
-            android:layout_height="match_parent"
+            android:layout_height="80dp"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center_horizontal">
             <Button
                 android:id="@+id/btnInc"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_height="25dp"
                 android:text="+"
                 android:background="#fff"/>
             <EditText
                 android:id="@+id/txtCount"
                 android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_height="30dp"
                 android:text="1"
-                android:gravity="center"/>
+                android:textSize="8sp"
+                android:background="#847f7f"
+                android:textColor="#e6dede"
+                android:gravity="center"
+                android:clickable="false"
+                android:enabled="false"/>
             <Button
                 android:id="@+id/btnDec"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_height="25dp"
                 android:text="-"
                 android:background="#fff"/>
         </LinearLayout>
         <Button
             android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="80dp"
             android:text="delete"
             android:background="#fff"/>
     </LinearLayout>

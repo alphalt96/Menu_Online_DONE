@@ -1,7 +1,9 @@
 package com.example.admin.menu_online;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 
 public class DonHang extends AppCompatActivity {
 
+    private Toolbar toolbar;
     Button btnShip, btnClear;
     TextView txtTotalCost;
 
@@ -32,6 +35,10 @@ public class DonHang extends AppCompatActivity {
 
         final MenuOnlineDatabase menuOnlineDatabase = new MenuOnlineDatabase(this);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         txtTotalCost = (TextView) findViewById(R.id.txtTotalcost);
         btnShip = (Button) findViewById(R.id.btnShip);
         btnClear = (Button) findViewById(R.id.btnClear);
@@ -67,5 +74,12 @@ public class DonHang extends AppCompatActivity {
             tongTien += menuOnlineDatabase.getDonHang().get(i).getGiaTien()*menuOnlineDatabase.getDonHang().get(i).getSoLuong();
         }
         txtTotalCost.setText(String.valueOf(tongTien));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home) finish();
+        return super.onOptionsItemSelected(item);
     }
 }

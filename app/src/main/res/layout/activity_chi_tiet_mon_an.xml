@@ -7,24 +7,9 @@
     tools:context="com.example.admin.menu_online.ChiTietMonAn"
     android:orientation="vertical"
     android:background="#cac4c4">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#aba3a3">
-        <Button
-            android:id="@+id/btnReturn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/return_icon_png"
-            android:layout_centerVertical="true"/>
-        <Button
-            android:id="@+id/btnAddCart"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/addcart_icon_png"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"/>
-    </RelativeLayout>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"></include>
     <TextView
         android:id="@+id/txtRenTen"
         android:layout_width="match_parent"

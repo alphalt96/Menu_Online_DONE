@@ -9,12 +9,16 @@ public class User {
     private String username;
     private String password;
     private String address;
+    private String soDienThoai;
+    private String email;
 
-    public User(int id, String username, String password, String address) {
+    public User(int id, String username, String password, String address, String soDienThoai, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.address = address;
+        this.soDienThoai = soDienThoai;
+        this.email = email;
     }
 
     public User() {
@@ -50,5 +54,21 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getSoDienThoai() {
+        return soDienThoai;
+    }
+
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

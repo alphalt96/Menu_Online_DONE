@@ -42,6 +42,8 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
     public static final String USER_COLUMN_username = "username";
     public static final String USER_COlUMN_password = "password";
     public static final String USER_COLUMN_address = "address";
+    public static final String USER_COLUMN_soDienThoai = "soDienThoai";
+    public static final String USER_COLUMN_email = "email";
 
     public static final String DATHANG_TABLE = "DATHANG";
 
@@ -58,7 +60,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
                 "(maQuan integer primary key, tenQuan text,diaChi text,thanhPho text, img integer, monAnList text)"
         );
         db.execSQL("create table USER " +
-                "(id integer primary key, username text, password text, address text)"
+                "(id integer primary key, username text, password text, address text, soDienThoai text, email text)"
         );
         db.execSQL("create table DATHANG " +
                 "(maMonAn integer primary key, tenMonAn text,soLuong integer,image integer, viTri text,loaiMonAn text, giaTien real)"
@@ -153,17 +155,21 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("username", username);
         values.put("password", password);
-        values.put("address", "none");
+        values.put("address", "");
+        values.put("soDienThoai", "");
+        values.put("email", "");
         db.insert("USER", null, values);
     }
 
     //update user profile
-    public void updateUser(String username, String password, String address){
+    public void updateUser(String username, String password, String address, String soDienThoai, String email){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("username", username);
         values.put("password", password);
         values.put("address", address);
+        values.put("soDienThoai", soDienThoai);
+        values.put("email", email);
         db.update("USER", values, "username = ?", new String[]{username});
     }
     //get so luong don hang
@@ -200,6 +206,8 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         user.setUsername(cursor.getString(cursor.getColumnIndex(USER_COLUMN_username)));
         user.setPassword(cursor.getString(cursor.getColumnIndex(USER_COlUMN_password)));
         user.setAddress(cursor.getString(cursor.getColumnIndex(USER_COLUMN_address)));
+        user.setSoDienThoai(cursor.getString(cursor.getColumnIndex(USER_COLUMN_soDienThoai)));
+        user.setSoDienThoai(cursor.getString(cursor.getColumnIndex(USER_COLUMN_email)));
         return user;
     }
     //lay thong tin don hang
@@ -253,6 +261,39 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         MonAn monAn;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from "+MONAN_TABLE, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            monAn = new MonAn();
+            monAn.setMaMonAn(cursor.getInt(cursor.getColumnIndex(MONAN_COLUMN_maMonAn)));
+            monAn.setTenMonAn(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_tenMonAn)));
+            monAn.setSoLuong(cursor.getInt(cursor.getColumnIndex(MONAN_COLUMN_soLuong)));
+            monAn.setImage(cursor.getInt(cursor.getColumnIndex(MONAN_COLUMN_image)));
+            monAn.setViTri(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_viTri)));
+            monAn.setLoaiMonAn(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_loaiMonAn)));
+            monAn.setGiaTien(cursor.getFloat(cursor.getColumnIndex(MONAN_COLUMN_giaTien)));
+            list.add(monAn);
+            cursor.moveToNext();
+        }
+        return list;
+    }
+    //get ten mon an cho hien thi autocompletetex
+    public ArrayList<String> getNameMonAn(){
+        ArrayList<String> list  = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select tenMonAn from "+MONAN_TABLE, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            list.add(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_tenMonAn)));
+            cursor.moveToNext();
+        }
+        return list;
+    }
+    //get mon an theo search
+    public ArrayList<MonAn> getAllMonAnSearch(String search){
+        ArrayList<MonAn> list  = new ArrayList<>();
+        MonAn monAn;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from "+MONAN_TABLE+ " where tenMonAn like '%"+search+"%'", null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             monAn = new MonAn();

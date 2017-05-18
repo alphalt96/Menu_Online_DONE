@@ -102,7 +102,7 @@ public class DonHangAdapter extends ArrayAdapter<MonAn> {
                     //notifyDataSetChanged de cap nhat thay doi so luong hien thi tren ListView
                     notifyDataSetChanged();
                     totalCost.setText(String.valueOf(total));
-                } else Toast.makeText(context, "Khong de giam so luong xuong", Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(context, "Khong the giam so luong xuong", Toast.LENGTH_SHORT).show();
             }
         });
 

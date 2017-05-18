@@ -6,6 +6,9 @@
     tools:context="com.example.admin.menu_online.MenuQuanAn"
     android:orientation="vertical">
 
+    <include
+        android:id="@id/toolbar"
+        layout="@layout/toolbar"></include>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

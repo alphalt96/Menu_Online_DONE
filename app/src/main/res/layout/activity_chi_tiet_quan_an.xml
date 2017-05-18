@@ -7,6 +7,9 @@
     tools:context="com.example.admin.menu_online.ChiTietQuanAn"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"></include>
     <ImageView
         android:id="@+id/imgQuanAn"
         android:layout_width="match_parent"

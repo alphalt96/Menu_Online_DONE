@@ -22,7 +22,8 @@
         <activity android:name=".MenuQuanAn" />
         <activity android:name=".UserLogin" />
         <activity android:name=".Register" />
-        <activity android:name=".DonHang"></activity>
+        <activity android:name=".DonHang" />
+        <activity android:name=".UserInfo"></activity>
     </application>
 
 </manifest>

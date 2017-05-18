@@ -7,6 +7,9 @@
     tools:context="com.example.admin.menu_online.DonHang"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_normal"></include>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

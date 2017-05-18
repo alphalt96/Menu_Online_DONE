@@ -15,13 +15,16 @@ import java.util.ArrayList;
 //singleton chi cho phep tao 1 the hien cua no chu khong cho tao ra nhieu doi tuong
 public class MonAnManager {
     private static MonAnManager sInstance = null;
-    private ArrayList<MonAn> danhSachMonAn, danhSachMonMoi;
+    private ArrayList<MonAn> danhSachMonAn, danhSachMonMoi, searchResults;
+    private ArrayList<String> danhSachTenMonAn;
     private MenuOnlineDatabase db;
     private Context context;
 
     private MonAnManager(Context context){
         danhSachMonAn = new ArrayList<MonAn>();
         danhSachMonMoi = new ArrayList<MonAn>();
+        searchResults = new ArrayList<MonAn>();
+        danhSachTenMonAn = new ArrayList<>();
         db = new MenuOnlineDatabase(context);
         this.context = context;
     }
@@ -43,6 +46,18 @@ public class MonAnManager {
             danhSachMonMoi = db.getNewMonAn();
         }
         return danhSachMonMoi;
+    }
+    public ArrayList<String> getDanhSachTenMonAn(){
+        if (danhSachTenMonAn.size() == 0){
+            danhSachTenMonAn.clear();
+            danhSachTenMonAn = db.getNameMonAn();
+        }
+        return danhSachTenMonAn;
+    }
+    public ArrayList<MonAn> getSearchResults(String search){
+        searchResults.clear();
+        searchResults = db.getAllMonAnSearch(search);
+        return searchResults;
     }
 
     public void LoadData(){
