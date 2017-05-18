@@ -3,8 +3,10 @@ package com.example.admin.menu_online;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,12 +22,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.admin.menu_online.Database.MenuOnlineDatabase;
+import com.example.admin.menu_online.adapters.ItemMenuAdapter;
 import com.example.admin.menu_online.adapters.LoaiMonAnAdapter;
 import com.example.admin.menu_online.adapters.MyAdapter;
 import com.example.admin.menu_online.adapters.QuanAnAdapter;
 import com.example.admin.menu_online.controller.LoadDatabaseControl;
 import com.example.admin.menu_online.controller.MonAnManager;
 import com.example.admin.menu_online.controller.QuanAnManager;
+import com.example.admin.menu_online.models.ItemMenu;
 import com.example.admin.menu_online.models.MonAn;
 import com.example.admin.menu_online.models.QuanAn;
 
@@ -35,13 +39,17 @@ public class MainActivity extends AppCompatActivity {
 
     MenuOnlineDatabase menuOnlineDatabase;
 
+    DrawerLayout drawerLayout;
+    ArrayList<ItemMenu> itemList;
     ArrayList<MonAn> monAnNoiBat, locMonAn;
     private String[] cityList, loaimonanList;
     private int[] arrImgLoaiMonAn;
+    private ItemMenuAdapter itemMenuAdapter;
     private MyAdapter myAdapter;
     private QuanAnAdapter quanAnAdapter;
     private LoaiMonAnAdapter loaiMonAnAdapter;
     private ArrayAdapter<String> adapterCity;
+    private ListView lvMenuDrawer;
     private ListView lvHienThiMonAn, lvCity, lvLoaiMonAn;
     private TextView txtTitle;
     private EditText txtSearch;
@@ -73,35 +81,38 @@ public class MainActivity extends AppCompatActivity {
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(MainActivity.this, btnMenu);
-                popupMenu.getMenuInflater().inflate(R.menu.main_menu, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        int id = item.getItemId();
-                        if(id == R.id.monAnList){
-                            Intent intent = new Intent(MainActivity.this, MenuMonAn.class);
-                            startActivity(intent);
-                        }
-                        else if(id == R.id.quanAnList){
-                            startActivity(new Intent(MainActivity.this, MenuQuanAn.class));
-                        }
-                        else if(id == R.id.ranking){
-                            Toast.makeText(getApplicationContext(), "Hiện chưa có chức năng này", Toast.LENGTH_SHORT).show();
-                        }
-                        else if(id == R.id.info){
-                            Toast.makeText(getApplicationContext(), "Version 1.1.3.1415926535897932", Toast.LENGTH_SHORT).show();
-                        }
-                        else if(id == R.id.user){
-                            SharedPreferences sharedPreferences = getSharedPreferences("userinfo", MODE_PRIVATE);
-                            if(sharedPreferences.getInt("USERID", 0) == 0)
-                                startActivity(new Intent(MainActivity.this, UserLogin.class));
-                            else startActivity(new Intent(MainActivity.this, UserInfo.class));
-                        }
-                        return false;
-                    }
-                });
-                popupMenu.show();
+//                PopupMenu popupMenu = new PopupMenu(MainActivity.this, btnMenu);
+//                popupMenu.getMenuInflater().inflate(R.menu.main_menu, popupMenu.getMenu());
+//                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem item) {
+//                        int id = item.getItemId();
+//                        if(id == R.id.monAnList){
+//                            Intent intent = new Intent(MainActivity.this, MenuMonAn.class);
+//                            startActivityn(intet);
+//                        }
+//                        else if(id == R.id.quanAnList){
+//                            startActivity(new Intent(MainActivity.this, MenuQuanAn.class));
+//                        }
+//                        else if(id == R.id.ranking){
+//                            Toast.makeText(getApplicationContext(), "Hiện chưa có chức năng này", Toast.LENGTH_SHORT).show();
+//                        }
+//                        else if(id == R.id.info){
+//                            Toast.makeText(getApplicationContext(), "Version 1.1.3.1415926535897932", Toast.LENGTH_SHORT).show();
+//                        }
+//                        else if(id == R.id.user){
+//                            SharedPreferences sharedPreferences = getSharedPreferences("userinfo", MODE_PRIVATE);
+//                            if(sharedPreferences.getInt("USERID", 0) == 0)
+//                                startActivity(new Intent(MainActivity.this, UserLogin.class));
+//                            else startActivity(new Intent(MainActivity.this, UserInfo.class));
+//                        }
+//                        return false;
+//                    }
+//                });
+//                popupMenu.show();
+                btnMenu.setVisibility(View.GONE);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                drawerLayout.openDrawer(GravityCompat.START);
             }
         });
         //nut search
@@ -277,6 +288,9 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        setupMenu();
+
         txtTitle = (TextView) findViewById(R.id.txtTitle);
         btnNewMonAn = (Button) findViewById(R.id.btnNewMonAn);
         btnNewQuanAn = (Button) findViewById(R.id.btnNewQuanAn);
@@ -324,6 +338,65 @@ public class MainActivity extends AppCompatActivity {
         lvLoaiMonAn = (ListView) findViewById(R.id.lvLoaiMonAn);
         lvLoaiMonAn.setAdapter(loaiMonAnAdapter);
     }
+
+    //khoi tao danh sach menu
+    public void addItemList(){
+        String[] nameItem = new String[]{"Món ăn", "Quán ăn", "User", "Rating", "Thông tin"};
+        int[] imgItem = new int[]{R.drawable.food_item_menu_icon_png_2,
+                R.drawable.restaurant_item_menu_icon_png_2,
+                R.drawable.user_item_menu_icon_png_2,
+                R.drawable.rating_menu_item_icon_png,
+                R.drawable.information_item_icon_png_2
+        };
+        ItemMenu itemMenu;
+        for(int i=0; i<5; i++){
+            itemMenu = new ItemMenu();
+            itemMenu.setIconImg(imgItem[i]);
+            itemMenu.setItemName(nameItem[i]);
+            itemList.add(itemMenu);
+        }
+    }
+    private void setupMenu(){
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        itemList = new ArrayList<>();
+        addItemList();
+        itemMenuAdapter = new ItemMenuAdapter(this, R.layout.drawer_menu_item, itemList);
+        lvMenuDrawer = (ListView) findViewById(R.id.lvMenuDrawer);
+        lvMenuDrawer.setAdapter(itemMenuAdapter);
+
+        ActionBarDrawerToggle slideAction =  new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                btnMenu.setVisibility(View.GONE);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                btnMenu.setVisibility(View.VISIBLE);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            }
+        }; drawerLayout.setDrawerListener(slideAction);
+
+        lvMenuDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0 : startActivity(new Intent(MainActivity.this, MenuMonAn.class)); break;
+                    case 1: startActivity(new Intent(MainActivity.this, MenuQuanAn.class)); break;
+                    case 2:
+                        if(getSharedPreferences("userinfo", MODE_PRIVATE).getInt("USERID", 0) == 0)
+                            startActivity(new Intent(MainActivity.this, UserLogin.class));
+                        else startActivity(new Intent(MainActivity.this, UserInfo.class));
+                        break;
+                    case 3: Toast.makeText(MainActivity.this, "Hiện chưa có chức năng này", Toast.LENGTH_SHORT).show(); break;
+                    case 4: Toast.makeText(MainActivity.this, "2.1.3.1415926535897932", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu
@@ -343,6 +416,10 @@ public class MainActivity extends AppCompatActivity {
             if(getSharedPreferences("userinfo", MODE_PRIVATE).getInt("USERID", 0) != 0)
                 startActivity(new Intent(MainActivity.this, UserInfo.class).putExtra("CART", true));
             else Toast.makeText(MainActivity.this, "Ban can dang nhap de thuc hien chuc nang nay", Toast.LENGTH_SHORT).show();
+        } else if (id == android.R.id.home){
+            drawerLayout.closeDrawer(GravityCompat.START);
+            btnMenu.setVisibility(View.VISIBLE);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
         return super.onOptionsItemSelected(item);
     }

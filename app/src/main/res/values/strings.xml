@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MenuOnline</string>
+    <string name="drawer_close">close</string>
+    <string name="drawer_open">open</string>
     <string-array name="city">
         <item>Hà Nội</item>
         <item>Huế</item>
