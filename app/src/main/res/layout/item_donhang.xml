@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/layoutDonHang"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
         <ImageView
             android:id="@+id/imgDonHang"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:background="@drawable/mon_an_7"/>
         <LinearLayout
-            android:layout_width="170dp"
+            android:layout_width="160dp"
             android:layout_height="80dp"
             android:orientation="vertical">
 
@@ -76,7 +77,9 @@
         android:layout_width="match_parent"
         android:layout_height="7dp" />
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="360dp"
         android:layout_height="1dp"
-        android:background="#e1dada"/>
-</LinearLayout>
+        android:background="#e1dada"
+        android:layout_below="@+id/layoutDonHang"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

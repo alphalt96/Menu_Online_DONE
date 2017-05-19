@@ -15,21 +15,22 @@
         android:gravity="center">
         <Button
             android:id="@+id/btnNewMonAn"
-            android:layout_width="185dp"
-            android:layout_height="wrap_content"
+            android:layout_width="190dp"
+            android:layout_height="30dp"
             android:text="Món mới"
             android:textStyle="bold"
-            android:background="#ceccb3b3"/>
+            android:background="#F47B68"/>
         <TextView
             android:layout_width="1dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="30dp"
+            android:background="#e3dbdb"/>
         <Button
             android:id="@+id/btnNewQuanAn"
-            android:layout_width="185dp"
-            android:layout_height="wrap_content"
+            android:layout_width="190dp"
+            android:layout_height="30dp"
             android:text="Quán mới"
             android:textStyle="bold"
-            android:background="#ceccb3b3"/>
+            android:background="#F47B68"/>
     </LinearLayout>
     <Space
         android:layout_width="match_parent"

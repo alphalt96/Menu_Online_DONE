@@ -2,6 +2,7 @@ package com.example.admin.menu_online;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -24,7 +25,7 @@ public class ChiTietMonAn extends AppCompatActivity {
     ImageView imgMonAn;
     Button  btnMenu;
     Toolbar toolbar;
-    TextView txtPapeName;
+    TextView txtLuotXem, txtLuotThich;
 
 
     @Override
@@ -44,17 +45,20 @@ public class ChiTietMonAn extends AppCompatActivity {
         menuOnlineDatabase = new MenuOnlineDatabase(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        txtPapeName = (TextView) findViewById(R.id.txtPapeName);
-        txtPapeName.setText("Mon An");
+        getSupportActionBar().setTitle("Món ăn");
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
         btnMenu = (Button) findViewById(R.id.btnMenu);
         btnMenu.setVisibility(View.GONE);
         txtRenTen = (TextView) findViewById(R.id.txtRenTen);
         imgMonAn = (ImageView) findViewById(R.id.imgMonAn);
         txtRenSoLuong = (TextView) findViewById(R.id.txtRenSoLuong);
         txtRenViTri = (TextView) findViewById(R.id.txtRenViTri);
+        txtLuotXem = (TextView) findViewById(R.id.txtLuotXem);
+        txtLuotThich = (TextView) findViewById(R.id.txtLuotThich);
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("bundle");
         MonAn monAn = (MonAn) bundle.getSerializable("detail");
@@ -62,6 +66,8 @@ public class ChiTietMonAn extends AppCompatActivity {
         imgMonAn.setBackgroundResource(monAn.getImage());
         txtRenSoLuong.setText(String.valueOf(monAn.getSoLuong()));
         txtRenViTri.setText(monAn.getViTri());
+        txtLuotXem.setText(String.valueOf(monAn.getLuotView()));
+        txtLuotThich.setText(String.valueOf(monAn.getLuotThich()));
     }
 
     @Override

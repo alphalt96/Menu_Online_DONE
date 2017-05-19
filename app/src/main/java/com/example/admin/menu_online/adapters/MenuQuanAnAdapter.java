@@ -15,7 +15,6 @@ import com.example.admin.menu_online.R;
 import com.example.admin.menu_online.models.QuanAn;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Yep on 29/4/2017.
@@ -42,6 +41,7 @@ public class MenuQuanAnAdapter extends ArrayAdapter<QuanAn> {
             viewHolder.imgQuanAn = (ImageView) convertView.findViewById(R.id.imgQuanAn);
             viewHolder.txtTenQuanAn = (TextView) convertView.findViewById(R.id.txtTenQuanAn);
             viewHolder.txtDiaChiQuanAn = (TextView) convertView.findViewById(R.id.txtDiaChiQuanAn);
+            viewHolder.txtViewNum = (TextView) convertView.findViewById(R.id.txtViewNum);
             convertView.setTag(viewHolder);
         }
         else viewHolder = (ViewHolder) convertView.getTag();
@@ -49,11 +49,13 @@ public class MenuQuanAnAdapter extends ArrayAdapter<QuanAn> {
         viewHolder.imgQuanAn.setBackgroundResource(objects.get(position).getImg());
         viewHolder.txtTenQuanAn.setText(objects.get(position).getTenQuan());
         viewHolder.txtDiaChiQuanAn.setText(objects.get(position).getDiaChi());
+        viewHolder.txtViewNum.setText(String.valueOf(objects.get(position).getViewNum()));
         return convertView;
     }
     private class ViewHolder{
         ImageView imgQuanAn;
         TextView txtTenQuanAn;
         TextView txtDiaChiQuanAn;
+        TextView txtViewNum;
     }
 }

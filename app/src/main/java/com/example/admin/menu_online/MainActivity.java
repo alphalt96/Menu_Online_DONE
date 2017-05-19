@@ -288,6 +288,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
 
         setupMenu();
 
@@ -296,8 +297,6 @@ public class MainActivity extends AppCompatActivity {
         btnNewQuanAn = (Button) findViewById(R.id.btnNewQuanAn);
         btnMenu = (Button) findViewById(R.id.btnMenu);
         monAnNoiBat = MonAnManager.getsInstance(MainActivity.this).getDanhSachMonMoi();
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
         myAdapter = new MyAdapter(this, R.layout.item_monan, monAnNoiBat);

@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".FirstLoadingApp.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +23,8 @@
         <activity android:name=".UserLogin" />
         <activity android:name=".Register" />
         <activity android:name=".DonHang" />
-        <activity android:name=".UserInfo"></activity>
+        <activity android:name=".UserInfo" />
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

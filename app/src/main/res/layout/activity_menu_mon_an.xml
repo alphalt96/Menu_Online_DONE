@@ -16,6 +16,6 @@
         android:id="@+id/gridMonAn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:numColumns="3"></GridView>
+        android:numColumns="2"></GridView>
 
 </LinearLayout>

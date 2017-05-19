@@ -2,13 +2,14 @@ package com.example.admin.menu_online;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
+import android.widget.ListView;
 
 import com.example.admin.menu_online.adapters.MenuQuanAnAdapter;
 import com.example.admin.menu_online.controller.QuanAnManager;
@@ -22,7 +23,7 @@ public class MenuQuanAn extends AppCompatActivity {
     Button btnMenu;
     ArrayList<QuanAn> quanAnList;
     MenuQuanAnAdapter menuQuanAnAdapter;
-    GridView gridMenuQuanAn;
+    ListView lvMenuQuanAn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class MenuQuanAn extends AppCompatActivity {
     }
 
     private void addEvents() {
-        gridMenuQuanAn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvMenuQuanAn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MenuQuanAn.this, ChiTietQuanAn.class);
@@ -48,14 +49,16 @@ public class MenuQuanAn extends AppCompatActivity {
     private void addControls() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
         getSupportActionBar().setTitle("Menu quán ăn");
         btnMenu = (Button) findViewById(R.id.btnMenu);
         btnMenu.setVisibility(View.GONE);
         quanAnList = QuanAnManager.getsInstance(this).getDanhSachQuan();
         menuQuanAnAdapter = new MenuQuanAnAdapter(this, R.layout.item_menu_quanan, quanAnList);
-        gridMenuQuanAn = (GridView) findViewById(R.id.gridMenuQuanAn);
-        gridMenuQuanAn.setAdapter(menuQuanAnAdapter);
+        lvMenuQuanAn = (ListView) findViewById(R.id.lvMenuQuanAn);
+        lvMenuQuanAn.setAdapter(menuQuanAnAdapter);
     }
 
     @Override

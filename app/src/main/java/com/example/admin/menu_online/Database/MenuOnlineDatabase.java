@@ -28,6 +28,8 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
     public static final String MONAN_COLUMN_viTri = "viTri";
     public static final String MONAN_COLUMN_loaiMonAn = "loaiMonAn";
     public static final String MONAN_COLUMN_giaTien = "giaTien";
+    public static final String MONAN_COLUMN_luotView = "luotView";
+    public static final String MONAN_COLUMN_luotThich = "luotThich";
 
     public static final String QUANAN_TABLE = "QUANAN";
     public static final String QUANAN_COLUMN_maQuan = "maQuan";
@@ -36,6 +38,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
     public static final String QUANAN_COLUMN_thanhPho = "thanhPho";
     public static final String QUANAN_COLUMN_img = "img";
     public static final String QUANAN_COLUMN_monAnList = "monAnList";
+    public static final String QUANAN_COLUMN_viewNum = "viewNum";
 
     public static final String USER_TABLE = "USER";
     public static final String USER_COLUMN_id = "id";
@@ -54,10 +57,10 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table MONAN " +
-                "(maMonAn integer primary key, tenMonAn text,soLuong integer,image integer, viTri text,loaiMonAn text, giaTien real)"
+                "(maMonAn integer primary key, tenMonAn text,soLuong integer,image integer, viTri text,loaiMonAn text, giaTien real, luotView integer, luotThich integer)"
         );
         db.execSQL("create table QUANAN " +
-                "(maQuan integer primary key, tenQuan text,diaChi text,thanhPho text, img integer, monAnList text)"
+                "(maQuan integer primary key, tenQuan text,diaChi text,thanhPho text, img integer, monAnList text, viewNum integer)"
         );
         db.execSQL("create table USER " +
                 "(id integer primary key, username text, password text, address text, soDienThoai text, email text)"
@@ -86,7 +89,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
     //insert mon an
-    public void insertMonAn(String tenMonAn,int image, int soLuong, String viTri, String loaiMonAn, float giaTien){
+    public void insertMonAn(String tenMonAn,int image, int soLuong, String viTri, String loaiMonAn, float giaTien, int luotView, int luotThich){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("tenMonAn", tenMonAn);
@@ -95,6 +98,8 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         values.put("viTri", viTri);
         values.put("loaiMonAn", loaiMonAn);
         values.put("giaTien", giaTien);
+        values.put("luotView", luotView);
+        values.put("luotThich", luotThich);
         db.insert(MONAN_TABLE, null, values);
     }
     //insert mon an dat hang
@@ -112,7 +117,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
     }
 
     //insert quan an
-    public void insertQuanAn(String tenQuan, String diaChi, String thanhPho, int img, String monAnList){
+    public void insertQuanAn(String tenQuan, String diaChi, String thanhPho, int img, String monAnList, int viewNum){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("tenQuan", tenQuan);
@@ -120,6 +125,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         values.put("thanhPho", thanhPho);
         values.put("img", img);
         values.put("monAnList", monAnList);
+        values.put("viewNum", viewNum);
         db.insert(QUANAN_TABLE, null, values);
     }
 
@@ -250,6 +256,8 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
             monAn.setViTri(values.getString(values.getColumnIndex(MONAN_COLUMN_viTri)));
             monAn.setLoaiMonAn(values.getString(values.getColumnIndex(MONAN_COLUMN_loaiMonAn)));
             monAn.setGiaTien(values.getFloat(values.getColumnIndex(MONAN_COLUMN_giaTien)));
+            monAn.setLuotView(values.getInt(values.getColumnIndex(MONAN_COLUMN_luotView)));
+            monAn.setLuotThich(values.getInt(values.getColumnIndex(MONAN_COLUMN_luotThich)));
             list.add(monAn);
             values.moveToNext();
         }
@@ -271,6 +279,8 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
             monAn.setViTri(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_viTri)));
             monAn.setLoaiMonAn(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_loaiMonAn)));
             monAn.setGiaTien(cursor.getFloat(cursor.getColumnIndex(MONAN_COLUMN_giaTien)));
+            monAn.setLuotView(cursor.getInt(cursor.getColumnIndex(MONAN_COLUMN_luotView)));
+            monAn.setLuotThich(cursor.getInt(cursor.getColumnIndex(MONAN_COLUMN_luotThich)));
             list.add(monAn);
             cursor.moveToNext();
         }
@@ -323,6 +333,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
                 quanAn.setDiaChi(cursor.getString(cursor.getColumnIndex(QUANAN_COLUMN_diaChi)));
                 quanAn.setThanhPho(cursor.getString(cursor.getColumnIndex(QUANAN_COLUMN_thanhPho)));
                 quanAn.setImg(cursor.getInt(cursor.getColumnIndex(QUANAN_COLUMN_img)));
+                quanAn.setViewNum(cursor.getInt(cursor.getColumnIndex(QUANAN_COLUMN_viewNum)));
                 ArrayList<MonAn> monAnList = new ArrayList<>();
                 MonAn monAn;
                 String get = cursor.getString(cursor.getColumnIndex(QUANAN_COLUMN_monAnList));
@@ -363,6 +374,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
                 quanAn.setDiaChi(cursor.getString(cursor.getColumnIndex(QUANAN_COLUMN_diaChi)));
                 quanAn.setThanhPho(cursor.getString(cursor.getColumnIndex(QUANAN_COLUMN_thanhPho)));
                 quanAn.setImg(cursor.getInt(cursor.getColumnIndex(QUANAN_COLUMN_img)));
+                quanAn.setViewNum(cursor.getInt(cursor.getColumnIndex(QUANAN_COLUMN_viewNum)));
                 // cach 1
 //                ArrayList<MonAn> monAnList = new ArrayList<>();
 //                MonAn monAn;

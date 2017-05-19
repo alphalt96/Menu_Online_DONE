@@ -9,7 +9,8 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="#000"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_marginLeft="5dp"/>
     <Space
         android:layout_width="10dp"
         android:layout_height="50dp" />

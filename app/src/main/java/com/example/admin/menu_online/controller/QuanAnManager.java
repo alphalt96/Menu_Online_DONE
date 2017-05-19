@@ -113,10 +113,12 @@ public class QuanAnManager {
                 //chon ra thanh pho ngau nhien de them vao
                 Random ran1 = new Random();
                 Random ran2 = new Random();
+                Random ran3 = new Random();
                 String choose = city[ran1.nextInt(city.length)];
                 //chon ra hinh anh quan an ngau nhien
                 int img = imgList[ran2.nextInt(imgList.length)];
-                db.insertQuanAn("Quán " + (i + 1), "Địa chỉ " + (i + 1), choose, img, idStr);
+                int viewNum = ran3.nextInt(1000);
+                db.insertQuanAn("Quán " + (i + 1), "Địa chỉ " + (i + 1), choose, img, idStr, viewNum);
             }
         }
         danhSachQuan = db.getAllQuanAn();

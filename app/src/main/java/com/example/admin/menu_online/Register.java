@@ -1,6 +1,7 @@
 package com.example.admin.menu_online;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -30,7 +31,9 @@ public class Register extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
         getSupportActionBar().setTitle("Đăng ký");
         btnMenu = (Button) findViewById(R.id.btnMenu);
         btnMenu.setVisibility(View.GONE);

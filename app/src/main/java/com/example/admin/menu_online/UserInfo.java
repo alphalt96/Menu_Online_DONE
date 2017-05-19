@@ -3,6 +3,7 @@ package com.example.admin.menu_online;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -69,8 +70,10 @@ public class UserInfo extends AppCompatActivity {
         menuOnlineDatabase = new MenuOnlineDatabase(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
         getSupportActionBar().setTitle("Người dùng");
         tabHost = (TabHost) findViewById(R.id.tabHost);
         tabHost.setup();
@@ -92,7 +95,6 @@ public class UserInfo extends AppCompatActivity {
         btnEdit = (Button) findViewById(R.id.btnEdit);
         btnCart = (Button) findViewById(R.id.btnCart);
         btnLogout = (Button) findViewById(R.id.btnLogout);
-        btnBack = (Button) findViewById(R.id.btnBack);
         btnSave = (Button) findViewById(R.id.btnSave);
         btnCancel = (Button) findViewById(R.id.btnCancel);
         btnMenu = (Button) findViewById(R.id.btnMenu);

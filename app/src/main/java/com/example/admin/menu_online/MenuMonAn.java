@@ -2,6 +2,7 @@ package com.example.admin.menu_online;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -56,8 +57,10 @@ public class MenuMonAn extends AppCompatActivity {
         menuOnlineDatabase = new MenuOnlineDatabase(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
         getSupportActionBar().setTitle("Menu món ăn");
         btnMenu = (Button) findViewById(R.id.btnMenu);
         btnMenu.setVisibility(View.GONE);
@@ -100,6 +103,8 @@ public class MenuMonAn extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home) finish();
+        else if(item.getItemId() == R.id.cart)
+            startActivity(new Intent(MenuMonAn.this, UserInfo.class));
         return super.onOptionsItemSelected(item);
     }
 }

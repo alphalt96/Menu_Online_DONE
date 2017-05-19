@@ -12,6 +12,7 @@ public class QuanAn implements Serializable {
     private String diaChi;
     private String thanhPho;
     private int img;
+    private int viewNum;
     private ArrayList<MonAn> MonAnList;
 
     public String getTenQuan() {
@@ -49,6 +50,14 @@ public class QuanAn implements Serializable {
     public QuanAn() {
     }
 
+    public int getViewNum() {
+        return viewNum;
+    }
+
+    public void setViewNum(int viewNum) {
+        this.viewNum = viewNum;
+    }
+
     public ArrayList<MonAn> getMonAnList() {
         return MonAnList;
     }
@@ -57,11 +66,12 @@ public class QuanAn implements Serializable {
         MonAnList = monAnList;
     }
 
-    public QuanAn(String tenQuan, String diaChi, String thanhPho, int img) {
+    public QuanAn(String tenQuan, String diaChi, String thanhPho, int img, int viewNum) {
         this.tenQuan = tenQuan;
         this.diaChi = diaChi;
         this.thanhPho = thanhPho;
         this.img = img;
         this.MonAnList = new ArrayList<>();
+        this.viewNum = viewNum;
     }
 }
