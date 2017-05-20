@@ -26,17 +26,10 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        menuOnlineDatabase = new MenuOnlineDatabase(this);
+        data();
 //        menuOnlineDatabase.insertUser("ahihi", "ahihi");
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
-        getSupportActionBar().setTitle("Đăng ký");
-        btnMenu = (Button) findViewById(R.id.btnMenu);
-        btnMenu.setVisibility(View.GONE);
+        setupToolbar();
         txtUsernameRegister = (TextView) findViewById(R.id.txtUsernameRegister);
         txtPasswordRegister = (TextView) findViewById(R.id.txtPasswordRegister);
         txtRepassword = (TextView) findViewById(R.id.txtRePassword);
@@ -64,6 +57,21 @@ public class Register extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void data() {
+        menuOnlineDatabase = new MenuOnlineDatabase(this);
+    }
+
+    private void setupToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
+        getSupportActionBar().setTitle("Đăng ký");
+        btnMenu = (Button) findViewById(R.id.btnMenu);
+        btnMenu.setVisibility(View.GONE);
     }
 
     @Override

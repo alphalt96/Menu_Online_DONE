@@ -47,6 +47,15 @@ public class MenuQuanAn extends AppCompatActivity {
     }
 
     private void addControls() {
+        setupToolbar();
+
+        quanAnList = QuanAnManager.getsInstance(this).getDanhSachQuan();
+        menuQuanAnAdapter = new MenuQuanAnAdapter(this, R.layout.item_menu_quanan, quanAnList);
+        lvMenuQuanAn = (ListView) findViewById(R.id.lvMenuQuanAn);
+        lvMenuQuanAn.setAdapter(menuQuanAnAdapter);
+    }
+
+    private void setupToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
@@ -55,10 +64,6 @@ public class MenuQuanAn extends AppCompatActivity {
         getSupportActionBar().setTitle("Menu quán ăn");
         btnMenu = (Button) findViewById(R.id.btnMenu);
         btnMenu.setVisibility(View.GONE);
-        quanAnList = QuanAnManager.getsInstance(this).getDanhSachQuan();
-        menuQuanAnAdapter = new MenuQuanAnAdapter(this, R.layout.item_menu_quanan, quanAnList);
-        lvMenuQuanAn = (ListView) findViewById(R.id.lvMenuQuanAn);
-        lvMenuQuanAn.setAdapter(menuQuanAnAdapter);
     }
 
     @Override

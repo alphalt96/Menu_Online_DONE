@@ -2,9 +2,9 @@ package com.example.admin.menu_online;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,13 +19,13 @@ import com.example.admin.menu_online.models.MonAn;
 
 public class ChiTietMonAn extends AppCompatActivity {
 
-    MenuOnlineDatabase menuOnlineDatabase;
+    private MenuOnlineDatabase menuOnlineDatabase;
 
-    TextView txtRenTen, txtRenSoLuong, txtRenViTri;
-    ImageView imgMonAn;
-    Button  btnMenu;
-    Toolbar toolbar;
-    TextView txtLuotXem, txtLuotThich;
+    private TextView txtRenTen, txtRenSoLuong, txtRenViTri;
+    private ImageView imgMonAn;
+    private Button  btnMenu;
+    private Toolbar toolbar;
+    private TextView txtLuotXem, txtLuotThich;
 
 
     @Override
@@ -42,8 +42,35 @@ public class ChiTietMonAn extends AppCompatActivity {
     }
 
     private void setControl() {
-        menuOnlineDatabase = new MenuOnlineDatabase(this);
+        data();
 
+        //setup toolbar
+        setupToolbar();
+
+        txtRenTen = (TextView) findViewById(R.id.txtRenTen);
+        imgMonAn = (ImageView) findViewById(R.id.imgMonAn);
+        txtRenSoLuong = (TextView) findViewById(R.id.txtRenSoLuong);
+        txtRenViTri = (TextView) findViewById(R.id.txtRenViTri);
+        txtLuotXem = (TextView) findViewById(R.id.txtLuotXem);
+        txtLuotThich = (TextView) findViewById(R.id.txtLuotThich);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra("bundle");
+        MonAn monAn = (MonAn) bundle.getSerializable("detail");
+
+        txtRenTen.setText(monAn.getTenMonAn());
+        imgMonAn.setBackgroundResource(monAn.getImage());
+        txtRenSoLuong.setText(String.valueOf(monAn.getSoLuong()));
+        txtRenViTri.setText(monAn.getViTri());
+        txtLuotXem.setText(String.valueOf(monAn.getLuotView()));
+        txtLuotThich.setText(String.valueOf(monAn.getLuotThich()));
+    }
+
+    private void data() {
+        menuOnlineDatabase = new MenuOnlineDatabase(this);
+    }
+
+    private void setupToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
         setSupportActionBar(toolbar);
@@ -53,21 +80,6 @@ public class ChiTietMonAn extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
         btnMenu = (Button) findViewById(R.id.btnMenu);
         btnMenu.setVisibility(View.GONE);
-        txtRenTen = (TextView) findViewById(R.id.txtRenTen);
-        imgMonAn = (ImageView) findViewById(R.id.imgMonAn);
-        txtRenSoLuong = (TextView) findViewById(R.id.txtRenSoLuong);
-        txtRenViTri = (TextView) findViewById(R.id.txtRenViTri);
-        txtLuotXem = (TextView) findViewById(R.id.txtLuotXem);
-        txtLuotThich = (TextView) findViewById(R.id.txtLuotThich);
-        Intent intent = getIntent();
-        Bundle bundle = intent.getBundleExtra("bundle");
-        MonAn monAn = (MonAn) bundle.getSerializable("detail");
-        txtRenTen.setText(monAn.getTenMonAn());
-        imgMonAn.setBackgroundResource(monAn.getImage());
-        txtRenSoLuong.setText(String.valueOf(monAn.getSoLuong()));
-        txtRenViTri.setText(monAn.getViTri());
-        txtLuotXem.setText(String.valueOf(monAn.getLuotView()));
-        txtLuotThich.setText(String.valueOf(monAn.getLuotThich()));
     }
 
     @Override

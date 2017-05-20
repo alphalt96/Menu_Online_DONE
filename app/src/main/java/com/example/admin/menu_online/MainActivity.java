@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -52,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView lvMenuDrawer;
     private ListView lvHienThiMonAn, lvCity, lvLoaiMonAn;
     private TextView txtTitle;
-    private EditText txtSearch;
-    private Button btnNewMonAn, btnNewQuanAn, btnMenu, btnSearch;
+    private Button btnNewMonAn, btnNewQuanAn, btnMenu;
     private ImageView imgApp;
     private Toolbar toolbar;
 
@@ -75,47 +73,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         tabHost.setCurrentTab(0);
+        drawerLayout.closeDrawer(GravityCompat.START);
     }
 
     private void setEvent() {
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                PopupMenu popupMenu = new PopupMenu(MainActivity.this, btnMenu);
-//                popupMenu.getMenuInflater().inflate(R.menu.main_menu, popupMenu.getMenu());
-//                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                    @Override
-//                    public boolean onMenuItemClick(MenuItem item) {
-//                        int id = item.getItemId();
-//                        if(id == R.id.monAnList){
-//                            Intent intent = new Intent(MainActivity.this, MenuMonAn.class);
-//                            startActivityn(intet);
-//                        }
-//                        else if(id == R.id.quanAnList){
-//                            startActivity(new Intent(MainActivity.this, MenuQuanAn.class));
-//                        }
-//                        else if(id == R.id.ranking){
-//                            Toast.makeText(getApplicationContext(), "Hiện chưa có chức năng này", Toast.LENGTH_SHORT).show();
-//                        }
-//                        else if(id == R.id.info){
-//                            Toast.makeText(getApplicationContext(), "Version 1.1.3.1415926535897932", Toast.LENGTH_SHORT).show();
-//                        }
-//                        else if(id == R.id.user){
-//                            SharedPreferences sharedPreferences = getSharedPreferences("userinfo", MODE_PRIVATE);
-//                            if(sharedPreferences.getInt("USERID", 0) == 0)
-//                                startActivity(new Intent(MainActivity.this, UserLogin.class));
-//                            else startActivity(new Intent(MainActivity.this, UserInfo.class));
-//                        }
-//                        return false;
-//                    }
-//                });
-//                popupMenu.show();
                 btnMenu.setVisibility(View.GONE);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
-        //nut search
         lvHienThiMonAn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -181,8 +150,6 @@ public class MainActivity extends AppCompatActivity {
         lvCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                monAnNoiBat.clear();
-//                myAdapter.notifyDataSetChanged();
                 locMonAn = new ArrayList<MonAn>();
                 thanhPho = cityList[position];
                 siteCheck = true;
@@ -210,8 +177,6 @@ public class MainActivity extends AppCompatActivity {
         lvLoaiMonAn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                monAnNoiBat.clear();
-//                myAdapter.notifyDataSetChanged();
                 locMonAn = new ArrayList<MonAn>();
                 loaiMonAn = loaimonanList[position];
                 siteCheck = true;
@@ -239,7 +204,6 @@ public class MainActivity extends AppCompatActivity {
         btnNewMonAn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                monAnNoiBat = MonAnManager.getsInstance().getDanhSachMonMoi();
                 myAdapter = new MyAdapter(MainActivity.this, R.layout.item_monan, monAnNoiBat);
                 lvHienThiMonAn.setAdapter(myAdapter);
                 thanhPho = "";
@@ -263,52 +227,48 @@ public class MainActivity extends AppCompatActivity {
     private void setControl() {
         //Dem so lan start up app
         LoadDatabaseControl.getsInstance(this).increaseCountStartUpApp();
-        menuOnlineDatabase = new MenuOnlineDatabase(this);
+        //csdl
+        data();
+        //Toolbar
+        setupToolbar();
         //Nap du lieu cho lan run app dau tien
-        MonAnManager.getsInstance(this).LoadData();
-        QuanAnManager.getsInstance(this).load();
+        loadData();
         //Khoi tao tabhost chứa các tab con
-        tabHost = (TabHost) findViewById(R.id.tabHost);
-        tabHost.setup();
-
-        //tao cac tab con
-        TabHost.TabSpec tab1 = tabHost.newTabSpec("t1");
-        tab1.setIndicator("Home");
-        tab1.setContent(R.id.tab1);
-        TabHost.TabSpec tab2 = tabHost.newTabSpec("t2");
-        tab2.setIndicator("Phân loại");
-        tab2.setContent(R.id.tab2);
-        TabHost.TabSpec tab3 = tabHost.newTabSpec("t3");
-        tab3.setIndicator("Thành phố");
-        tab3.setContent(R.id.tab3);
-        tabHost.addTab(tab1);
-        tabHost.addTab(tab2);
-        tabHost.addTab(tab3);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
-
-        setupMenu();
+        setupTabhost();
+        //New
+        setupMonMoi();
+        //setup city list
+        setupCity();
+        //tao arr img loai mon an
+        setupLoaiMonAn();
 
         txtTitle = (TextView) findViewById(R.id.txtTitle);
         btnNewMonAn = (Button) findViewById(R.id.btnNewMonAn);
         btnNewQuanAn = (Button) findViewById(R.id.btnNewQuanAn);
         btnMenu = (Button) findViewById(R.id.btnMenu);
-        monAnNoiBat = MonAnManager.getsInstance(MainActivity.this).getDanhSachMonMoi();
+    }
+    //Khoi tao csdl
+    private void data(){
+        menuOnlineDatabase = new MenuOnlineDatabase(this);
+    }
 
-
-        myAdapter = new MyAdapter(this, R.layout.item_monan, monAnNoiBat);
-        lvHienThiMonAn = (ListView) findViewById(R.id.lvHienThiMonAn);
-        lvHienThiMonAn.setAdapter(myAdapter);
-
-        //setup city list
+    //Khoi tao list thành phố
+    private void setupCity(){
         cityList = getResources().getStringArray(R.array.city);
         adapterCity = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cityList);
         lvCity = (ListView) findViewById(R.id.lvCity);
         lvCity.setAdapter(adapterCity);
+    }
+    //Khoi tao danh sach món mới
+    private void setupMonMoi(){
+        monAnNoiBat = MonAnManager.getsInstance(MainActivity.this).getDanhSachMonMoi();
+        myAdapter = new MyAdapter(this, R.layout.item_monan, monAnNoiBat);
+        lvHienThiMonAn = (ListView) findViewById(R.id.lvHienThiMonAn);
+        lvHienThiMonAn.setAdapter(myAdapter);
+    }
 
+    //Khoi tao list loại món ăn
+    private void setupLoaiMonAn(){
         //tao arr img loai mon an
         arrImgLoaiMonAn = new int[]{
                 R.drawable.loaimonan_vietnam,
@@ -329,7 +289,6 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.loaimonan_cafe,
                 R.drawable.loaimonan_douong
         };
-//        addArrImgLoaiMonAn(arrImgLoaiMonAn);
 
         //setup loaimonan list
         loaimonanList = getResources().getStringArray(R.array.loaiMonAn);
@@ -338,6 +297,41 @@ public class MainActivity extends AppCompatActivity {
         lvLoaiMonAn.setAdapter(loaiMonAnAdapter);
     }
 
+    //Tabhost
+    private void setupTabhost(){
+        tabHost = (TabHost) findViewById(R.id.tabHost);
+        tabHost.setup();
+
+        //tao cac tab con
+        TabHost.TabSpec tab1 = tabHost.newTabSpec("t1");
+        tab1.setIndicator("Home");
+        tab1.setContent(R.id.tab1);
+        TabHost.TabSpec tab2 = tabHost.newTabSpec("t2");
+        tab2.setIndicator("Phân loại");
+        tab2.setContent(R.id.tab2);
+        TabHost.TabSpec tab3 = tabHost.newTabSpec("t3");
+        tab3.setIndicator("Thành phố");
+        tab3.setContent(R.id.tab3);
+        tabHost.addTab(tab1);
+        tabHost.addTab(tab2);
+        tabHost.addTab(tab3);
+    }
+
+    private void loadData(){
+        MonAnManager.getsInstance(this).LoadData();
+        QuanAnManager.getsInstance(this).loadData();
+    }
+
+    //Toolbar
+    private void setupToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
+
+        //khoi tao menu
+        setupMenu();
+    }
     //khoi tao danh sach menu
     public void addItemList(){
         String[] nameItem = new String[]{"Món ăn", "Quán ăn", "User", "Rating", "Thông tin"};

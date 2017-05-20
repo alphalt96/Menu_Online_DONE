@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -18,7 +17,6 @@ import android.widget.Toast;
 
 import com.example.admin.menu_online.Database.MenuOnlineDatabase;
 import com.example.admin.menu_online.adapters.DsMonAnTrongQuan;
-import com.example.admin.menu_online.adapters.MyAdapter;
 import com.example.admin.menu_online.models.MonAn;
 import com.example.admin.menu_online.models.QuanAn;
 
@@ -35,8 +33,6 @@ public class ChiTietQuanAn extends AppCompatActivity {
 
     private ArrayList<MonAn> monAnList;
     private DsMonAnTrongQuan monanAdapter;
-    private MyAdapter myAdapter;
-    private ArrayAdapter arrayAdapter;
     private GridView gridMonAnTrongQuan;
 
     private MenuOnlineDatabase menuOnlineDatabase;
@@ -85,33 +81,42 @@ public class ChiTietQuanAn extends AppCompatActivity {
     }
 
     private void addControls() {
-        menuOnlineDatabase = new MenuOnlineDatabase(this);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
+        data();
+        //setup toolbar
+        setupToolbar();
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
-        getSupportActionBar().setTitle("Quán ăn");
-        btnMenu = (Button) findViewById(R.id.btnMenu);
-        btnMenu.setVisibility(View.GONE);
         img = (ImageView) findViewById(R.id.imgQuanAn);
         txtTenQuanAn = (TextView) findViewById(R.id.txtTenQuanAn);
         txtDiachi = (TextView) findViewById(R.id.txtViTri);
+
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("bundle");
         QuanAn quanAn = (QuanAn) bundle.getSerializable("detail");
+
         img.setBackgroundResource(quanAn.getImg());
         txtTenQuanAn.setText(quanAn.getTenQuan());
         txtDiachi.setText(quanAn.getDiaChi());
         btnDonHang = (Button) findViewById(R.id.btnDonHang);
         btnDonHang.setVisibility(View.INVISIBLE);
         monAnList = quanAn.getMonAnList();
-//        monAn = MonAnManager.getsInstance().getDanhSachMonMoi();
         monanAdapter = new DsMonAnTrongQuan(getApplicationContext(), R.layout.item_monan_trong_quanan, monAnList);
-//        myAdapter = new MyAdapter(getApplicationContext(), R.layout.item_monan_trong_quanan, monAnList);
         gridMonAnTrongQuan = (GridView) findViewById(R.id.gridMonAnTrongQuan);
         gridMonAnTrongQuan.setAdapter(monanAdapter);
+    }
+
+    private void setupToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
+        getSupportActionBar().setTitle("Quán ăn");
+        btnMenu = (Button) findViewById(R.id.btnMenu);
+        btnMenu.setVisibility(View.GONE);
+    }
+
+    private void data() {
+        menuOnlineDatabase = new MenuOnlineDatabase(this);
     }
 
     @Override

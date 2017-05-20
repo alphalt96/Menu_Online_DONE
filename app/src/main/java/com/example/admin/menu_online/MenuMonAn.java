@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.admin.menu_online.Database.MenuOnlineDatabase;
 import com.example.admin.menu_online.adapters.MenuMonAnAdapter;
@@ -54,8 +55,17 @@ public class MenuMonAn extends AppCompatActivity {
     }
 
     private void addControls() {
-        menuOnlineDatabase = new MenuOnlineDatabase(this);
+        data();
+        //setup toolbar
+        setupToolbar();
 
+        monAnList = MonAnManager.getsInstance(this).getDanhSachMonAn();
+        menuMonAnAdapter = new MenuMonAnAdapter(this, R.layout.item_menu_monan, monAnList);
+        gridMonAn = (GridView) findViewById(R.id.gridMonAn);
+        gridMonAn.setAdapter(menuMonAnAdapter);
+    }
+
+    private void setupToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
         setSupportActionBar(toolbar);
@@ -64,10 +74,10 @@ public class MenuMonAn extends AppCompatActivity {
         getSupportActionBar().setTitle("Menu món ăn");
         btnMenu = (Button) findViewById(R.id.btnMenu);
         btnMenu.setVisibility(View.GONE);
-        monAnList = MonAnManager.getsInstance(this).getDanhSachMonAn();
-        menuMonAnAdapter = new MenuMonAnAdapter(this, R.layout.item_menu_monan, monAnList);
-        gridMonAn = (GridView) findViewById(R.id.gridMonAn);
-        gridMonAn.setAdapter(menuMonAnAdapter);
+    }
+
+    private void data() {
+        menuOnlineDatabase = new MenuOnlineDatabase(this);
     }
 
     @Override
@@ -78,7 +88,6 @@ public class MenuMonAn extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String name) {
-
                 return false;
             }
 
@@ -103,8 +112,11 @@ public class MenuMonAn extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home) finish();
-        else if(item.getItemId() == R.id.cart)
-            startActivity(new Intent(MenuMonAn.this, UserInfo.class));
+        else if(item.getItemId() == R.id.cart) {
+            if(getSharedPreferences("userinfo", MODE_PRIVATE).getInt("USERID", 0) != 0)
+                startActivity(new Intent(MenuMonAn.this, UserInfo.class).putExtra("CART", true));
+            else Toast.makeText(MenuMonAn.this, "Ban can dang nhap de thuc hien chuc nang nay", Toast.LENGTH_SHORT).show();
+        }
         return super.onOptionsItemSelected(item);
     }
 }

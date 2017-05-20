@@ -44,6 +44,7 @@ public class UserInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
 
+        getWidgets();
         setControls();
         setEvents();
 
@@ -67,17 +68,28 @@ public class UserInfo extends AppCompatActivity {
     }
 
     private void setControls() {
-        menuOnlineDatabase = new MenuOnlineDatabase(this);
+        data();
+        setupToolbar();
+        setupTabhost();
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
-        getSupportActionBar().setTitle("Người dùng");
+        setupCart();
+
+    }
+
+    private void data() {
+        menuOnlineDatabase = new MenuOnlineDatabase(this);
+    }
+
+    private void setupCart() {
+        monAnArrayList = menuOnlineDatabase.getDonHang();
+        donHangAdapter = new DonHangAdapter(UserInfo.this, R.layout.item_donhang, monAnArrayList, txtTotalCost);
+        lvDonHang = (ListView) findViewById(R.id.lvDonHang);
+        lvDonHang.setAdapter(donHangAdapter);
+    }
+
+    private void setupTabhost() {
         tabHost = (TabHost) findViewById(R.id.tabHost);
         tabHost.setup();
-
         TabHost.TabSpec tab1 = tabHost.newTabSpec("t1");
         tab1.setIndicator("Profile");
         tab1.setContent(R.id.userTab1);
@@ -86,7 +98,18 @@ public class UserInfo extends AppCompatActivity {
         tab2.setContent(R.id.userTab2);
         tabHost.addTab(tab1);
         tabHost.addTab(tab2);
+    }
 
+    private void setupToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
+        getSupportActionBar().setTitle("Người dùng");
+    }
+
+    private void getWidgets() {
         txtEditUsername = (EditText) findViewById(R.id.txtEditUsername);
         txtEditPassword = (EditText) findViewById(R.id.txtEditPassword);
         txtEditAddress = (EditText) findViewById(R.id.txtEditAddress);
@@ -104,17 +127,11 @@ public class UserInfo extends AppCompatActivity {
         txtHienThiAddress = (TextView) findViewById(R.id.txtHienThiAddress);
         txtHienThiSoDienThoai = (TextView) findViewById(R.id.txtHienThiSoDienThoai);
         txtHienThiEmail = (TextView) findViewById(R.id.txtHienThiEmail);
-
-
         txtTotalCost = (TextView) findViewById(R.id.txtTotalcost);
         btnShip = (Button) findViewById(R.id.btnShip);
         btnClear = (Button) findViewById(R.id.btnClear);
-
-        monAnArrayList = menuOnlineDatabase.getDonHang();
-        donHangAdapter = new DonHangAdapter(UserInfo.this, R.layout.item_donhang, monAnArrayList, txtTotalCost);
-        lvDonHang = (ListView) findViewById(R.id.lvDonHang);
-        lvDonHang.setAdapter(donHangAdapter);
     }
+
     private void setEvents(){
         userinfoEvents();
         cartEvents();

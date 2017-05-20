@@ -152,7 +152,7 @@
                     <TextView
                         android:id="@+id/txtHienThiEmail"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="55dp"
                         android:gravity="right"
                         android:textSize="18sp"
                         android:textColor="#8e8f94"/>

@@ -1,5 +1,6 @@
 package com.example.admin.menu_online;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.admin.menu_online.Database.MenuOnlineDatabase;
@@ -21,8 +21,7 @@ public class UserLogin extends AppCompatActivity {
     String save = "userinfo";
 
     private Toolbar toolbar;
-    private ImageView imgLogin;
-    private EditText txtUsernameLogin, txtPasswordLogin, txtEditUsername, txtEditPassword, txtEditAddress;;
+    private EditText txtUsernameLogin, txtPasswordLogin;
     private Button btnLogin, btnSignOn, btnForgotPassword;
 
     private MenuOnlineDatabase menuOnlineDatabase;
@@ -33,21 +32,20 @@ public class UserLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
 
-        menuOnlineDatabase = new MenuOnlineDatabase(this);
+        getWidgets();
+        setControls();
+        setEvents();
+    }
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
-        getSupportActionBar().setTitle("Đăng nhập");
-        imgLogin = (ImageView) findViewById(R.id.imgLogin);
+    private void getWidgets() {
         txtUsernameLogin = (EditText) findViewById(R.id.txtUsernameLogin);
         txtPasswordLogin = (EditText) findViewById(R.id.txtPasswordLogin);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnSignOn = (Button) findViewById(R.id.btnSignOn);
         btnForgotPassword = (Button) findViewById(R.id.btnForgotPassword);
+    }
 
+    private void setEvents() {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +60,23 @@ public class UserLogin extends AppCompatActivity {
                     editor.putString("SODIENTHOAI", user.getSoDienThoai());
                     editor.putString("EMAIL", user.getEmail());
                     editor.commit();
-                    startActivity(new Intent(UserLogin.this, UserInfo.class));
+                    final ProgressDialog progressDialog = new ProgressDialog(UserLogin.this);
+                    progressDialog.setMessage("Logging...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try{
+                                Thread.sleep(3000);
+                                progressDialog.dismiss();
+                                startActivity(new Intent(UserLogin.this, UserInfo.class));
+                            }
+                            catch (Exception ex){
+                            }
+                        }
+                    }).start();
                 } else Toast.makeText(UserLogin.this, "Ten dang nhap hoac mat khau khong dung", Toast.LENGTH_SHORT).show();
             }
         });
@@ -79,6 +93,25 @@ public class UserLogin extends AppCompatActivity {
             }
         });
     }
+
+    private void setControls() {
+        data();
+        setupToolbar();
+    }
+
+    private void setupToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.toolBarReturnHome));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
+        getSupportActionBar().setTitle("Đăng nhập");
+    }
+
+    private void data() {
+        menuOnlineDatabase = new MenuOnlineDatabase(this);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home){
