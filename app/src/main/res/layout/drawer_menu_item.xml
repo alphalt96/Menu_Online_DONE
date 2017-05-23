@@ -10,9 +10,9 @@
         android:layout_height="30dp"
         android:background="#000"
         android:layout_gravity="center"
-        android:layout_marginLeft="5dp"/>
+        android:layout_marginLeft="10dp"/>
     <Space
-        android:layout_width="10dp"
+        android:layout_width="20dp"
         android:layout_height="50dp" />
     <TextView
         android:id="@+id/txtNameItemMenu"

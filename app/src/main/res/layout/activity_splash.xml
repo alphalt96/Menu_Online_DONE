@@ -7,6 +7,10 @@
     tools:context="com.example.admin.menu_online.FirstLoadingApp.Splash"
     android:background="@drawable/first_load_app_background_2">
 
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="#33cac2c2"/>-->
     <ImageView
         android:id="@+id/iconApp"
         android:layout_width="60dp"
