@@ -6,97 +6,159 @@
     android:layout_height="match_parent"
     tools:context="com.example.admin.menu_online.ChiTietMonAn"
     android:orientation="vertical"
-    android:background="#cac4c4">
+    android:background="#fc2c2f33">
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar"></include>
-    <TextView
-        android:id="@+id/txtRenTen"
+    <ScrollView xmlns:android= "http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:textSize="18dp"
-        android:fontFamily="casual"
-        android:textColor="#000"
-        android:textStyle="bold"
-        android:gravity="center_vertical"/>
+        android:layout_height="wrap_content">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="25dp" />
 
-    <ImageView
-        android:id="@+id/imgMonAn"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:background="#000" />
-
-    <LinearLayout
-        android:layout_width="365dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
-        <TextView
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:text="Lượt xem"
-            android:layout_gravity="center_vertical"/>
-        <TextView
-            android:id="@+id/txtLuotXem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="69"
-            android:layout_gravity="center_vertical"/>
-        <Space
-            android:layout_width="7dp"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/view_icon_png"
-            android:layout_gravity="center_vertical"/>
-        <Space
-            android:layout_width="20dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:text="Lượt thích"
-            android:layout_gravity="center_vertical"/>
-        <TextView
-            android:id="@+id/txtLuotThich"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="69"
-            android:layout_gravity="center_vertical"/>
-        <Space
-            android:layout_width="7dp"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:background="@drawable/like_icon_png"
-            android:layout_gravity="center_vertical"/>
-    </LinearLayout>
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
-    <LinearLayout
-        android:layout_width="365dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/border_detail"
-        android:layout_gravity="center"
-        android:padding="10dp">
-        <TextView
-            android:id="@+id/txtRenSoLuong"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            />
-        <TextView
-            android:id="@+id/txtRenViTri"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"/>
-    </LinearLayout>
-
-
+            <ImageView
+                android:id="@+id/imgMonAn"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:background="#000" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+            <LinearLayout
+                android:layout_width="365dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:background="#fffefe"
+                android:padding="12dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/txtRenTen"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:textSize="22dp"
+                        android:fontFamily="casual"
+                        android:textColor="#3e4250"
+                        android:textStyle="bold"
+                        android:gravity="center_vertical"
+                        android:text="mon an"/>
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:text="69%"
+                        android:background="@drawable/border_sales_text"
+                        android:gravity="center"
+                        android:textColor="#fff"
+                        android:textSize="15sp"
+                        android:textStyle="bold"/>
+                </RelativeLayout>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/txtGiaTien"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:text="15000"
+                        android:textColor="#ca3232"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="VNĐ"
+                        android:layout_marginLeft="10dp"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/txtRenViTri"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="69 Lac Van Troi"
+                    android:textColor="#000"/>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="Lượt xem"
+                        android:layout_gravity="center_vertical"/>
+                    <TextView
+                        android:id="@+id/txtLuotXem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="69"
+                        android:layout_gravity="center_vertical"/>
+                    <Space
+                        android:layout_width="7dp"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/view_icon_png"
+                        android:layout_gravity="center_vertical"/>
+                    <Space
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="Lượt thích"
+                        android:layout_gravity="center_vertical"/>
+                    <TextView
+                        android:id="@+id/txtLuotThich"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="69"
+                        android:layout_gravity="center_vertical"/>
+                    <Space
+                        android:layout_width="7dp"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:background="@drawable/like_icon_png"
+                        android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/border_register_button"
+                    android:text="Share"
+                    android:textColor="#000"/>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp" />
+                <Button
+                    android:id="@+id/btnAddCart"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/border_register_button"
+                    android:text="add to cart"
+                    android:textColor="#000"/>
+            </LinearLayout>
+        </TableLayout>
+    </ScrollView>
 </LinearLayout>

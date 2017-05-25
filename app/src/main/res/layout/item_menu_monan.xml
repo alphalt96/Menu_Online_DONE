@@ -20,7 +20,7 @@
         android:text="Món 1"
         android:textSize="15sp"
         android:gravity="center"
-        android:background="#57383535"
+        android:background="#6f383535"
         android:textColor="#e1efebeb"/>
     <TextView
         android:id="@+id/txtGiaTien"

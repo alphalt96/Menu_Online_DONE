@@ -18,6 +18,7 @@ public class MonAn implements Serializable {
     private float giaTien;
     private int luotView;
     private int luotThich;
+    private String diaChi;
 
     public int getMaMonAn() {
         return maMonAn;
@@ -91,10 +92,18 @@ public class MonAn implements Serializable {
         this.luotThich = luotThich;
     }
 
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
+
     public MonAn() {
     }
 
-    public MonAn(int maMonAn ,String tenMonAn, int image,int soLuong, int rating, String viTri, String loaiMonAn, float giaTien, int luotView, int luotThich) {
+    public MonAn(int maMonAn ,String tenMonAn, int image,int soLuong, int rating, String viTri, String loaiMonAn, float giaTien, int luotView, int luotThich, String diaChi) {
         this.maMonAn = maMonAn;
         this.tenMonAn = tenMonAn;
         this.image = image;
@@ -105,5 +114,6 @@ public class MonAn implements Serializable {
         this.giaTien = giaTien;
         this.luotView = luotView;
         this.luotThich = luotThich;
+        this.diaChi = diaChi;
     }
 }

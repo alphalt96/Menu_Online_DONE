@@ -30,6 +30,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
     public static final String MONAN_COLUMN_giaTien = "giaTien";
     public static final String MONAN_COLUMN_luotView = "luotView";
     public static final String MONAN_COLUMN_luotThich = "luotThich";
+    public static final String MONAN_COLUMN_diaChi = "diaChi";
 
     public static final String QUANAN_TABLE = "QUANAN";
     public static final String QUANAN_COLUMN_maQuan = "maQuan";
@@ -57,7 +58,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table MONAN " +
-                "(maMonAn integer primary key, tenMonAn text,soLuong integer,image integer, viTri text,loaiMonAn text, giaTien real, luotView integer, luotThich integer)"
+                "(maMonAn integer primary key, tenMonAn text,soLuong integer,image integer, viTri text,loaiMonAn text, giaTien real, luotView integer, luotThich integer, diaChi text)"
         );
         db.execSQL("create table QUANAN " +
                 "(maQuan integer primary key, tenQuan text,diaChi text,thanhPho text, img integer, monAnList text, viewNum integer)"
@@ -89,7 +90,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
     //insert mon an
-    public void insertMonAn(String tenMonAn,int image, int soLuong, String viTri, String loaiMonAn, float giaTien, int luotView, int luotThich){
+    public void insertMonAn(String tenMonAn,int image, int soLuong, String viTri, String loaiMonAn, float giaTien, int luotView, int luotThich, String diaChi){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("tenMonAn", tenMonAn);
@@ -100,6 +101,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         values.put("giaTien", giaTien);
         values.put("luotView", luotView);
         values.put("luotThich", luotThich);
+        values.put("diaChi", diaChi);
         db.insert(MONAN_TABLE, null, values);
     }
     //insert mon an dat hang
@@ -258,6 +260,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
             monAn.setGiaTien(values.getFloat(values.getColumnIndex(MONAN_COLUMN_giaTien)));
             monAn.setLuotView(values.getInt(values.getColumnIndex(MONAN_COLUMN_luotView)));
             monAn.setLuotThich(values.getInt(values.getColumnIndex(MONAN_COLUMN_luotThich)));
+            monAn.setDiaChi(values.getString(values.getColumnIndex(MONAN_COLUMN_diaChi)));
             list.add(monAn);
             values.moveToNext();
         }
@@ -281,6 +284,8 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
             monAn.setGiaTien(cursor.getFloat(cursor.getColumnIndex(MONAN_COLUMN_giaTien)));
             monAn.setLuotView(cursor.getInt(cursor.getColumnIndex(MONAN_COLUMN_luotView)));
             monAn.setLuotThich(cursor.getInt(cursor.getColumnIndex(MONAN_COLUMN_luotThich)));
+            monAn.setDiaChi(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_diaChi)));
+
             list.add(monAn);
             cursor.moveToNext();
         }
@@ -314,6 +319,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
             monAn.setViTri(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_viTri)));
             monAn.setLoaiMonAn(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_loaiMonAn)));
             monAn.setGiaTien(cursor.getFloat(cursor.getColumnIndex(MONAN_COLUMN_giaTien)));
+            monAn.setDiaChi(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_diaChi)));
             list.add(monAn);
             cursor.moveToNext();
         }
@@ -350,6 +356,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
                     monAn.setViTri(ahihi.getString(ahihi.getColumnIndex(MONAN_COLUMN_viTri)));
                     monAn.setLoaiMonAn(ahihi.getString(ahihi.getColumnIndex(MONAN_COLUMN_loaiMonAn)));
                     monAn.setGiaTien(ahihi.getFloat(ahihi.getColumnIndex(MONAN_COLUMN_giaTien)));
+                    monAn.setDiaChi(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_diaChi)));
                     monAnList.add(monAn);
                 }
                 quanAn.setMonAnList(monAnList);
@@ -412,6 +419,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
                     monAn.setViTri(ahihi.getString(ahihi.getColumnIndex(MONAN_COLUMN_viTri)));
                     monAn.setLoaiMonAn(ahihi.getString(ahihi.getColumnIndex(MONAN_COLUMN_loaiMonAn)));
                     monAn.setGiaTien(ahihi.getFloat(ahihi.getColumnIndex(MONAN_COLUMN_giaTien)));
+                    monAn.setDiaChi(cursor.getString(cursor.getColumnIndex(MONAN_COLUMN_diaChi)));
                     monAnList.add(monAn);
                 }
                 quanAn.setMonAnList(monAnList);

@@ -109,6 +109,10 @@
                         android:textSize="18sp"
                         android:textColor="#8e8f94"/>
                 </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#e7e1e1"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -133,6 +137,10 @@
                         android:textSize="18sp"
                         android:textColor="#8e8f94"/>
                 </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#e7e1e1"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -147,15 +155,19 @@
                     <EditText
                         android:id="@+id/txtEditEmail"
                         android:layout_width="250dp"
-                        android:layout_height="50dp"
+                        android:layout_height="55dp"
                         android:layout_gravity="center_vertical"/>
                     <TextView
                         android:id="@+id/txtHienThiEmail"
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                        android:layout_height="50dp"
                         android:gravity="right"
                         android:textSize="18sp"
                         android:textColor="#8e8f94"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="#e7e1e1"/>
                 </LinearLayout>
             </LinearLayout>
             <TextView
