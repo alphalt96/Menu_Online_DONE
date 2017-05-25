@@ -25,4 +25,13 @@
         android:text="Menu Online"
         android:textSize="14sp"
         android:textStyle="italic"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nhóm 6 Corporation"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:textColor="#af25b723"
+        android:textStyle="italic"/>
 </RelativeLayout>

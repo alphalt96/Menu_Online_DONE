@@ -12,10 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.admin.menu_online.R;
+import com.example.admin.menu_online.models.MonAn;
 
 import java.util.ArrayList;
-
-import com.example.admin.menu_online.models.MonAn;
 
 /**
  * Created by Admin on 4/13/2017.
@@ -46,7 +45,8 @@ public class MyAdapter extends ArrayAdapter<MonAn> {
             convertView = inflater.inflate(this.resource, parent, false);
             viewHolder.imgMonAn = (ImageView) convertView.findViewById(R.id.imgMonAn);
             viewHolder.txtRenTen = (TextView) convertView.findViewById(R.id.txtRenTen);
-            viewHolder.txtRenSoLuong = (TextView) convertView.findViewById(R.id.txtRenSoLuong);
+            viewHolder.txtRenGiaTien = (TextView) convertView.findViewById(R.id.txtRenGiaTien);
+            viewHolder.txtRenViews = (TextView) convertView.findViewById(R.id.txtRenViews);
 
             convertView.setTag(viewHolder);
         } else {
@@ -55,13 +55,14 @@ public class MyAdapter extends ArrayAdapter<MonAn> {
 
         viewHolder.imgMonAn.setBackgroundResource(monAn.getImage());
         viewHolder.txtRenTen.setText(monAn.getTenMonAn());
-        viewHolder.txtRenSoLuong.setText(String.valueOf(monAn.getSoLuong()));
+        viewHolder.txtRenGiaTien.setText(String.valueOf(monAn.getGiaTien()));
+        viewHolder.txtRenViews.setText(String.valueOf(monAn.getLuotView()));
 
         return convertView;
 
     }
     private class ViewHolder{
         public ImageView imgMonAn;
-        public TextView txtRenTen, txtRenSoLuong;
+        public TextView txtRenTen, txtRenGiaTien, txtRenViews;
     }
 }

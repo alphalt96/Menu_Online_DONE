@@ -1,6 +1,8 @@
 package com.example.admin.menu_online;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -15,8 +17,17 @@ import android.widget.Toast;
 
 import com.example.admin.menu_online.Database.MenuOnlineDatabase;
 import com.example.admin.menu_online.models.MonAn;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class ChiTietMonAn extends AppCompatActivity {
+import java.io.IOException;
+import java.util.List;
+
+public class ChiTietMonAn extends AppCompatActivity implements OnMapReadyCallback {
 
     private MenuOnlineDatabase menuOnlineDatabase;
 
@@ -24,16 +35,47 @@ public class ChiTietMonAn extends AppCompatActivity {
     private ImageView imgMonAn;
     private Button  btnMenu, btnAddCart;
     private Toolbar toolbar;
-    private TextView txtLuotXem, txtLuotThich;
+    private TextView txtLuotXem, txtLuotThich, txtHello;
+    private MonAn monAn;
+
+    private GoogleMap mMap;
+    private String diaChi;
+    private double lat =16.0595379;
+    private double lng = 108.1821648;
+    private location area;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_mon_an);
-
         setControl();
         setEvent();
+
+        // khoi tao toa do cua mon an
+        //phai khoi tao toa do truoc trong ham onCreate, vi luc khoi tao toa do trong onMapReady se bi loi null
+        diaChi = monAn.getDiaChi().toString();
+        area = new location(diaChi);
+        area.getLocation();
+//        Geocoder coder = new Geocoder(ChiTietMonAn.this);
+//        List<Address> address;
+//
+//        try {
+//            address = coder.getFromLocationName(diaChi,1);
+//            if(address.size() > 0) {
+//                Address location = address.get(0);
+//                lat = location.getLatitude();
+//                lng = location.getLongitude();
+//            } else Toast.makeText(ChiTietMonAn.this, "Loi load map", Toast.LENGTH_SHORT).show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        FragmentActivity fragmentActivity = new FragmentActivity();
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.foodmap);
+        mapFragment.getMapAsync(this);
+
     }
 
     private void setEvent() {
@@ -69,11 +111,16 @@ public class ChiTietMonAn extends AppCompatActivity {
         txtRenViTri = (TextView) findViewById(R.id.txtRenViTri);
         txtLuotXem = (TextView) findViewById(R.id.txtLuotXem);
         txtLuotThich = (TextView) findViewById(R.id.txtLuotThich);
+        txtHello = (TextView) findViewById(R.id.txtHello);
         btnAddCart = (Button) findViewById(R.id.btnAddCart);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("bundle");
-        MonAn monAn = (MonAn) bundle.getSerializable("detail");
+        monAn = (MonAn) bundle.getSerializable("detail");
+
+        if(getSharedPreferences("userinfo", MODE_PRIVATE).getInt("USERID", 0) != 0)
+            txtHello.setText(getSharedPreferences("userinfo", MODE_PRIVATE).getString("USERNAME", ""));
+        else txtHello.setText("Bạn chưa đăng nhập");
 
         txtRenTen.setText(monAn.getTenMonAn());
         imgMonAn.setBackgroundResource(monAn.getImage());
@@ -115,5 +162,59 @@ public class ChiTietMonAn extends AppCompatActivity {
             else Toast.makeText(ChiTietMonAn.this, "Ban can dang nhap de thuc hien chuc nang nay", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+//        location loc = new location(monAn.getDiaChi());
+//        loc.getLocation();
+        // Add a marker in Sydney and move the camera
+        LatLng location = new LatLng(area.getLat(), area.getLng());
+        mMap.addMarker(new MarkerOptions().position(location).title("Marker in Myhome"));
+
+        //zoom vị trí trỏ đến lên 16x
+        float zoomLevel = 18.0f; //This goes up to 21
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoomLevel));
+    }
+    private class location{
+        double lat, lng;
+        String address;
+
+        public location(String address) {
+            this.address = address;
+        }
+        public location(){}
+
+        public double getLat() {
+            return lat;
+        }
+
+        public void setLat(double lat) {
+            this.lat = lat;
+        }
+
+        public double getLng() {
+            return lng;
+        }
+
+        public void setLng(double lng) {
+            this.lng = lng;
+        }
+        public void getLocation(){
+            Geocoder coder = new Geocoder(ChiTietMonAn.this);
+            List<Address> address;
+
+            try {
+                address = coder.getFromLocationName(this.address,1);
+                if(address.size() > 0) {
+                    Address location = address.get(0);
+                    this.lat = location.getLatitude();
+                    this.lng = location.getLongitude();
+                } else Toast.makeText(ChiTietMonAn.this, "Loi load map", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

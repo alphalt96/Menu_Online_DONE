@@ -60,4 +60,5 @@
         <item>Đà Nẵng</item>
         <item>Hồ Chí Minh</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
 </resources>

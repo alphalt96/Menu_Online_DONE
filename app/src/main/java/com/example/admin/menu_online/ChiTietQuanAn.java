@@ -4,14 +4,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,10 +36,11 @@ public class ChiTietQuanAn extends AppCompatActivity {
 
     private ArrayList<MonAn> monAnList;
     private DsMonAnTrongQuan monanAdapter;
-    private GridView gridMonAnTrongQuan;
+    private ListView lvMenuMonAn;
 
+    private QuanAn quanAn;
     private MenuOnlineDatabase menuOnlineDatabase;
-
+    private DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +51,7 @@ public class ChiTietQuanAn extends AppCompatActivity {
     }
 
     private void addEvents() {
-        gridMonAnTrongQuan.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        lvMenuMonAn.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 SharedPreferences sharedPreferences = getSharedPreferences("userinfo", MODE_PRIVATE);
@@ -91,17 +95,15 @@ public class ChiTietQuanAn extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("bundle");
-        QuanAn quanAn = (QuanAn) bundle.getSerializable("detail");
+        quanAn = (QuanAn) bundle.getSerializable("detail");
 
         img.setBackgroundResource(quanAn.getImg());
         txtTenQuanAn.setText(quanAn.getTenQuan());
         txtDiachi.setText(quanAn.getDiaChi());
         btnDonHang = (Button) findViewById(R.id.btnDonHang);
         btnDonHang.setVisibility(View.INVISIBLE);
-        monAnList = quanAn.getMonAnList();
-        monanAdapter = new DsMonAnTrongQuan(getApplicationContext(), R.layout.item_monan_trong_quanan, monAnList);
-        gridMonAnTrongQuan = (GridView) findViewById(R.id.gridMonAnTrongQuan);
-        gridMonAnTrongQuan.setAdapter(monanAdapter);
+
+        setupMenuMonAn();
     }
 
     private void setupToolbar() {
@@ -114,14 +116,31 @@ public class ChiTietQuanAn extends AppCompatActivity {
         btnMenu = (Button) findViewById(R.id.btnMenu);
         btnMenu.setVisibility(View.GONE);
     }
-
+    private void setupMenuMonAn(){
+        drawerLayout = (DrawerLayout) findViewById(R.id.menu_monan);
+        monAnList = quanAn.getMonAnList();
+        monanAdapter = new DsMonAnTrongQuan(getApplicationContext(), R.layout.item_monan_trong_quanan, monAnList);
+        lvMenuMonAn = (ListView) findViewById(R.id.lvMonAnDrawer);
+        lvMenuMonAn.setAdapter(monanAdapter);
+    }
     private void data() {
         menuOnlineDatabase = new MenuOnlineDatabase(this);
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.title_menu, menu);
+        menu.findItem(R.id.search).setVisible(false);
+        menu.findItem(R.id.cart).setVisible(false);
+        menu.findItem(R.id.list).setVisible(true);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home) finish();
+        else if(item.getItemId() == R.id.list)
+            drawerLayout.openDrawer(GravityCompat.END);
         return super.onOptionsItemSelected(item);
     }
 }
