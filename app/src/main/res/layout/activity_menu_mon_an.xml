@@ -16,9 +16,8 @@
         android:gravity="center"
         android:textStyle="italic"
         android:text="Danh sách các món ăn trong menu"/>
-    <GridView
-        android:id="@+id/gridMonAn"
+    <ListView
+        android:id="@+id/lvMenuMonAn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:numColumns="2"></GridView>
+        android:layout_height="wrap_content"></ListView>
 </LinearLayout>

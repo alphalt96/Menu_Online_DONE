@@ -215,7 +215,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         user.setPassword(cursor.getString(cursor.getColumnIndex(USER_COlUMN_password)));
         user.setAddress(cursor.getString(cursor.getColumnIndex(USER_COLUMN_address)));
         user.setSoDienThoai(cursor.getString(cursor.getColumnIndex(USER_COLUMN_soDienThoai)));
-        user.setSoDienThoai(cursor.getString(cursor.getColumnIndex(USER_COLUMN_email)));
+        user.setEmail(cursor.getString(cursor.getColumnIndex(USER_COLUMN_email)));
         return user;
     }
     //lay thong tin don hang

@@ -9,7 +9,7 @@
         android:id="@+id/imgLoaiMonAn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/icon_phan_loai"
+        android:background="@drawable/border_register_button"
         />
     <Space
         android:layout_width="15dp"

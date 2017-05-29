@@ -11,9 +11,15 @@
         android:layout_height="50dp"
         android:background="@drawable/white_menu_icon"/>
     <TextView
-        android:id="@+id/txtPapeName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#e6dbdb"
-        android:textSize="20sp"/>
+        android:id="@+id/txtCartNum"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:textColor="#0a0a0a"
+        android:textSize="12sp"
+        android:text="69"
+        android:gravity="center"
+        android:background="@drawable/cart_num_border"
+        android:layout_marginLeft="300dp"
+        android:layout_marginBottom="32dp"
+        android:visibility="gone"/>
 </android.support.v7.widget.Toolbar>

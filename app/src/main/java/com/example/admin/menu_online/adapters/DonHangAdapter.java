@@ -54,13 +54,22 @@ public class DonHangAdapter extends ArrayAdapter<MonAn> {
             viewHolder.btnDelete = (Button) convertView.findViewById(R.id.btnDelete);
             viewHolder.btnInc = (Button) convertView.findViewById(R.id.btnInc);
             viewHolder.btnDec = (Button) convertView.findViewById(R.id.btnDec);
+            viewHolder.txtMulti = (TextView) convertView.findViewById(R.id.txtMulti);
             convertView.setTag(viewHolder);
         } else viewHolder = (ViewHolder) convertView.getTag();
 
         viewHolder.imgDonHang.setBackgroundResource(monAn.getImage());
         viewHolder.txtTenDonHang.setText(monAn.getTenMonAn());
         viewHolder.txtGiaDonHang.setText(String.valueOf(monAn.getGiaTien()));
-        viewHolder.txtCount.setText(String.valueOf(menuOnlineDatabase.getCount(monAn.getMaMonAn())));
+        if(menuOnlineDatabase.getCount(monAn.getMaMonAn()) > 1) {
+            viewHolder.txtMulti.setVisibility(View.VISIBLE);
+            viewHolder.txtCount.setVisibility(View.VISIBLE);
+            viewHolder.txtCount.setText(String.valueOf(menuOnlineDatabase.getCount(monAn.getMaMonAn())));
+        } else {
+            viewHolder.txtMulti.setVisibility(View.GONE);
+            viewHolder.txtCount.setVisibility(View.GONE);
+
+        }
 
 //        menuOnlineDatabase.updateDonHang(monAn.getMaMonAn(), Integer.parseInt(viewHolder.txtCount.getText().toString()));
         viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +121,7 @@ public class DonHangAdapter extends ArrayAdapter<MonAn> {
         private ImageView imgDonHang;
         private TextView txtTenDonHang;
         private TextView txtGiaDonHang;
-        private TextView txtCount;
+        private TextView txtCount, txtMulti;
         private Button btnDelete, btnInc, btnDec;
     }
 }

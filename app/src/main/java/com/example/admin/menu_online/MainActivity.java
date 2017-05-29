@@ -1,11 +1,13 @@
 package com.example.admin.menu_online;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnNewMonAn, btnNewQuanAn, btnMenu;
     private ImageView imgApp;
     private Toolbar toolbar;
+    private TextView cartNum;
 
     TabHost tabHost;
     String loaiMonAn="", thanhPho="";
@@ -74,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         tabHost.setCurrentTab(0);
         drawerLayout.closeDrawer(GravityCompat.START);
+        if(getSharedPreferences("userinfo", MODE_PRIVATE).getInt("USERID", 0) != 0 && menuOnlineDatabase.getDonHang().size() > 0){
+            cartNum.setText(String.valueOf(menuOnlineDatabase.getDonHang().size()));
+            cartNum.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setEvent() {
@@ -139,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
                         } else
                             Toast.makeText(MainActivity.this, "Da co san mon an nay", Toast.LENGTH_SHORT).show();
                     }
+                    cartNum.setText(String.valueOf(menuOnlineDatabase.getDonHang().size()));
+                    cartNum.setVisibility(View.VISIBLE);
                 } else {
                     Toast.makeText(MainActivity.this, "Ban can dang nhap de thuc hien chuc nang nay", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainActivity.this, UserLogin.class));
@@ -331,18 +340,25 @@ public class MainActivity extends AppCompatActivity {
 
         //khoi tao menu
         setupMenu();
+
+        cartNum = (TextView) findViewById(R.id.txtCartNum);
+        if(getSharedPreferences("userinfo", MODE_PRIVATE).getInt("USERID", 0) != 0 && menuOnlineDatabase.getDonHang().size() > 0){
+            cartNum.setText(String.valueOf(menuOnlineDatabase.getDonHang().size()));
+            cartNum.setVisibility(View.VISIBLE);
+        }
     }
     //khoi tao danh sach menu
     public void addItemList(){
-        String[] nameItem = new String[]{"Món ăn", "Quán ăn", "User", "Rating", "Thông tin"};
+        String[] nameItem = new String[]{"Món ăn", "Quán ăn", "User", "Rating", "Thông tin", "Thoát"};
         int[] imgItem = new int[]{R.drawable.food_item_menu_icon_png_2,
                 R.drawable.restaurant_item_menu_icon_png_2,
                 R.drawable.user_item_menu_icon_png_2,
                 R.drawable.rating_menu_item_icon_png,
-                R.drawable.information_item_icon_png_2
+                R.drawable.information_item_icon_png_2,
+                R.drawable.quit_icon_png
         };
         ItemMenu itemMenu;
-        for(int i=0; i<5; i++){
+        for(int i=0; i<6; i++){
             itemMenu = new ItemMenu();
             itemMenu.setIconImg(imgItem[i]);
             itemMenu.setItemName(nameItem[i]);
@@ -385,7 +401,23 @@ public class MainActivity extends AppCompatActivity {
                         else startActivity(new Intent(MainActivity.this, UserInfo.class));
                         break;
                     case 3: Toast.makeText(MainActivity.this, "Hiện chưa có chức năng này", Toast.LENGTH_SHORT).show(); break;
-                    case 4: Toast.makeText(MainActivity.this, "2.1.3.1415926535897932", Toast.LENGTH_SHORT).show();
+                    case 4: Toast.makeText(MainActivity.this, "2.1.3.1415926535897932", Toast.LENGTH_SHORT).show(); break;
+                    case 5:
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setMessage("Bạn có chắc là bạn muốn thoát?");
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        });
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                 }
             }
         });
@@ -402,7 +434,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here.
         int id = item.getItemId();
-        if (id == R.id.search) {
+        if (id==R.id.search) {
             startActivity(new Intent(MainActivity.this, MenuMonAn.class));
 
         } else if (id == R.id.cart) {

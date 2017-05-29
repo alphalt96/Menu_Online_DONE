@@ -7,7 +7,48 @@
     tools:context="com.example.admin.menu_online.DonHang"
     android:orientation="vertical"
     android:weightSum="1">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#45474d">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="17dp"
+            android:gravity="center"
+            android:text="Món ăn"
+            android:textColor="#e8edef"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="Tổng tiền: "
+                android:textColor="#e8edef"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/txtTotalcost"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="#d74d4d"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,68 +57,23 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:stretchColumns="1"
-            android:background="#e9e1e1">
+            android:background="#e9e1e1"
+            android:stretchColumns="1">
 
             <!-- everything you already have -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="#45474d">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="17dp"
-                    android:gravity="center"
-                    android:text="Mon an"
-                    android:textColor="#e8edef"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:gravity="right"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:gravity="center"
-                        android:text="Tổng tiền: "
-                        android:textColor="#e8edef"
-                        android:textSize="17sp" />
-
-                    <TextView
-                        android:id="@+id/txtTotalcost"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_marginRight="20dp"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="#d74d4d"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:background="#e9e1e1"/>
 
             <RelativeLayout
                 android:layout_width="360dp"
                 android:layout_height="wrap_content"
-                android:background="#fff"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:background="#e9e1e1">
+
                 <ListView
                     android:id="@+id/lvDonHang"
                     android:layout_width="360dp"
                     android:layout_height="400dp"
-                    android:layout_gravity="center"
-                    android:layout_centerInParent="true"></ListView>
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"></ListView>
             </RelativeLayout>
 
             <TextView
@@ -99,8 +95,9 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/search_border"
-                    android:text="Ship"
-                    android:textColor="#f3f4f7" />
+                    android:text="Đặt hàng"
+                    android:textColor="#f3f4f7"
+                    android:textAllCaps="false"/>
 
                 <Button
                     android:id="@+id/btnClear"
@@ -109,8 +106,9 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/search_border"
-                    android:text="Clear"
-                    android:textColor="#f3f4f7" />
+                    android:text="Hủy"
+                    android:textColor="#f3f4f7"
+                    android:textAllCaps="false"/>
             </LinearLayout>
         </TableLayout>
     </ScrollView>

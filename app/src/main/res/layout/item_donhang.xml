@@ -7,15 +7,21 @@
         android:layout_width="360dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/cart_item_border"
+        android:elevation="10dp"
+        android:backgroundTint="#fff"
+        android:layout_marginTop="10dp">
         <ImageView
             android:id="@+id/imgDonHang"
             android:layout_width="100dp"
-            android:layout_height="80dp"
-            android:background="@drawable/mon_an_7"/>
+            android:layout_height="100dp"
+            android:background="@drawable/mon_an_7"
+            android:layout_marginRight="10dp"
+            android:drawingCacheQuality="low"/>
         <LinearLayout
-            android:layout_width="160dp"
-            android:layout_height="80dp"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
             android:orientation="vertical">
 
             <TextView
@@ -27,59 +33,73 @@
                 android:textColor="#000"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/txtGiaDonhang"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:gravity="center"
-                android:text="30000VND"
-                android:textColor="#c72424"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/txtGiaDonhang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="30000VND"
+                    android:gravity="center_vertical"
+                    android:textColor="#c72424"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtMulti"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:text="X"
+                    android:visibility="gone"
+                    android:gravity="center"/>
+                <EditText
+                    android:id="@+id/txtCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#ffffff"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textStyle="bold"
+                    android:textColor="#541919"
+                    android:visibility="gone"
+                    android:textSize="17sp" />
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="50dp"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
             android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:gravity="center_vertical">
             <Button
                 android:id="@+id/btnInc"
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
+                android:layout_height="40dp"
                 android:text="+"
-                android:background="#fff"/>
-            <EditText
-                android:id="@+id/txtCount"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
-                android:text="1"
-                android:textSize="8sp"
-                android:background="#847f7f"
-                android:textColor="#e6dede"
-                android:gravity="center"
-                android:clickable="false"
-                android:enabled="false"/>
+                android:background="@drawable/border_plus_min_button" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#f1eded"
+                android:layout_gravity="center"/>
             <Button
                 android:id="@+id/btnDec"
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
+                android:layout_height="40dp"
                 android:text="-"
-                android:background="#fff"/>
+                android:background="@drawable/border_plus_min_button" />
         </LinearLayout>
+
         <Button
             android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:text="delete"
-            android:background="#fff"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/delete_icon_png" />
     </LinearLayout>
     <Space
         android:layout_width="match_parent"
         android:layout_height="7dp" />
-    <TextView
-        android:layout_width="360dp"
-        android:layout_height="1dp"
-        android:background="#e1dada"
-        android:layout_below="@+id/layoutDonHang"
-        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

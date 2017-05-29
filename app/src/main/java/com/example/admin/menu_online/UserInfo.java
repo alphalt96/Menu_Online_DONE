@@ -2,6 +2,7 @@ package com.example.admin.menu_online;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +32,7 @@ public class UserInfo extends AppCompatActivity {
 
     private Toolbar toolbar;
     Button btnShip, btnClear;
-    TextView txtTotalCost;
+    TextView txtTotalCost, cartNum;
 
     ArrayList<MonAn> monAnArrayList;
     DonHangAdapter donHangAdapter;
@@ -91,13 +92,15 @@ public class UserInfo extends AppCompatActivity {
         tabHost = (TabHost) findViewById(R.id.tabHost);
         tabHost.setup();
         TabHost.TabSpec tab1 = tabHost.newTabSpec("t1");
-        tab1.setIndicator("Profile");
+        tab1.setIndicator("Thông tin");
         tab1.setContent(R.id.userTab1);
         TabHost.TabSpec tab2 = tabHost.newTabSpec("t2");
-        tab2.setIndicator("Cart");
+        tab2.setIndicator("Giỏ hàng");
         tab2.setContent(R.id.userTab2);
         tabHost.addTab(tab1);
         tabHost.addTab(tab2);
+
+        tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundColor(Color.parseColor("#f5ff9685"));
     }
 
     private void setupToolbar() {
@@ -107,6 +110,9 @@ public class UserInfo extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
         getSupportActionBar().setTitle("Người dùng");
+
+        cartNum = (TextView) findViewById(R.id.txtCartNum);
+        cartNum.setVisibility(View.GONE);
     }
 
     private void getWidgets() {
@@ -133,6 +139,15 @@ public class UserInfo extends AppCompatActivity {
     }
 
     private void setEvents(){
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                for(int i=0;i<tabHost.getTabWidget().getChildCount();i++) {
+                    tabHost.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#F47B68")); //unselected
+                }
+                tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundColor(Color.parseColor("#f5ff9685")); // selected
+            }
+        });
         userinfoEvents();
         cartEvents();
     }
@@ -294,5 +309,13 @@ public class UserInfo extends AppCompatActivity {
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        super.onBackPressed();
     }
 }

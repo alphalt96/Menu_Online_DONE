@@ -5,85 +5,104 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.admin.menu_online.UserLogin"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/login_background_3"
+    android:alpha="0.94">
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar_normal"></include>
+
     <LinearLayout
         android:id="@+id/layoutUnLogged"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
-        <ImageView
-            android:id="@+id/imgLogin"
-            android:layout_width="100dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:background="@drawable/user_icon_png_2"/>
+            android:text="WellCome"
+            android:textSize="30sp"
+            android:textStyle="italic"
+            android:gravity="center"
+            android:layout_marginTop="5dp"/>
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="30dp" />
+
         <TextView
             android:id="@+id/txtUsernameTitle"
             android:layout_width="250dp"
             android:layout_height="25dp"
-            android:text="Username"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical"
+            android:text="Username" />
+
         <EditText
             android:id="@+id/txtUsernameLogin"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:drawableLeft="@drawable/username_icon_png"
-            android:hint="username"/>
+            android:drawableLeft="@drawable/user_login_icon"
+            android:hint="username" />
+
         <TextView
             android:id="@+id/txtPasswordTitle"
             android:layout_width="250dp"
             android:layout_height="25dp"
-            android:text="Password"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical"
+            android:text="Password"/>
+
         <EditText
             android:id="@+id/txtPasswordLogin"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:inputType="textPassword"
-            android:drawableLeft="@drawable/password_icon_png"
-            android:hint="password"/>
+            android:drawableLeft="@drawable/password_login_icon"
+            android:hint="password"
+            android:inputType="textPassword" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="7dp" />
+
         <Button
             android:id="@+id/btnSignOn"
             android:layout_width="250dp"
             android:layout_height="30dp"
             android:background="@drawable/border_register_button"
-            android:text="Click here to register"
-            android:backgroundTint="#ded8d8"/>
+            android:backgroundTint="#587f8b84"
+            android:text="Click here to register" />
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="10dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="125dp"
                 android:layout_height="50dp"
-                android:background="@drawable/login_button"/>
+                android:background="@drawable/login_button" />
         </LinearLayout>
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="70dp" />
+
         <Button
             android:id="@+id/btnForgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:background="#fff"
-            android:textStyle="normal"
-            android:textColor="#747171"
+            android:layout_gravity="center"
+            android:background="#00000000"
             android:text="Forgot your password?"
-            android:layout_gravity="center"/>
+            android:textColor="#b90b0b0b"
+            android:textSize="10sp"
+            android:textStyle="normal" />
     </LinearLayout>
 </LinearLayout>

@@ -35,7 +35,7 @@ public class ChiTietMonAn extends AppCompatActivity implements OnMapReadyCallbac
     private ImageView imgMonAn;
     private Button  btnMenu, btnAddCart;
     private Toolbar toolbar;
-    private TextView txtLuotXem, txtLuotThich, txtHello;
+    private TextView txtLuotXem, txtLuotThich, txtHello, cartNum;
     private MonAn monAn;
 
     private GoogleMap mMap;
@@ -93,6 +93,8 @@ public class ChiTietMonAn extends AppCompatActivity implements OnMapReadyCallbac
                         float giaTien = monAn.getGiaTien();
                         menuOnlineDatabase.insertDatHang(maMonAn, tenMonAn, img, 1, viTri, loaiMonAn, giaTien);
                         Toast.makeText(ChiTietMonAn.this, "Them mon an vao gio hang thanh cong", Toast.LENGTH_SHORT).show();
+                        cartNum.setVisibility(View.VISIBLE);
+                        cartNum.setText(String.valueOf(menuOnlineDatabase.getDonHang().size()));
                     } else Toast.makeText(ChiTietMonAn.this, "Mon nay da co san trong gio hang", Toast.LENGTH_SHORT).show();
                 } else Toast.makeText(ChiTietMonAn.this, "Ban can dang nhap de thuc hien chuc nang nay", Toast.LENGTH_SHORT).show();
             }
@@ -144,6 +146,12 @@ public class ChiTietMonAn extends AppCompatActivity implements OnMapReadyCallbac
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_icon_png);
         btnMenu = (Button) findViewById(R.id.btnMenu);
         btnMenu.setVisibility(View.GONE);
+
+        cartNum = (TextView) findViewById(R.id.txtCartNum);
+        if(getSharedPreferences("userinfo", MODE_PRIVATE).getInt("USERID", 0) != 0 && menuOnlineDatabase.getDonHang().size() > 0){
+            cartNum.setVisibility(View.VISIBLE);
+            cartNum.setText(String.valueOf(menuOnlineDatabase.getDonHang().size()));
+        }
     }
 
     @Override
@@ -173,8 +181,8 @@ public class ChiTietMonAn extends AppCompatActivity implements OnMapReadyCallbac
         LatLng location = new LatLng(area.getLat(), area.getLng());
         mMap.addMarker(new MarkerOptions().position(location).title("Marker in Myhome"));
 
-        //zoom vị trí trỏ đến lên 16x
-        float zoomLevel = 18.0f; //This goes up to 21
+        //zoom vị trí trỏ đến lên 18x
+        float zoomLevel = 16.0f;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoomLevel));
     }
     private class location{
