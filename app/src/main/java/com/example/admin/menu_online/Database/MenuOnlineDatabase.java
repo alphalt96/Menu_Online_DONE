@@ -330,7 +330,7 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         ArrayList<QuanAn> list  = new ArrayList<>();
         QuanAn quanAn;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from (select * from QUANAN order by maQuan ASC limit 5) order by maQuan DESC", null);
+        Cursor cursor = db.rawQuery("select * from (select * from QUANAN order by viewNum DESC limit 5) order by maQuan DESC", null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()) {
             try {

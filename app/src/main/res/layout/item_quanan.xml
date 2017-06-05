@@ -26,8 +26,8 @@
             <TextView
                 android:id="@+id/txtRenTenQuanAn"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:textSize="17sp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
                 android:textStyle="italic"
                 android:text="ahihi"
                 android:textColor="#000"/>
@@ -35,7 +35,7 @@
         <TextView
             android:id="@+id/txtRenDiaChi"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:text="ahihi"
             android:textSize="14sp"
             android:layout_marginLeft="10dp"/>

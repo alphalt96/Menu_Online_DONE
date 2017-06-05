@@ -82,15 +82,15 @@ public class QuanAnManager {
 //                db.insertQuanAn("Quán " + (i + 1), "Địa chỉ " + (i + 1), choose, img, idStr, viewNum);
 //            }
             db.insertQuanAn("Ngọc Nhị", "69 Phần Lăng 8", "Hải Châu", R.drawable.quan1, "1 2 3 4 5", 400);
-            db.insertQuanAn("KFC", "104 Nguyễn Văn Linh, Nam Dương, Quận Hải Châu", "Thanh Khê", R.drawable.quan2, "6 7 8 9 10", 400);
-            db.insertQuanAn("Zé Food - Thiên Đường Ăn Vặt Online", "112/71 Trần Cao Vân, Quận Thanh Khê, Đà Nẵng", "Sơn Trà", R.drawable.quan3, "11 12 13 14 15", 400);
-            db.insertQuanAn("Highlands Coffee - One Opera Hotel", "01 Nguyễn Văn Linh, Nam Dương, Quận Hải Châu", "Liên Chiểu", R.drawable.quan4, "16 17 18 19 20", 400);
-            db.insertQuanAn("EZI Coffee", "30 Ông Ích Khiêm, Quận Hải Châu, Đà Nẵng", "Ngũ Hành Sơn", R.drawable.quan5, "21 22 23 24 25", 400);
-            db.insertQuanAn("Chói's Kitchen - Món Ăn Hàn Quốc", "02 Hoàng Hoa Thám, Quận Thanh Khê", "Thanh Khê", R.drawable.quan6, "26 27 28 29 30", 400);
-            db.insertQuanAn("Sasin", "315 Nguyễn Văn Linh, Quận Thanh Khê", "Hải Châu", R.drawable.quan7, "31 32 33 34 35", 400);
-            db.insertQuanAn("The Coffee House", "435 Lê Duẩn, Quận Thanh Khê", "Liên Chiểu", R.drawable.quan8, "36 37 38 39 40", 400);
-            db.insertQuanAn("Bingsu - Pizza Đà Nẵng", "73 Đặng Thai Mai, Quận Hải Châu", "Hòa Vang", R.drawable.quan9, "1 2 3 4 5", 400);
-            db.insertQuanAn("Ahihi - Trà Sữa & Ăn Vặt", "107 Lê Đình Lý, Quận Thanh Khê", "Hòa Vang", R.drawable.quan10, "6 7 8 9 10", 400);
+            db.insertQuanAn("KFC", "104 Nguyễn Văn Linh, Nam Dương, Quận Hải Châu", "Thanh Khê", R.drawable.quan2, "6 7 8 9 10", 69);
+            db.insertQuanAn("Zé Food - Thiên Đường Ăn Vặt Online", "112/71 Trần Cao Vân, Quận Thanh Khê, Đà Nẵng", "Sơn Trà", R.drawable.quan3, "11 12 13 14 15", 200);
+            db.insertQuanAn("Highlands Coffee - One Opera Hotel", "01 Nguyễn Văn Linh, Nam Dương, Quận Hải Châu", "Liên Chiểu", R.drawable.quan4, "16 17 18 19 20", 350);
+            db.insertQuanAn("EZI Coffee", "30 Ông Ích Khiêm, Quận Hải Châu, Đà Nẵng", "Ngũ Hành Sơn", R.drawable.quan5, "21 22 23 24 25", 70);
+            db.insertQuanAn("Chói's Kitchen - Món Ăn Hàn Quốc", "02 Hoàng Hoa Thám, Quận Thanh Khê", "Thanh Khê", R.drawable.quan6, "26 27 28 29 30", 100);
+            db.insertQuanAn("Sasin", "315 Nguyễn Văn Linh, Quận Thanh Khê", "Hải Châu", R.drawable.quan7, "31 32 33 34 35", 90);
+            db.insertQuanAn("The Coffee House", "435 Lê Duẩn, Quận Thanh Khê", "Liên Chiểu", R.drawable.quan8, "36 37 38 39 40", 122);
+            db.insertQuanAn("Bingsu - Pizza Đà Nẵng", "73 Đặng Thai Mai, Quận Hải Châu", "Hòa Vang", R.drawable.quan9, "1 2 3 4 5", 227);
+            db.insertQuanAn("Ahihi - Trà Sữa & Ăn Vặt", "107 Lê Đình Lý, Quận Thanh Khê", "Hòa Vang", R.drawable.quan10, "6 7 8 9 10", 777);
         }
     }
 }
