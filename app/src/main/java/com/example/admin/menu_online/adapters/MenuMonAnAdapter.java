@@ -77,7 +77,7 @@ public class MenuMonAnAdapter extends ArrayAdapter<MonAn> {
                         float giaTien = monAn.getGiaTien();
                         menuOnlineDatabase.insertDatHang(maMonAn, tenMonAn, img, 1, viTri, loaiMonAn, giaTien);
                         Toast.makeText(context, "Them mon an vao gio hang thanh cong", Toast.LENGTH_SHORT).show();
-                        cartNum.setVisibility(View.VISIBLE);
+//                        cartNum.setVisibility(View.VISIBLE);
                         cartNum.setText(String.valueOf(menuOnlineDatabase.getDonHang().size()));
                     } else Toast.makeText(context, "Mon nay da co san trong gio hang", Toast.LENGTH_SHORT).show();
                 } else Toast.makeText(context, "Ban can dang nhap de thuc hien chuc nang nay", Toast.LENGTH_SHORT).show();

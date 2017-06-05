@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text="Chọn thành phố"
+        android:text="Chọn khu vực"
         android:textStyle="bold"
         android:gravity="center"/>
     <TextView

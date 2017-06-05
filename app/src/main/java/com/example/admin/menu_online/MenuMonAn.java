@@ -96,6 +96,7 @@ public class MenuMonAn extends AppCompatActivity {
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cartNum.setVisibility(View.GONE);
             }
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -118,6 +119,7 @@ public class MenuMonAn extends AppCompatActivity {
             @Override
             public boolean onClose() {
                 if(getSharedPreferences("userinfo", MODE_PRIVATE).getInt("USERID", 0) != 0 && menuOnlineDatabase.getDonHang().size() > 0){
+                    cartNum.setVisibility(View.VISIBLE);
                 }
                 return false;
             }

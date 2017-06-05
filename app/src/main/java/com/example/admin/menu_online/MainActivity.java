@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView cartNum;
 
     TabHost tabHost;
-    String loaiMonAn="", thanhPho="";
+    String loaiMonAn="", khuVuc="";
 
     Boolean siteCheck = true;
 
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 if(siteCheck == true){
                     Intent intent = new Intent(MainActivity.this, ChiTietMonAn.class);
                     Bundle bundle = new Bundle();
-                    if(loaiMonAn == "" && thanhPho == "")
+                    if(loaiMonAn == "" && khuVuc == "")
                         bundle.putSerializable("detail",MonAnManager.getsInstance(MainActivity.this).getDanhSachMonMoi().get(position));
                     else
                         bundle.putSerializable("detail",locMonAn.get(position));
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 SharedPreferences sharedPreferences = getSharedPreferences("userinfo", MODE_PRIVATE);
                 if(sharedPreferences.getInt("USERID", 0)!=0) {
-                    if(thanhPho == "" && loaiMonAn == "") {
+                    if(khuVuc == "" && loaiMonAn == "") {
                         if (menuOnlineDatabase.checkDatHang(monAnNoiBat.get(position).getMaMonAn())) {
                             int maMonAn = monAnNoiBat.get(position).getMaMonAn();
                             String tenMon = monAnNoiBat.get(position).getTenMonAn();
@@ -160,19 +160,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 locMonAn = new ArrayList<MonAn>();
-                thanhPho = cityList[position];
+                khuVuc = cityList[position];
                 siteCheck = true;
                 for(int i=0; i<MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().size(); i++){
                     if(loaiMonAn == "") {
-                        if (MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getViTri().equals(thanhPho)) {
+                        if (MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getViTri().equals(khuVuc)) {
                             locMonAn.add(MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i));
-                            txtTitle.setText("Món ăn tại "+thanhPho);
+                            txtTitle.setText("Món ăn tại "+khuVuc);
                         }
                     }
                     else{
-                        if (MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getViTri().equals(thanhPho) && MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getLoaiMonAn().equals(loaiMonAn)) {
+                        if (MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getViTri().equals(khuVuc) && MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getLoaiMonAn().equals(loaiMonAn)) {
                             locMonAn.add(MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i));
-                            txtTitle.setText("Món ăn "+loaiMonAn+" tại "+thanhPho);
+                            txtTitle.setText("Món ăn "+loaiMonAn+" tại "+khuVuc);
                         }
                     }
                 }
@@ -190,16 +190,16 @@ public class MainActivity extends AppCompatActivity {
                 loaiMonAn = loaimonanList[position];
                 siteCheck = true;
                 for(int i=0; i<MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().size(); i++){
-                    if(thanhPho == "") {
+                    if(khuVuc == "") {
                         if (MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getLoaiMonAn().equals(loaiMonAn)) {
                             locMonAn.add(MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i));
                             txtTitle.setText("Món ăn "+loaiMonAn);
                         }
                     }
                     else{
-                        if (MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getViTri().equals(thanhPho) && MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getLoaiMonAn().equals(loaiMonAn)) {
+                        if (MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getViTri().equals(khuVuc) && MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i).getLoaiMonAn().equals(loaiMonAn)) {
                             locMonAn.add(MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().get(i));
-                            txtTitle.setText("Món ăn "+loaiMonAn+" tại "+thanhPho);
+                            txtTitle.setText("Món ăn "+loaiMonAn+" tại "+khuVuc);
                         }
                     }
                 }
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 myAdapter = new MyAdapter(MainActivity.this, R.layout.item_monan, monAnNoiBat);
                 lvHienThiMonAn.setAdapter(myAdapter);
-                thanhPho = "";
+                khuVuc = "";
                 loaiMonAn = "";
                 txtTitle.setText("Món ăn nổi bật");
                 siteCheck = true;

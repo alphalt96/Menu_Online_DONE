@@ -53,6 +53,7 @@ public class DsMonAnTrongQuan extends ArrayAdapter<MonAn> {
             viewHolder.imgMonAn = (ImageView) convertView.findViewById(R.id.imgMonAn);
             viewHolder.txtRenTen = (TextView) convertView.findViewById(R.id.txtRenTen);
             viewHolder.btnAdd = (Button) convertView.findViewById(R.id.btnAddCart);
+            viewHolder.txtRenGiaTien = (TextView) convertView.findViewById(R.id.txtRenGiaTien);
 
             convertView.setTag(viewHolder);
         } else {
@@ -61,6 +62,7 @@ public class DsMonAnTrongQuan extends ArrayAdapter<MonAn> {
 
         viewHolder.imgMonAn.setBackgroundResource(monAn.getImage());
         viewHolder.txtRenTen.setText(monAn.getTenMonAn());
+        viewHolder.txtRenGiaTien.setText(String.valueOf(monAn.getGiaTien()));
 
         viewHolder.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +87,7 @@ public class DsMonAnTrongQuan extends ArrayAdapter<MonAn> {
     }
     private class ViewHolder{
         private ImageView imgMonAn;
-        private TextView txtRenTen;
+        private TextView txtRenTen, txtRenGiaTien;
         private Button btnAdd;
     }
 }
