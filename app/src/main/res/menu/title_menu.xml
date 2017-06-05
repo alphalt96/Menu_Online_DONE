@@ -13,8 +13,8 @@
         android:title="Cart"
         app:showAsAction="always" />
     <item
-        android:id="@+id/list"
-        android:icon="@drawable/menu3cham_icon_png_2"
+        android:id="@+id/maps"
+        android:icon="@drawable/maps_icon_png"
         android:title="MonAnList"
         app:showAsAction="always"
         android:visible="false"/>

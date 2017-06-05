@@ -179,9 +179,10 @@ public class ChiTietMonAn extends AppCompatActivity implements OnMapReadyCallbac
 //        loc.getLocation();
         // Add a marker in Sydney and move the camera
         LatLng location = new LatLng(area.getLat(), area.getLng());
-        mMap.addMarker(new MarkerOptions().position(location).title("Marker in Myhome"));
-
-        //zoom vị trí trỏ đến lên 18x
+        mMap.addMarker(new MarkerOptions().position(location).title(diaChi));
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        //zoom vị trí trỏ đến lên 16x
         float zoomLevel = 16.0f;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, zoomLevel));
     }

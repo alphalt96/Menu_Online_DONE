@@ -31,12 +31,14 @@ public class UserInfo extends AppCompatActivity {
     private TextView txtHienThiUsername, txtHienThiPassword, txtHienThiAddress, txtHienThiSoDienThoai, txtHienThiEmail;
 
     private Toolbar toolbar;
-    Button btnShip, btnClear;
-    TextView txtTotalCost, cartNum;
+    private Button btnShip, btnClear;
+    private TextView txtTotalCost, cartNum;
 
-    ArrayList<MonAn> monAnArrayList;
-    DonHangAdapter donHangAdapter;
-    ListView lvDonHang;
+    private ArrayList<MonAn> monAnArrayList;
+    private DonHangAdapter donHangAdapter;
+    private ListView lvDonHang;
+
+    private boolean CHECK=false;
 
     float tongTien=0;
 
@@ -64,8 +66,10 @@ public class UserInfo extends AppCompatActivity {
     }
 
     private void checkActivity() {
-        if(getIntent().getBooleanExtra("CART", false) == true)
+        if(getIntent().getBooleanExtra("CART", false) == true) {
             tabHost.setCurrentTab(1);
+            CHECK = true;
+        }
     }
 
     private void setControls() {
@@ -100,7 +104,9 @@ public class UserInfo extends AppCompatActivity {
         tabHost.addTab(tab1);
         tabHost.addTab(tab2);
 
-        tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundColor(Color.parseColor("#f5ff9685"));
+        tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.drawable.pressed_effect); // selected
+        TextView textColor = (TextView) tabHost.getCurrentTabView().findViewById(android.R.id.title);
+        textColor.setTextColor(Color.parseColor("#ffffff"));
     }
 
     private void setupToolbar() {
@@ -144,8 +150,12 @@ public class UserInfo extends AppCompatActivity {
             public void onTabChanged(String tabId) {
                 for(int i=0;i<tabHost.getTabWidget().getChildCount();i++) {
                     tabHost.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#F47B68")); //unselected
+                    TextView textColor = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+                    textColor.setTextColor(Color.parseColor("#000000"));
                 }
-                tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundColor(Color.parseColor("#f5ff9685")); // selected
+                tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.drawable.pressed_effect); // selected
+                TextView textColor = (TextView) tabHost.getCurrentTabView().findViewById(android.R.id.title);
+                textColor.setTextColor(Color.parseColor("#ffffff"));
             }
         });
         userinfoEvents();
@@ -303,19 +313,25 @@ public class UserInfo extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home && getSharedPreferences("userinfo", MODE_PRIVATE).getInt("USERID", 0) != 0){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+        if(item.getItemId() == android.R.id.home){
+            if(CHECK == true) finish();
+            else {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        super.onBackPressed();
+        if(CHECK == true) finish();
+        else {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            super.onBackPressed();
+        }
     }
 }

@@ -56,7 +56,8 @@
                     <TabWidget
                         android:id="@android:id/tabs"
                         android:layout_width="match_parent"
-                        android:layout_height="41dp" />
+                        android:layout_height="27dp"
+                        android:background="#F47B68"/>
 
                     <FrameLayout
                         android:id="@android:id/tabcontent"
@@ -68,6 +69,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
+
                             <include layout="@layout/home_tab_1"></include>
                         </LinearLayout>
 
@@ -92,13 +94,36 @@
         </LinearLayout>
 
         <!--</LinearLayout>-->
-        <ListView android:id="@+id/lvMenuDrawer"
+        <LinearLayout
             android:layout_width="240dp"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:layout_gravity="start"
-            android:choiceMode="singleChoice"
             android:divider="@android:color/transparent"
-            android:dividerHeight="0dp"
-            android:background="#ed1b1a1a"/> //#ed121111 #ef1e1d1d #ed1b1a1a
+            android:dividerHeight="0dp">
+            <RelativeLayout
+                android:layout_width="240dp"
+                android:layout_height="90dp"
+                android:orientation="vertical"
+                android:layout_gravity="start"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0dp"
+                android:background="#e9121111">
+                <ImageView
+                    android:id="@+id/iconApp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/icon_apk"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+            <ListView android:id="@+id/lvMenuDrawer"
+                android:layout_width="240dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:choiceMode="singleChoice"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0dp"
+                android:background="#ed1b1a1a"/> //#ed121111 #ef1e1d1d #ed1b1a1a
+        </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 </LinearLayout>

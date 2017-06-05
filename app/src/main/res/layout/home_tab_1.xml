@@ -19,7 +19,7 @@
             android:layout_height="30dp"
             android:text="Món mới"
             android:textStyle="bold"
-            android:background="#F47B68"/>
+            android:background="@drawable/border_register_button"/>
         <TextView
             android:layout_width="1dp"
             android:layout_height="30dp"
@@ -28,9 +28,9 @@
             android:id="@+id/btnNewQuanAn"
             android:layout_width="190dp"
             android:layout_height="30dp"
-            android:text="Quán mới"
+            android:text="Quán nổi bật"
             android:textStyle="bold"
-            android:background="#F47B68"/>
+            android:background="@drawable/border_register_button"/>
     </LinearLayout>
     <Space
         android:layout_width="match_parent"

@@ -14,39 +14,45 @@
         android:layout_width="15dp"
         android:layout_height="wrap_content" />
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="206dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="15dp">
+
         <TextView
             android:id="@+id/txtTenQuanAn"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:gravity="center_vertical"
             android:text="Bán tráng trộn"
             android:textColor="#000"
-            android:textSize="30sp"
-            android:gravity="center_vertical" />
+            android:textSize="18sp" />
+
         <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/txtViewNum"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="69"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical"
+                android:text="69" />
+
             <Space
                 android:layout_width="10dp"
                 android:layout_height="wrap_content" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reviews"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:text="Reviews" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
@@ -62,6 +68,7 @@
                 android:layout_width="150dp"
                 android:layout_height="30dp"
                 android:text="Kim Đồng"
+                android:textSize="12sp"
                 android:gravity="center_vertical"/>
         </LinearLayout>
     </LinearLayout>

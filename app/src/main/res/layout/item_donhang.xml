@@ -9,7 +9,6 @@
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
         android:background="@drawable/cart_item_border"
-        android:elevation="10dp"
         android:backgroundTint="#fff"
         android:layout_marginTop="10dp">
         <ImageView
@@ -94,12 +93,9 @@
 
         <Button
             android:id="@+id/btnDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
             android:background="@drawable/delete_icon_png" />
     </LinearLayout>
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="7dp" />
 </RelativeLayout>

@@ -3,6 +3,7 @@ package com.example.admin.menu_online;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -27,7 +28,6 @@ import com.example.admin.menu_online.adapters.ItemMenuAdapter;
 import com.example.admin.menu_online.adapters.LoaiMonAnAdapter;
 import com.example.admin.menu_online.adapters.MyAdapter;
 import com.example.admin.menu_online.adapters.QuanAnAdapter;
-import com.example.admin.menu_online.controller.LoadDatabaseControl;
 import com.example.admin.menu_online.controller.MonAnManager;
 import com.example.admin.menu_online.controller.QuanAnManager;
 import com.example.admin.menu_online.models.ItemMenu;
@@ -227,21 +227,17 @@ public class MainActivity extends AppCompatActivity {
                ArrayList<QuanAn> quanAnNoiBat = QuanAnManager.getsInstance(MainActivity.this).getDanhSachQuanMoi();
                 quanAnAdapter = new QuanAnAdapter(MainActivity.this, R.layout.item_quanan, quanAnNoiBat);
                 lvHienThiMonAn.setAdapter(quanAnAdapter);
-                txtTitle.setText("Quán ăn mới");
+                txtTitle.setText("Quán nổi bật");
                 siteCheck = false;
             }
         });
     }
 
     private void setControl() {
-        //Dem so lan start up app
-        LoadDatabaseControl.getsInstance(this).increaseCountStartUpApp();
         //csdl
         data();
         //Toolbar
         setupToolbar();
-        //Nap du lieu cho lan run app dau tien
-        loadData();
         //Khoi tao tabhost chứa các tab con
         setupTabhost();
         //New
@@ -324,11 +320,24 @@ public class MainActivity extends AppCompatActivity {
         tabHost.addTab(tab1);
         tabHost.addTab(tab2);
         tabHost.addTab(tab3);
-    }
 
-    private void loadData(){
-        MonAnManager.getsInstance(this).LoadData();
-        QuanAnManager.getsInstance(this).loadData();
+        tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.drawable.pressed_effect); // selected
+        TextView textColor = (TextView) tabHost.getCurrentTabView().findViewById(android.R.id.title);
+        textColor.setTextColor(Color.parseColor("#ffffff"));
+
+        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                for(int i=0;i<tabHost.getTabWidget().getChildCount();i++) {
+                    tabHost.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#F47B68")); //unselected
+                    TextView textColor = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+                    textColor.setTextColor(Color.parseColor("#000000"));
+                }
+                tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.drawable.pressed_effect); // selected
+                TextView textColor = (TextView) tabHost.getCurrentTabView().findViewById(android.R.id.title);
+                textColor.setTextColor(Color.parseColor("#ffffff"));
+            }
+        });
     }
 
     //Toolbar

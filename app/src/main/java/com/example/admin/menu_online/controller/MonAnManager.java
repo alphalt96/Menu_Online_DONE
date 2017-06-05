@@ -68,7 +68,7 @@ public class MonAnManager {
             db.insertMonAn("Ếch xào xả ớt", R.drawable.mon_an_2, 69, "Hồ Chí Minh", "Việt Nam", 20000,56, 67, "320/6 Hoàng Diệu");
             db.insertMonAn("Thịt nướng lu", R.drawable.mon_an_3, 96, "Đà Nẵng", "Nhật Bản", 10000, 78,89, "k280/23 Hoàng Diệu");
             db.insertMonAn("Bánh tráng kẹp", R.drawable.mon_an_4, 69, "Hà Nội", "Nhật Bản", 50000, 90, 100, "90 Âu Cơ");
-            db.insertMonAn("Bánh tráng nướng", R.drawable.mon_an_6, 96, "Huế", "Mỹ", 120000, 12, 23, "39 Ông Ích Khiêm");
+            db.insertMonAn("Bánh tráng nướng", R.drawable.mon_an_6, 96, "Huế", "Mỹ", 120000, 12, 23, "39 Ông Ích Khiêm, Đà Nẵng");
             db.insertMonAn("Ốc bưu", R.drawable.mon_an_7, 96, "Vũng Tàu", "Mỹ", 200000, 34, 45, "112/71 Trần Cao Vân");
             db.insertMonAn("Phá lấu", R.drawable.mon_an_8, 96, "Đà Nẵng", "Mỹ", 50000, 56, 67, "73 Phan Châu Trinh");
             db.insertMonAn("Bột chiên", R.drawable.mon_an_9, 96, "Hà Nội", "Nhật Bản", 20000, 78, 89, "32 Hoàng Hoa Thám");

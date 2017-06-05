@@ -23,39 +23,56 @@
             <ImageView
                 android:id="@+id/imgQuanAn"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:alpha="0.8"/>
+                android:layout_height="200dp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="#b9193353">
+                android:paddingLeft="10dp"
+                android:layout_marginTop="10dp">
                 <TextView
                     android:id="@+id/txtTenQuanAn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#fff"/>
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:text="ahihi"/>
                 <TextView
                     android:id="@+id/txtViTri"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#fff"/>
+                    android:textColor="#000"
+                    android:text="ahihi"/>
             </LinearLayout>
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="50dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#d1c9c9"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#d1c9c9"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="Thực đơn của quán"
+                android:gravity="center_vertical"
+                android:background="#b4eeeff2"
+                android:paddingLeft="10dp"/>
+            <ListView
+                android:id="@+id/lvMonAn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></ListView>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Menu của quán"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    android:textColor="#bc4444"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -70,18 +87,30 @@
             </LinearLayout>
         </LinearLayout>
         <!--</LinearLayout>-->
-        <ListView android:id="@+id/lvMonAnDrawer"
-            android:layout_width="270dp"
+        <LinearLayout
+            android:layout_width="360dp"
             android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:choiceMode="singleChoice"
+            android:orientation="vertical"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"
-            android:background="#2b2e31"/>
+            android:layout_gravity="end"
+            android:background="#ed1b1a1a">
+            <Button
+                android:id="@+id/btnCloseMaps"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/close_icon_png"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"/>
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/foodmap"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.example.admin.menu_online.MapsActivity" />
+        </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
-
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="20dp" />
 
 </LinearLayout>
