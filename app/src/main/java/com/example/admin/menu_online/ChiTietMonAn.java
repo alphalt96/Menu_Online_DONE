@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ChiTietMonAn extends AppCompatActivity implements OnMapReadyCallback {
@@ -35,7 +36,7 @@ public class ChiTietMonAn extends AppCompatActivity implements OnMapReadyCallbac
     private ImageView imgMonAn;
     private Button  btnMenu, btnAddCart;
     private Toolbar toolbar;
-    private TextView txtLuotXem, txtLuotThich, txtHello, cartNum;
+    private TextView txtLuotXem, txtLuotThich, txtHello, cartNum, txtScore;
     private MonAn monAn;
 
     private GoogleMap mMap;
@@ -113,6 +114,7 @@ public class ChiTietMonAn extends AppCompatActivity implements OnMapReadyCallbac
         txtRenViTri = (TextView) findViewById(R.id.txtRenViTri);
         txtLuotXem = (TextView) findViewById(R.id.txtLuotXem);
         txtLuotThich = (TextView) findViewById(R.id.txtLuotThich);
+        txtScore = (TextView) findViewById(R.id.txtScore);
         txtHello = (TextView) findViewById(R.id.txtHello);
         btnAddCart = (Button) findViewById(R.id.btnAddCart);
 
@@ -130,6 +132,7 @@ public class ChiTietMonAn extends AppCompatActivity implements OnMapReadyCallbac
         txtRenViTri.setText(monAn.getDiaChi());
         txtLuotXem.setText(String.valueOf(monAn.getLuotView()));
         txtLuotThich.setText(String.valueOf(monAn.getLuotThich()));
+        txtScore.setText(new formular(monAn.getLuotView(), monAn.getLuotThich()).score());
     }
 
     private void data() {
@@ -224,6 +227,81 @@ public class ChiTietMonAn extends AppCompatActivity implements OnMapReadyCallbac
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    private class formular{
+        private int views, like;
+
+        public int getView() {
+            return views;
+        }
+
+        public void setView(int views) {
+            this.views = views;
+        }
+
+        public int getLike() {
+            return like;
+        }
+
+        public void setLike(int like) {
+            this.like = like;
+        }
+
+        public formular() {
+        }
+
+        public formular(int view, int like) {
+            this.views = view;
+            this.like = like;
+        }
+        private float scoreCal(){
+            float score = 0;
+            float score1 = (this.views+this.like)/2;
+            if(score1 > 0 && score1 <= 100){
+                score = 1;
+            } else if(score1 > 100 && score1 <= 200){
+                score = 2;
+            } else if(score1 > 200 && score1 <= 300){
+                score = 3;
+            } else if(score1 > 300 && score1 <= 400){
+                score = 4;
+            } else if(score1 > 400 && score1 <= 500){
+                score = 5;
+            } else if(score1 > 500 && score1 <= 600){
+                score = 6;
+            } else if(score1 > 600 && score1 <= 700){
+                score = 7;
+            } else if(score1 > 700 && score1 <= 800){
+                score = 8;
+            } else if(score1 > 800 && score1 <= 900){
+                score = 9;
+            } else if(score1 > 800 && score1 <= 1000){
+                score = 10;
+            }
+
+            if(score < 10){
+                score = score + divNum(this.views) + divNum(this.like);
+                if(score > 10)
+                    score = 10;
+            }
+
+            return score;
+        }
+
+        public String score(){
+            return new DecimalFormat("#.#").format(scoreCal());
+        }
+
+        private float divNum(int viewlike){
+            int div=1;
+            if(viewlike > 0 && viewlike <= 10)
+                div = 10;
+            else if (viewlike > 10 && viewlike <= 100)
+                div = 100;
+            else if(viewlike > 100 && viewlike <= 1000)
+                div = 1000;
+            return (float)viewlike/div;
         }
     }
 }
