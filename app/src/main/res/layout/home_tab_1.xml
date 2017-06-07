@@ -8,41 +8,30 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="#d19797"/>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-        <Button
-            android:id="@+id/btnNewMonAn"
-            android:layout_width="190dp"
-            android:layout_height="30dp"
-            android:text="Món mới"
-            android:textStyle="bold"
-            android:background="@drawable/border_register_button"/>
+        android:layout_height="wrap_content">
         <TextView
-            android:layout_width="1dp"
+            android:id="@+id/txtTitle"
+            android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:background="#e3dbdb"/>
-        <Button
-            android:id="@+id/btnNewQuanAn"
-            android:layout_width="190dp"
-            android:layout_height="30dp"
-            android:text="Quán nổi bật"
+            android:text="Mới"
             android:textStyle="bold"
-            android:background="@drawable/border_register_button"/>
-    </LinearLayout>
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="17dp" />
+            android:gravity="center"/>
+        <Button
+            android:id="@+id/btnReset"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/close_icon_png"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:visibility="gone"/>
+    </RelativeLayout>
     <TextView
-        android:id="@+id/txtTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Món ăn nổi bật"
-        android:textColor="#575bab"
-        android:textSize="16dp"
-        android:fontFamily="cursive"/>
+        android:layout_height="2dp"
+        android:background="#bad4b8"/>
     <Space
         android:layout_width="match_parent"
         android:layout_height="5dp" />

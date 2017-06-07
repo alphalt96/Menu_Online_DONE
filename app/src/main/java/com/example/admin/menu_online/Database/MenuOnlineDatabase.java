@@ -265,6 +265,28 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
             values.moveToNext();
         }
         return list;
+    }public ArrayList<MonAn> getMonAnNoiBat(){
+        ArrayList<MonAn> list = new ArrayList<>();
+        MonAn monAn;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor values = db.rawQuery("select * from (select * from MONAN order by luotView DESC limit 20) order by luotThich DESC limit 10", null);
+        values.moveToFirst();
+        while(!values.isAfterLast()){
+            monAn = new MonAn();
+            monAn.setMaMonAn(values.getInt(values.getColumnIndex(MONAN_COLUMN_maMonAn)));
+            monAn.setTenMonAn(values.getString(values.getColumnIndex(MONAN_COLUMN_tenMonAn)));
+            monAn.setSoLuong(values.getInt(values.getColumnIndex(MONAN_COLUMN_soLuong)));
+            monAn.setImage(values.getInt(values.getColumnIndex(MONAN_COLUMN_image)));
+            monAn.setViTri(values.getString(values.getColumnIndex(MONAN_COLUMN_viTri)));
+            monAn.setLoaiMonAn(values.getString(values.getColumnIndex(MONAN_COLUMN_loaiMonAn)));
+            monAn.setGiaTien(values.getFloat(values.getColumnIndex(MONAN_COLUMN_giaTien)));
+            monAn.setLuotView(values.getInt(values.getColumnIndex(MONAN_COLUMN_luotView)));
+            monAn.setLuotThich(values.getInt(values.getColumnIndex(MONAN_COLUMN_luotThich)));
+            monAn.setDiaChi(values.getString(values.getColumnIndex(MONAN_COLUMN_diaChi)));
+            list.add(monAn);
+            values.moveToNext();
+        }
+        return list;
     }
     //get toan bo mon an
     public ArrayList<MonAn> getAllMonAn(){
@@ -291,7 +313,6 @@ public class MenuOnlineDatabase extends SQLiteOpenHelper {
         }
         return list;
     }
-    //get ten mon an cho hien thi autocompletetex
     public ArrayList<String> getNameMonAn(){
         ArrayList<String> list  = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();

@@ -27,12 +27,9 @@ import com.example.admin.menu_online.Database.MenuOnlineDatabase;
 import com.example.admin.menu_online.adapters.ItemMenuAdapter;
 import com.example.admin.menu_online.adapters.LoaiMonAnAdapter;
 import com.example.admin.menu_online.adapters.MyAdapter;
-import com.example.admin.menu_online.adapters.QuanAnAdapter;
 import com.example.admin.menu_online.controller.MonAnManager;
-import com.example.admin.menu_online.controller.QuanAnManager;
 import com.example.admin.menu_online.models.ItemMenu;
 import com.example.admin.menu_online.models.MonAn;
-import com.example.admin.menu_online.models.QuanAn;
 
 import java.util.ArrayList;
 
@@ -47,13 +44,12 @@ public class MainActivity extends AppCompatActivity {
     private int[] arrImgLoaiMonAn;
     private ItemMenuAdapter itemMenuAdapter;
     private MyAdapter myAdapter;
-    private QuanAnAdapter quanAnAdapter;
     private LoaiMonAnAdapter loaiMonAnAdapter;
     private ArrayAdapter<String> adapterCity;
     private ListView lvMenuDrawer;
     private ListView lvHienThiMonAn, lvCity, lvLoaiMonAn;
     private TextView txtTitle;
-    private Button btnNewMonAn, btnNewQuanAn, btnMenu;
+    private Button btnMenu, btnReset;
     private ImageView imgApp;
     private Toolbar toolbar;
     private TextView cartNum;
@@ -95,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
         lvHienThiMonAn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(siteCheck == true){
                     Intent intent = new Intent(MainActivity.this, ChiTietMonAn.class);
                     Bundle bundle = new Bundle();
                     if(loaiMonAn == "" && khuVuc == "")
@@ -104,14 +99,6 @@ public class MainActivity extends AppCompatActivity {
                         bundle.putSerializable("detail",locMonAn.get(position));
                     intent.putExtra("bundle", bundle);
                     startActivity(intent);
-                }
-                else {
-                    Intent intent = new Intent(MainActivity.this, ChiTietQuanAn.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("detail", QuanAnManager.getsInstance(MainActivity.this).getDanhSachQuanMoi().get(position));
-                    intent.putExtra("bundle", bundle);
-                    startActivity(intent);
-                }
             }
         });
         lvHienThiMonAn.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -161,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 locMonAn = new ArrayList<MonAn>();
                 khuVuc = cityList[position];
+                btnReset.setVisibility(View.VISIBLE);
                 siteCheck = true;
                 for(int i=0; i<MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().size(); i++){
                     if(loaiMonAn == "") {
@@ -188,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 locMonAn = new ArrayList<MonAn>();
                 loaiMonAn = loaimonanList[position];
+                btnReset.setVisibility(View.VISIBLE);
                 siteCheck = true;
                 for(int i=0; i<MonAnManager.getsInstance(MainActivity.this).getDanhSachMonAn().size(); i++){
                     if(khuVuc == "") {
@@ -209,26 +198,15 @@ public class MainActivity extends AppCompatActivity {
                 tabHost.setCurrentTab(0);
             }
         });
-        //button khi nhan vào sẽ reset trạng thái về những món mới
-        btnNewMonAn.setOnClickListener(new View.OnClickListener() {
+        btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myAdapter = new MyAdapter(MainActivity.this, R.layout.item_monan, monAnNoiBat);
-                lvHienThiMonAn.setAdapter(myAdapter);
                 khuVuc = "";
                 loaiMonAn = "";
-                txtTitle.setText("Món ăn nổi bật");
-                siteCheck = true;
-            }
-        });
-        btnNewQuanAn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               ArrayList<QuanAn> quanAnNoiBat = QuanAnManager.getsInstance(MainActivity.this).getDanhSachQuanMoi();
-                quanAnAdapter = new QuanAnAdapter(MainActivity.this, R.layout.item_quanan, quanAnNoiBat);
-                lvHienThiMonAn.setAdapter(quanAnAdapter);
-                txtTitle.setText("Quán nổi bật");
-                siteCheck = false;
+                myAdapter = new MyAdapter(MainActivity.this, R.layout.item_monan, monAnNoiBat);
+                lvHienThiMonAn.setAdapter(myAdapter);
+                btnReset.setVisibility(View.GONE);
+                txtTitle.setText("Mới");
             }
         });
     }
@@ -248,9 +226,8 @@ public class MainActivity extends AppCompatActivity {
         setupLoaiMonAn();
 
         txtTitle = (TextView) findViewById(R.id.txtTitle);
-        btnNewMonAn = (Button) findViewById(R.id.btnNewMonAn);
-        btnNewQuanAn = (Button) findViewById(R.id.btnNewQuanAn);
         btnMenu = (Button) findViewById(R.id.btnMenu);
+        btnReset = (Button) findViewById(R.id.btnReset);
     }
     //Khoi tao csdl
     private void data(){
@@ -358,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
     }
     //khoi tao danh sach menu
     public void addItemList(){
-        String[] nameItem = new String[]{"Món ăn", "Quán ăn", "User", "Rating", "Thông tin", "Thoát"};
+        String[] nameItem = new String[]{"Món ăn", "Quán ăn", "User", "Nổi bật", "Thông tin", "Thoát"};
         int[] imgItem = new int[]{R.drawable.food_item_menu_icon_png_2,
                 R.drawable.restaurant_item_menu_icon_png_2,
                 R.drawable.user_item_menu_icon_png_2,
@@ -409,7 +386,9 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(new Intent(MainActivity.this, UserLogin.class));
                         else startActivity(new Intent(MainActivity.this, UserInfo.class));
                         break;
-                    case 3: Toast.makeText(MainActivity.this, "Hiện chưa có chức năng này", Toast.LENGTH_SHORT).show(); break;
+                    case 3:
+                        startActivity(new Intent(MainActivity.this, bestchoice.class));
+                        break;
                     case 4: Toast.makeText(MainActivity.this, "2.1.3.1415926535897932", Toast.LENGTH_SHORT).show(); break;
                     case 5:
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
